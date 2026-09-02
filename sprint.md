@@ -8,14 +8,14 @@
 
 ## Team (6 Members)
 
-| Member                   | Role                                 | Owns                                                                                                             | First Task                                                             |
-| ------------------------ | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| **Tech 1 (Rudra)** | RAG Pipeline + Retrieval Engineer    | Vector DB, embedding pipeline,`retriever.py`, chunking strategy                                                | Stand up vector store, embed 50 sample IS documents                    |
-| **Tech 2**         | Data / Knowledge Base Engineer       | Scraping & structuring BIS knowledge (standards catalog, scheme docs, FAQs),`ingest.py`                        | Collect and clean source documents into a corpus folder                |
-| **Tech 3 (Heet)**  | Backend / LLM Orchestration Engineer | `api.py`, prompt templates, citation logic, query routing (standards / certification / hallmarking / consumer) | Build FastAPI skeleton + LLM call wrapper                              |
-| **Tech 4**         | Frontend Engineer                    | Chat UI, source-citation display, multilingual toggle                                                            | Build chat interface shell (input box, message thread, citation cards) |
-| **Tech 5 (Rudra)** | QA + Evaluation + Deployment         | Test query set, accuracy/citation-correctness scoring, deployment, README                                        | Build a 30-query test set covering all 8 expected-solution points      |
-| **Member 6**       | Presentation + Demo Prep             | Deck, demo script, FAQ cheat sheet, narration                                                                    | Draft the problem framing + elevator pitch slide                       |
+| Member                        | Role                                 | Owns                                                                                                             | First Task                                                             |
+| ----------------------------- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| **Tech 1 (Rudra/Heet)** | RAG Pipeline + Retrieval Engineer    | Vector DB, embedding pipeline,`retriever.py`, chunking strategy                                                | Stand up vector store, embed 50 sample IS documents                    |
+| **Tech 2 (Namish/Om)**  | Data / Knowledge Base Engineer       | Scraping & structuring BIS knowledge (standards catalog, scheme docs, FAQs),`ingest.py`                        | Collect and clean source documents into a corpus folder                |
+| **Tech 3 (Heet)**       | Backend / LLM Orchestration Engineer | `api.py`, prompt templates, citation logic, query routing (standards / certification / hallmarking / consumer) | Build FastAPI skeleton + LLM call wrapper                              |
+| **Tech 4 (Krrish/Om)**  | Frontend Engineer                    | Chat UI, source-citation display, multilingual toggle                                                            | Build chat interface shell (input box, message thread, citation cards) |
+| **Tech 5 (Rudra)**      | QA + Evaluation + Deployment         | Test query set, accuracy/citation-correctness scoring, deployment, README                                        | Build a 30-query test set covering all 8 expected-solution points      |
+| **Member 6**            | Presentation + Demo Prep             | Deck, demo script, FAQ cheat sheet, narration                                                                    | Draft the problem framing + elevator pitch slide                       |
 
 ---
 
