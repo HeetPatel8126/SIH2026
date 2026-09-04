@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
-import { ArrowUp, Mic, MicOff, Globe, Paperclip } from 'lucide-react';
+import { ArrowUp, Square, Mic, MicOff } from 'lucide-react';
+import LanguageDropdown from './LanguageDropdown';
+import PromptLibraryDropdown from './PromptLibraryDropdown';
 
 const LANGUAGES = [
   { code: 'en', label: 'English' },
@@ -11,7 +13,14 @@ const LANGUAGES = [
   { code: 'gu', label: 'ગુજરાતી (Gujarati)' }
 ];
 
-export default function ChatInput({ onSend, disabled, selectedLanguage, onLanguageChange }) {
+export default function ChatInput({
+  onSend,
+  disabled,
+  selectedLanguage,
+  onLanguageChange,
+  isGenerating = false,
+  onStop = () => {},
+}) {
   const [text, setText] = useState('');
   const [isListening, setIsListening] = useState(false);
   const textareaRef = useRef(null);
@@ -99,33 +108,33 @@ export default function ChatInput({ onSend, disabled, selectedLanguage, onLangua
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={handleKeyDown}
-          placeholder="Ask about Indian Standards, testing labs, QCO mandates, or licensing fees..."
+          placeholder="Ask anything about Indian Standards, ISI Mark, Gold HUID, Lab Testing, or Grievances..."
+          disabled={disabled && !isGenerating}
           rows={1}
-          disabled={disabled}
-          id="chat-input"
-          className="w-full bg-transparent text-xs sm:text-sm text-[var(--text-primary)] outline-none resize-none placeholder:text-[var(--text-muted)] min-h-[28px] max-h-[160px] leading-relaxed"
+          className="w-full bg-transparent resize-none border-none outline-none text-xs sm:text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] max-h-40 overflow-y-auto leading-relaxed"
         />
 
-        {/* Bottom Control Bar */}
+        {/* Action Controls Bar */}
         <div className="flex items-center justify-between pt-1 border-t border-[var(--border-color)]/50">
           
-          <div className="flex items-center gap-2 text-xs">
-            {/* Language Selector */}
-            <div className="flex items-center gap-1.5 px-2 py-1 rounded-lg bg-[var(--bg-sidebar)] border border-[var(--border-color)] text-[var(--text-secondary)]">
-              <Globe size={12} className="text-[var(--text-muted)] shrink-0" />
-              <select
-                value={selectedLanguage}
-                onChange={(e) => onLanguageChange(e.target.value)}
-                className="bg-transparent text-[11px] text-[var(--text-primary)] font-medium outline-none cursor-pointer pr-1"
-                title="Select Query Language"
-              >
-                {LANGUAGES.map((lang) => (
-                  <option key={lang.code} value={lang.code} className="bg-[var(--bg-card)] text-[var(--text-primary)]">
-                    {lang.label}
-                  </option>
-                ))}
-              </select>
-            </div>
+          <div className="flex items-center gap-2">
+            {/* Dynamic Searchable Language Popover */}
+            <LanguageDropdown
+              selectedLanguage={selectedLanguage}
+              onSelect={onLanguageChange}
+              disabled={disabled}
+            />
+
+            {/* Dynamic BIS Regulatory Prompts Library */}
+            <PromptLibraryDropdown
+              onSelectPrompt={(query) => {
+                setText(query);
+                if (textareaRef.current) {
+                  textareaRef.current.focus();
+                }
+              }}
+              disabled={disabled}
+            />
 
             {/* Voice Input Mic */}
             <button
@@ -143,21 +152,41 @@ export default function ChatInput({ onSend, disabled, selectedLanguage, onLangua
             </button>
           </div>
 
-          {/* Submit Action */}
-          <button
-            type="button"
-            onClick={handleSubmit}
-            disabled={disabled || !text.trim()}
-            id="send-button"
-            className={`p-2 rounded-xl transition shadow-xs flex items-center justify-center ${
-              !text.trim() || disabled
-                ? 'bg-[var(--bg-sidebar)] text-[var(--text-muted)] cursor-not-allowed'
-                : 'bg-[var(--accent-terracotta)] hover:bg-[var(--accent-terracotta-hover)] text-white transform hover:scale-105'
-            }`}
-            title="Send query (Enter)"
-          >
-            <ArrowUp size={15} />
-          </button>
+          <div className="flex items-center gap-3">
+            {/* Real-time Character Counter */}
+            {text.length > 0 && (
+              <span className="text-[10px] font-mono text-[var(--text-muted)] hidden sm:inline">
+                {text.length} chars
+              </span>
+            )}
+
+            {/* Submit / Stop Action */}
+            {isGenerating ? (
+              <button
+                type="button"
+                onClick={onStop}
+                className="p-2 rounded-xl bg-rose-500 hover:bg-rose-600 text-white transition shadow-xs flex items-center justify-center transform hover:scale-105"
+                title="Stop generating"
+              >
+                <Square size={14} fill="currentColor" />
+              </button>
+            ) : (
+              <button
+                type="button"
+                onClick={handleSubmit}
+                disabled={disabled || !text.trim()}
+                id="send-button"
+                className={`p-2 rounded-xl transition shadow-xs flex items-center justify-center ${
+                  !text.trim() || disabled
+                    ? 'bg-[var(--bg-sidebar)] text-[var(--text-muted)] cursor-not-allowed'
+                    : 'bg-[var(--accent-terracotta)] hover:bg-[var(--accent-terracotta-hover)] text-white transform hover:scale-105'
+                }`}
+                title="Send query (Enter)"
+              >
+                <ArrowUp size={15} />
+              </button>
+            )}
+          </div>
 
         </div>
 

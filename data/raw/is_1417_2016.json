@@ -1,0 +1,37 @@
+{
+  "is_code": "IS 1417:2016",
+  "title": "Gold and Gold Alloys, Platinum & Silver — Hallmarking Specification",
+  "category": "hallmarking",
+  "metadata": {
+    "sector": "Precious Metals & Hallmarking",
+    "statutory_authority": "Department of Consumer Affairs (Mandatory Hallmarking 2021)",
+    "url": "https://www.bis.gov.in/hallmarking",
+    "year": 2016
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Mandatory Gold Hallmarking Scope",
+      "title": "Phased Mandatory Hallmarking Order in India",
+      "page": 1,
+      "text": "Under the Hallmarking of Gold Jewellery and Gold Artefacts Order, sale of hallmarked gold jewellery is mandatory across notified districts in India. Jewellers selling un-hallmarked gold jewellery are liable to penalties under Section 29 of the BIS Act, including seizure of stock and fines up to five times the value of the article."
+    },
+    {
+      "clause": "Clause 4.1 Permitted Purity Grades",
+      "title": "Recognized Karats and Fineness Values",
+      "page": 2,
+      "text": "Gold jewellery hallmarking is permitted strictly in six designated purity grades:\n- 24K: 995 parts per thousand (99.5% pure gold)\n- 23K: 958 parts per thousand (95.8% pure gold)\n- 22K: 916 parts per thousand (91.6% pure gold — most common for traditional jewellery)\n- 20K: 833 parts per thousand (83.3% pure gold)\n- 18K: 750 parts per thousand (75.0% pure gold — diamond-studded jewellery)\n- 14K: 585 parts per thousand (58.5% pure gold — lightweight modern jewellery)."
+    },
+    {
+      "clause": "Clause 5.0 Three Mandatory Marks on Gold Jewellery",
+      "title": "Structure of the Hallmark & 6-Digit HUID",
+      "page": 3,
+      "text": "Every genuine hallmarked gold article contains exactly three indelible laser marks:\n1. The BIS Triangular Logo (signifying national standards guarantee)\n2. Purity Fineness mark (e.g., '22K916' or '18K750')\n3. 6-digit alphanumeric Hallmark Unique Identification (HUID) code (e.g., 'AB12C3').\nConsumers can input this 6-digit code into the BIS CARE mobile app to verify the jeweller's registration, assaying center (AHC), date of hallmarking, and article type."
+    },
+    {
+      "clause": "Silver Hallmarking Status",
+      "title": "Applicability of Silver Hallmarking in India",
+      "page": 4,
+      "text": "Silver hallmarking is currently VOLUNTARY in India under IS 2112:2014. Standard fineness grades for silver are 999 (fine silver), 970, 925 (Sterling Silver), 900, 835, and 800. Hallmarking of silver is performed by BIS-recognized AHCs upon jeweller request."
+    }
+  ]
+}

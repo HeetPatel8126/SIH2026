@@ -1,0 +1,37 @@
+{
+  "is_code": "BIS-PROCESS-GUIDE",
+  "title": "Step-by-Step Guide to Applying for a BIS License & Fee Structure",
+  "category": "certification",
+  "metadata": {
+    "sector": "Licensing & Industrial Promotion",
+    "statutory_authority": "BIS Licensing Guidelines & MSME Concessions",
+    "url": "https://www.bis.gov.in/how-to-apply",
+    "year": 2024
+  },
+  "clauses": [
+    {
+      "clause": "Step 1 & 2: Identification & Online Filing",
+      "title": "Finding Relevant Standard and Manakonline Submission",
+      "page": 1,
+      "text": "Step 1: Identify the relevant Indian Standard (IS code) and product manual on the BIS website.\nStep 2: Register on the online portal 'www.manakonline.in'. Submit Form I application with factory address, manufacturing machinery list, testing equipment calibration certificates, and raw material test reports. Pay non-refundable application fee of ₹1,000."
+    },
+    {
+      "clause": "Step 3 & 4: Factory Audit & Sample Testing",
+      "title": "Technical Inspection and Laboratory Sample Verification",
+      "page": 2,
+      "text": "Step 3: A designated BIS technical officer conducts a physical or hybrid inspection of the manufacturing premises to verify manufacturing capability, quality control personnel, in-house lab, and Scheme of Inspection and Testing (SIT).\nStep 4: The officer draws independent test samples, seals them, and dispatches them to a BIS Central/Regional lab or NABL referral lab for conformity testing."
+    },
+    {
+      "clause": "Step 5: Grant of License & Marking Fee Structure",
+      "title": "Licensing Grant and Annual Minimum Marking Fees",
+      "page": 3,
+      "text": "Step 5: Once lab test results indicate full conformity, BIS issues the Certificate of Manufacturing License (CM/L number). Licensee pays the annual license fee (₹1,000) plus the applicable minimum advance marking fee (ranges from ₹10,000 to ₹1,00,000 depending on product class and production volume)."
+    },
+    {
+      "clause": "MSME, Startup, and Women Entrepreneur Concessions",
+      "title": "50% Fee Concession Under Government of India Policy",
+      "page": 4,
+      "text": "To encourage domestic manufacturing and ease of doing business, BIS provides a special 50% concession on application fees, annual license fees, and minimum marking fees to:\n1. Micro enterprises registered on Udyam portal.\n2. DPIIT-recognized Startups.\n3. Enterprises run by Women entrepreneurs (minimum 51% ownership). Small enterprises receive a 20% concession."
+    }
+  ]
+}

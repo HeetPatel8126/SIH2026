@@ -285,50 +285,112 @@ def _mock_retrieve(
     return scored[:top_k]
 
 
+# ChromaDB client & collection singletons
+_chroma_client = None
+_chroma_collection = None
+
+
+def _get_chroma_collection():
+    """Lazy-initialize and cache the ChromaDB client and collection."""
+    global _chroma_client, _chroma_collection
+    if _chroma_collection is not None:
+        return _chroma_collection
+
+    try:
+        import chromadb
+        from chromadb.config import Settings as ChromaSettings
+        from chromadb.utils import embedding_functions
+
+        logger.info(
+            "Initializing ChromaDB connection at '%s'...",
+            settings.chroma_persist_dir,
+        )
+        _chroma_client = chromadb.PersistentClient(
+            path=settings.chroma_persist_dir,
+            settings=ChromaSettings(anonymized_telemetry=False),
+        )
+
+        ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+            model_name=settings.embedding_model
+        )
+        _chroma_collection = _chroma_client.get_collection(
+            name=settings.chroma_collection,
+            embedding_function=ef,
+        )
+        logger.info(
+            "Connected to ChromaDB collection '%s' (%d documents).",
+            settings.chroma_collection,
+            _chroma_collection.count(),
+        )
+        return _chroma_collection
+    except Exception as e:
+        logger.error("Failed to connect to ChromaDB: %s", e)
+        return None
+
+
 async def _real_retrieve(
     query: str,
     top_k: int,
     category: QueryCategory | None,
 ) -> list[dict]:
     """
-    Real retriever — queries ChromaDB with embedded query.
-
-    TODO: Wire this once Tech 1 delivers the vector DB.
-
-    Expected flow:
-        1. Embed query using sentence-transformers
-        2. Query ChromaDB collection with optional category filter
-        3. Return top_k chunks with metadata
+    Real retriever — queries ChromaDB collection using sentence-transformers embedding.
+    Falls back gracefully to mock chunks if vector DB is unavailable or empty.
     """
-    logger.warning(
-        "Real retriever called but not yet implemented. "
-        "Set USE_MOCK_RETRIEVER=true in .env to use mock data."
-    )
+    collection = _get_chroma_collection()
+    if collection is None:
+        logger.warning("ChromaDB collection unavailable, falling back to mock retriever.")
+        return _mock_retrieve(query, top_k, category)
 
-    # Placeholder — return the structure Tech 1 will implement
-    # from chromadb import PersistentClient
-    # from sentence_transformers import SentenceTransformer
-    #
-    # model = SentenceTransformer(settings.embedding_model)
-    # query_embedding = model.encode(query).tolist()
-    #
-    # client = PersistentClient(path=settings.chroma_persist_dir)
-    # collection = client.get_collection(settings.chroma_collection)
-    #
-    # where_filter = {"category": category.value} if category else None
-    # results = collection.query(
-    #     query_embeddings=[query_embedding],
-    #     n_results=top_k,
-    #     where=where_filter,
-    # )
-    #
-    # chunks = []
-    # for i, doc in enumerate(results["documents"][0]):
-    #     chunks.append({
-    #         "text": doc,
-    #         "metadata": results["metadatas"][0][i],
-    #         "score": 1 - results["distances"][0][i],  # ChromaDB returns distances
-    #     })
-    # return chunks
+    try:
+        where_filter = None
+        if category and category != QueryCategory.GENERAL:
+            where_filter = {"category": category.value}
 
-    return []
+        # Query ChromaDB with text (embedding function handles vectorization)
+        results = collection.query(
+            query_texts=[query],
+            n_results=top_k,
+            where=where_filter,
+        )
+
+        documents = results.get("documents", [[]])[0]
+        metadatas = results.get("metadatas", [[]])[0]
+        distances = results.get("distances", [[]])[0]
+
+        # If category filter produced zero results, query without filter
+        if not documents and where_filter:
+            logger.debug("Category filter '%s' yielded 0 results, querying unfiltered", where_filter)
+            results = collection.query(
+                query_texts=[query],
+                n_results=top_k,
+            )
+            documents = results.get("documents", [[]])[0]
+            metadatas = results.get("metadatas", [[]])[0]
+            distances = results.get("distances", [[]])[0]
+
+        chunks = []
+        for i, doc in enumerate(documents):
+            dist = distances[i] if i < len(distances) else 0.5
+            # Cosine distance to similarity: similarity = 1 - distance
+            similarity = max(0.0, min(1.0, 1.0 - (dist / 2.0) if dist > 1.0 else 1.0 - dist))
+            meta = metadatas[i] if i < len(metadatas) else {}
+
+            chunks.append({
+                "text": doc,
+                "metadata": meta,
+                "score": round(similarity, 3),
+            })
+
+        logger.info(
+            "ChromaDB real retrieval for '%s': returned %d chunks (top score: %.3f)",
+            query[:40],
+            len(chunks),
+            chunks[0]["score"] if chunks else 0.0,
+        )
+        return chunks if chunks else _mock_retrieve(query, top_k, category)
+
+    except Exception as err:
+        logger.error("Error during real retrieval: %s. Falling back to mock data.", err)
+        return _mock_retrieve(query, top_k, category)
+

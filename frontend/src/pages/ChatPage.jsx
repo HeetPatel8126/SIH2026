@@ -1,10 +1,13 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Trash2, Download, AlertCircle } from 'lucide-react';
+import { AlertCircle } from 'lucide-react';
 import ChatMessage from '../components/ChatMessage';
 import ChatInput from '../components/ChatInput';
 import WelcomeScreen from '../components/WelcomeScreen';
-import { sendChat } from '../services/api';
+import ModelSelectorDropdown from '../components/ModelSelectorDropdown';
+import DomainFilterDropdown from '../components/DomainFilterDropdown';
+import ConversationMenu from '../components/ConversationMenu';
+import { streamChat, sendChat } from '../services/api';
 
 const STORAGE_KEY = 'bis_assistant_chat_history';
 
@@ -19,16 +22,41 @@ export default function ChatPage() {
   });
 
   const [loading, setLoading] = useState(false);
+  const [isStreaming, setIsStreaming] = useState(false);
   const [error, setError] = useState(null);
   const [sessionId, setSessionId] = useState(null);
   const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [selectedEngine, setSelectedEngine] = useState('ollama-qwen');
+  const [selectedDomain, setSelectedDomain] = useState('all');
+  const [autoExpandThinking, setAutoExpandThinking] = useState(false);
+  
   const scrollContainerRef = useRef(null);
+  const abortControllerRef = useRef(null);
   const location = useLocation();
+  const lastConsumedPromptRef = useRef(null);
+  const sessionIdRef = useRef(sessionId);
+  const selectedLanguageRef = useRef(selectedLanguage);
 
-  // Save messages to localStorage
+  useEffect(() => {
+    sessionIdRef.current = sessionId;
+  }, [sessionId]);
+
+  useEffect(() => {
+    selectedLanguageRef.current = selectedLanguage;
+  }, [selectedLanguage]);
+
+  // Save messages to localStorage (excluding temporary streaming flags)
   useEffect(() => {
     try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(messages));
+      const cleanMessages = messages.map((m) => {
+        const copy = { ...m };
+        delete copy.isStreaming;
+        if (copy.thinking) {
+          copy.thinking = { ...copy.thinking, isThinking: false };
+        }
+        return copy;
+      });
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(cleanMessages));
     } catch {
       // ignore storage errors
     }
@@ -45,7 +73,23 @@ export default function ChatPage() {
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, loading, scrollToBottom]);
+  }, [messages, loading, isStreaming, scrollToBottom]);
+
+  const handleStop = () => {
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+    setIsStreaming(false);
+    setLoading(false);
+    setMessages((prev) =>
+      prev.map((msg, idx) =>
+        idx === prev.length - 1 && msg.role === 'assistant'
+          ? { ...msg, isStreaming: false, thinking: msg.thinking ? { ...msg.thinking, isThinking: false } : null }
+          : msg
+      )
+    );
+  };
 
   const handleSend = useCallback(async (query, lang = selectedLanguage) => {
     if (!query.trim()) return;
@@ -56,52 +100,230 @@ export default function ChatPage() {
       timestamp: new Date().toISOString(),
     };
 
-    setMessages((prev) => [...prev, userMsg]);
+    const initialAssistantMsg = {
+      role: 'assistant',
+      content: '',
+      isStreaming: true,
+      citations: [],
+      query_category: null,
+      thinking: {
+        isThinking: true,
+        aiThoughtText: '',
+        thoughtSteps: [],
+        thoughtTimeMs: null,
+        thoughtSummary: null,
+        sources: [],
+        category: null,
+      },
+      timestamp: new Date().toISOString(),
+    };
+
+    setMessages((prev) => [...prev, userMsg, initialAssistantMsg]);
     setLoading(true);
+    setIsStreaming(true);
     setError(null);
 
+    if (abortControllerRef.current) {
+      abortControllerRef.current.abort();
+      abortControllerRef.current = null;
+    }
+
+    const controller = new AbortController();
+    abortControllerRef.current = controller;
+
     try {
-      const data = await sendChat({
+      await streamChat({
         query: query.trim(),
         language: lang,
-        session_id: sessionId
+        session_id: sessionIdRef.current,
+        signal: controller.signal,
+
+        onThoughtToken: (token) => {
+          setMessages((prev) => {
+            const updated = [...prev];
+            const last = { ...updated[updated.length - 1] };
+            if (last.role === 'assistant' && last.thinking) {
+              last.thinking = {
+                ...last.thinking,
+                aiThoughtText: (last.thinking.aiThoughtText || '') + token,
+              };
+              updated[updated.length - 1] = last;
+            }
+            return updated;
+          });
+        },
+
+        onThought: (data) => {
+          setMessages((prev) => {
+            const updated = [...prev];
+            const last = { ...updated[updated.length - 1] };
+            if (last.role === 'assistant' && last.thinking) {
+              const steps = [...(last.thinking.thoughtSteps || [])];
+              if (!steps.some((s) => s.message === data.message)) {
+                steps.push(data);
+              }
+              last.thinking = { ...last.thinking, thoughtSteps: steps };
+              updated[updated.length - 1] = last;
+            }
+            return updated;
+          });
+        },
+
+        onThoughtEnd: (data) => {
+          setMessages((prev) => {
+            const updated = [...prev];
+            const last = { ...updated[updated.length - 1] };
+            if (last.role === 'assistant' && last.thinking) {
+              last.thinking = {
+                ...last.thinking,
+                isThinking: false,
+                thoughtTimeMs: data.thought_time_ms,
+                thoughtSummary: data.summary,
+                sources: data.sources || [],
+                category: data.category,
+              };
+              last.query_category = data.category;
+              updated[updated.length - 1] = last;
+            }
+            return updated;
+          });
+        },
+
+        onToken: (token) => {
+          setMessages((prev) => {
+            const updated = [...prev];
+            const last = { ...updated[updated.length - 1] };
+            if (last.role === 'assistant') {
+              last.content = (last.content || '') + token;
+              if (last.thinking && last.thinking.isThinking) {
+                last.thinking.isThinking = false;
+              }
+              updated[updated.length - 1] = last;
+            }
+            return updated;
+          });
+        },
+
+        onCitations: (citations) => {
+          setMessages((prev) => {
+            const updated = [...prev];
+            const last = { ...updated[updated.length - 1] };
+            if (last.role === 'assistant') {
+              last.citations = citations;
+              updated[updated.length - 1] = last;
+            }
+            return updated;
+          });
+        },
+
+        onDone: (doneData) => {
+          if (doneData.session_id) setSessionId(doneData.session_id);
+          setMessages((prev) => {
+            const updated = [...prev];
+            const last = { ...updated[updated.length - 1] };
+            if (last.role === 'assistant') {
+              last.isStreaming = false;
+              last.processing_time_ms = doneData.processing_time_ms;
+              last.totalTokens = doneData.total_tokens;
+              last.query_category = doneData.query_category || last.query_category;
+              if (last.thinking) {
+                last.thinking.isThinking = false;
+              }
+              updated[updated.length - 1] = last;
+            }
+            return updated;
+          });
+          setIsStreaming(false);
+          setLoading(false);
+        },
+
+        onError: (err) => {
+          if (err?.name === 'AbortError') return;
+          console.warn('Stream failed:', err);
+
+          setMessages((prev) => {
+            const last = prev[prev.length - 1];
+            // If tokens were already rendered, don't wipe and restart; just conclude gracefully
+            if (last && last.role === 'assistant' && last.content && last.content.trim().length > 0) {
+              const updated = [...prev];
+              updated[updated.length - 1] = {
+                ...last,
+                isStreaming: false,
+                thinking: last.thinking ? { ...last.thinking, isThinking: false } : null,
+              };
+              setIsStreaming(false);
+              setLoading(false);
+              return updated;
+            }
+
+            // Only if zero content was streamed, attempt fallback to one-shot
+            sendChat({ query: query.trim(), language: lang, session_id: sessionIdRef.current })
+              .then((data) => {
+                if (data.session_id) setSessionId(data.session_id);
+                setMessages((curr) => {
+                  const updated = [...curr];
+                  const lastMsg = {
+                    role: 'assistant',
+                    content: data.answer,
+                    citations: data.citations || [],
+                    query_category: data.query_category,
+                    timestamp: data.timestamp || new Date().toISOString(),
+                    processing_time_ms: data.processing_time_ms,
+                    isStreaming: false,
+                  };
+                  updated[updated.length - 1] = lastMsg;
+                  return updated;
+                });
+              })
+              .catch((fallbackErr) => {
+                setError(fallbackErr.message || 'Failed to get a response.');
+              })
+              .finally(() => {
+                setIsStreaming(false);
+                setLoading(false);
+              });
+
+            return prev;
+          });
+        },
       });
-
-      if (data.session_id) setSessionId(data.session_id);
-
-      const assistantMsg = {
-        role: 'assistant',
-        content: data.answer,
-        citations: data.citations || [],
-        query_category: data.query_category,
-        timestamp: data.timestamp || new Date().toISOString(),
-        processing_time_ms: data.processing_time_ms,
-      };
-
-      setMessages((prev) => [...prev, assistantMsg]);
     } catch (err) {
-      setError(err.message || 'Failed to get a response. Please check if the backend server is running.');
-    } finally {
+      setError(err.message || 'Failed to connect to backend.');
+      setIsStreaming(false);
       setLoading(false);
     }
-  }, [selectedLanguage, sessionId]);
+  }, []);
 
-  // Handle incoming prompts from router state
+  // Cleanup consumed prompt on unmount so navigating back to chat page can trigger again
   useEffect(() => {
-    if (location.state?.initialPrompt) {
-      handleSend(location.state.initialPrompt, selectedLanguage);
-      window.history.replaceState({}, document.title);
+    return () => {
+      lastConsumedPromptRef.current = null;
+    };
+  }, []);
+
+  // Handle incoming prompts from router state (guaranteed strictly once per prompt)
+  useEffect(() => {
+    const prompt = location.state?.initialPrompt;
+    if (prompt && prompt !== lastConsumedPromptRef.current) {
+      lastConsumedPromptRef.current = prompt;
+      try {
+        window.history.replaceState({}, document.title);
+        if (location.state) {
+          location.state.initialPrompt = null;
+        }
+      } catch {
+        // ignore
+      }
+      handleSend(prompt, selectedLanguageRef.current);
     }
-  }, [location.state, handleSend, selectedLanguage]);
+  }, [location.state, handleSend]);
 
   const handleClearChat = () => {
-    if (messages.length === 0) return;
-    if (window.confirm('Clear this conversation?')) {
-      setMessages([]);
-      setSessionId(null);
-      setError(null);
-      localStorage.removeItem(STORAGE_KEY);
-    }
+    handleStop();
+    setMessages([]);
+    setSessionId(null);
+    setError(null);
+    localStorage.removeItem(STORAGE_KEY);
   };
 
   const handleExportChat = () => {
@@ -119,40 +341,64 @@ export default function ChatPage() {
     URL.revokeObjectURL(url);
   };
 
+  const handleExportJson = () => {
+    if (messages.length === 0) return;
+    const sessionData = {
+      app: 'BIS AI Assistant',
+      version: '2.6 Hybrid Core',
+      exported_at: new Date().toISOString(),
+      engine: selectedEngine,
+      domain_filter: selectedDomain,
+      session_id: sessionId,
+      total_messages: messages.length,
+      conversation: messages.map((m) => ({
+        role: m.role,
+        content: m.content,
+        timestamp: m.timestamp,
+        citations: m.citations || [],
+        thinking_time_ms: m.thinking?.thoughtTimeMs || null,
+        query_category: m.query_category || null,
+      })),
+    };
+    const blob = new Blob([JSON.stringify(sessionData, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `bis-ai-session-${new Date().toISOString().slice(0, 10)}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="flex-1 flex flex-col justify-between overflow-hidden relative h-full min-h-0">
       
-      {/* Claude Minimal Top Bar */}
-      <header className="px-6 py-3 border-b border-[var(--border-color)] bg-[var(--bg-primary)]/90 backdrop-blur-md flex items-center justify-between z-10 shrink-0">
-        <div className="flex items-center gap-2">
-          <span className="font-semibold text-xs sm:text-sm text-[var(--text-primary)]">
-            BIS Standards Advisory
-          </span>
-          <span className="text-[11px] font-mono text-[var(--text-muted)] bg-[var(--bg-sidebar)] px-2 py-0.5 rounded border border-[var(--border-color)] hidden sm:inline">
-            v2.6 Core
-          </span>
+      {/* Dynamic Modern Top Bar */}
+      <header className="px-4 sm:px-6 py-2.5 border-b border-[var(--border-color)] bg-[var(--bg-primary)]/90 backdrop-blur-md flex items-center justify-between z-10 shrink-0 gap-2">
+        <div className="flex items-center gap-2 min-w-0">
+          {/* Dynamic Model & Engine Selector */}
+          <ModelSelectorDropdown
+            selectedEngine={selectedEngine}
+            onSelectEngine={setSelectedEngine}
+          />
+
+          {/* Dynamic RAG Regulatory Scope Filter */}
+          <DomainFilterDropdown
+            selectedDomain={selectedDomain}
+            onSelectDomain={setSelectedDomain}
+          />
         </div>
 
-        {messages.length > 0 && (
-          <div className="flex items-center gap-2 text-xs">
-            <button
-              onClick={handleExportChat}
-              className="p-1.5 px-2.5 rounded-lg border border-[var(--border-color)] hover:bg-[var(--bg-card)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition flex items-center gap-1.5 shadow-2xs"
-              title="Export Conversation as Markdown"
-            >
-              <Download size={13} />
-              <span className="hidden sm:inline">Export</span>
-            </button>
-            <button
-              onClick={handleClearChat}
-              className="p-1.5 px-2.5 rounded-lg border border-[var(--border-color)] hover:bg-rose-500/10 text-rose-500 hover:text-rose-600 transition flex items-center gap-1.5 shadow-2xs"
-              title="Clear Conversation"
-            >
-              <Trash2 size={13} />
-              <span className="hidden sm:inline">Clear</span>
-            </button>
-          </div>
-        )}
+        {/* Dynamic Actions Menu */}
+        <div className="flex items-center gap-2 shrink-0">
+          <ConversationMenu
+            messages={messages}
+            onExportMarkdown={handleExportChat}
+            onExportJson={handleExportJson}
+            onClearChat={handleClearChat}
+            autoExpandThinking={autoExpandThinking}
+            onToggleAutoExpandThinking={() => setAutoExpandThinking((prev) => !prev)}
+          />
+        </div>
       </header>
 
       {/* Messages Stream / Welcome Hero */}
@@ -165,22 +411,13 @@ export default function ChatPage() {
         ) : (
           <div className="space-y-6">
             {messages.map((msg, i) => (
-              <ChatMessage key={i} message={msg} />
+              <ChatMessage
+                key={i}
+                message={msg}
+                onAskAboutClause={(q) => handleSend(q, selectedLanguage)}
+                autoExpandThinking={autoExpandThinking}
+              />
             ))}
-
-            {/* Typing indicator */}
-            {loading && (
-              <div className="w-full max-w-3xl mx-auto flex items-start gap-3.5 py-3">
-                <div className="w-7 h-7 rounded-full bg-[var(--accent-terracotta)] text-white font-bold flex items-center justify-center text-xs shrink-0 mt-0.5 shadow-xs">
-                  B
-                </div>
-                <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-2xl rounded-tl-none p-4 flex items-center gap-1.5 shadow-2xs">
-                  <span className="w-2 h-2 rounded-full bg-[var(--accent-terracotta)] animate-bounce [animation-delay:-0.3s]"></span>
-                  <span className="w-2 h-2 rounded-full bg-[var(--accent-terracotta)] animate-bounce [animation-delay:-0.15s]"></span>
-                  <span className="w-2 h-2 rounded-full bg-[var(--accent-terracotta)] animate-bounce"></span>
-                </div>
-              </div>
-            )}
 
             {/* Error Notification */}
             {error && (
@@ -195,11 +432,13 @@ export default function ChatPage() {
         )}
       </div>
 
-      {/* Claude Bottom Input Container */}
+      {/* Bottom Input Container */}
       <div className="shrink-0">
         <ChatInput
           onSend={handleSend}
-          disabled={loading}
+          disabled={loading && !isStreaming}
+          isGenerating={isStreaming}
+          onStop={handleStop}
           selectedLanguage={selectedLanguage}
           onLanguageChange={setSelectedLanguage}
         />

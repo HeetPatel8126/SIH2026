@@ -11,16 +11,11 @@ pydantic==2.13.4
 httpx==0.28.1
 
 # --- LLM / RAG Pipeline ---
-# Uncomment these once Tech 1 sets up the vector DB:
-# chromadb>=0.5.0
-# sentence-transformers>=3.0.0
-# langchain>=0.2.0
-# ollama>=0.2.0
+chromadb>=0.5.0
+sentence-transformers>=3.0.0
 
 # --- Document Parsing (Tech 2) ---
-# PyMuPDF>=1.24.0
-# beautifulsoup4>=4.12.0
-# pdfplumber>=0.10.0
+pymupdf>=1.24.0
 
 # --- Multilingual (P1) ---
 # langdetect>=1.0.9

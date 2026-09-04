@@ -1,0 +1,55 @@
+{
+  "is_code": "BIS-LAB-DIRECTORY",
+  "title": "BIS Central, Regional & Branch Laboratories Directory and Testing Scope",
+  "category": "lab_suggestion",
+  "metadata": {
+    "sector": "Laboratory Testing & NABL Referral Network",
+    "statutory_authority": "BIS Laboratory Recognition Scheme (LRS)",
+    "url": "https://www.bis.gov.in/laboratories",
+    "year": 2024
+  },
+  "clauses": [
+    {
+      "clause": "BIS Central Laboratory (BCL)",
+      "title": "National Apex Testing Facility — Sahibabad, Uttar Pradesh",
+      "page": 1,
+      "text": "Located at Plot No. 20/9, Site IV, Sahibabad Industrial Area, Ghaziabad, UP (near Delhi NCR). Testing disciplines: Chemical, Electrical, Mechanical, Civil, Microbiological, and Food products. Houses state-of-the-art ICP-MS for heavy metal detection in water, bursting pressure rigs for pressure cookers, and high-voltage electrical breakdown apparatus."
+    },
+    {
+      "clause": "Western Regional Laboratory (WRL)",
+      "title": "Western India Testing Center — Mumbai, Maharashtra",
+      "page": 2,
+      "text": "Located at Marol, Andheri East, Mumbai, Maharashtra 400093. Serves Maharashtra, Gujarat, Goa, and Madhya Pradesh. Testing disciplines: Chemical analysis, packaged drinking water, mechanical fasteners, paints, polymer pipes, steel bars, and household appliances."
+    },
+    {
+      "clause": "Eastern Regional Laboratory (ERL)",
+      "title": "Eastern India Hub — Kolkata, West Bengal",
+      "page": 3,
+      "text": "Located at Block EP & GP, Sector V, Salt Lake, Kolkata 700091. Serves West Bengal, Odisha, Bihar, Jharkhand, and North-Eastern States. Specializes in structural steel, cement (IS 1489 / IS 8112), tea testing, jute packaging, and chemical fertilizers."
+    },
+    {
+      "clause": "Southern & Northern Regional Laboratories",
+      "title": "Chennai and Mohali Facilities",
+      "page": 4,
+      "text": "Southern Regional Lab (SRL): CIT Campus, Taramani, Chennai 600113. Specializes in electrical cables, electronics, motors, pumps, and water purification.\nNorthern Regional Lab (NRL): Plot No. 4A, Sector 27B, Mohali, Punjab. Specializes in agricultural machinery, pressure cookers, transformers, and food chemistry."
+    },
+    {
+      "clause": "NABL Accredited Referral Laboratory Network",
+      "title": "Laboratory Recognition Scheme (LRS) Partners",
+      "page": 5,
+      "text": "In addition to BIS in-house laboratories, BIS partners with hundreds of NABL-accredited commercial and government facilities under the Laboratory Recognition Scheme (LRS), including National Test House (NTH), CPRI Bangalore (for high-voltage electrical power apparatus), Shriram Institute for Industrial Research (Delhi), and CIPET centers (for plastics)."
+    },
+    {
+      "clause": "CPRI (Central Power Research Institute) Testing Scope & Submission",
+      "title": "Autonomous Apex Testing Facility for Power & Electrical Apparatus",
+      "page": 6,
+      "text": "Central Power Research Institute (CPRI), Sir C.V. Raman Road, Sadashivanagar, P.B. No. 8066, Bengaluru 560080 (and regional units in Bhopal, Hyderabad, Nagpur, Noida, Kolkata).\nDisciplines & Testing Scope: Short-circuit testing, high-voltage transformers (IS 1180), switchgear & controlgear, lightning arresters, electric vehicle (EV) supply equipment & chargers, power cables, and smart meters.\nHow to Submit Product Test Samples to CPRI:\n1. Obtain a Test Request Form (TRF) or Manakonline Application Reference Number from BIS if applying under BIS Product Certification / CRS Scheme.\n2. Fill out the CPRI Testing Requisition Form available on the CPRI customer portal (www.cpri.res.in), specifying the applicable Indian Standard (IS code) and test parameters required.\n3. Securely pack product test samples with tamper-evident seals and attach official identification labels stating sample manufacturer, batch number, ratings, and BIS application ID.\n4. Deliver or courier the sample to the CPRI Central Reception / Customer Service Cell along with the advance testing fee and manufacturer test certificate (MTC).\n5. Following testing, CPRI issues an accredited test report and uploads it electronically to the BIS Manakonline portal for grant of license or CRS approval."
+    },
+    {
+      "clause": "Sample Submission Guidelines to BIS Recognized Laboratories",
+      "title": "Protocol for Sending Test Samples to LRS Partner Facilities",
+      "page": 7,
+      "text": "Protocol for Submitting Product Samples for BIS Conformity Testing:\n1. Preliminary Application: The applicant must have a valid application registered on Manakonline (www.manakonline.in) for Scheme I (ISI Mark) or Scheme II (CRS).\n2. Sample Drawing & Counter-Sealing: Under Normal Procedure, samples are drawn during factory audit by the BIS inspecting officer and counter-sealed. Under Simplified Procedure / Option 2, the manufacturer submits self-drawn samples directly to an LRS recognized lab before audit.\n3. Documentation: Each sample consignment must include: (a) BIS Test Request Form (TRF), (b) Copy of Form I application, (c) Detailed technical construction file (TCF) / circuit diagram, (d) Payment receipt of prescribed testing charges.\n4. Receipt & Witnessing: Lab acknowledges receipt on the portal. Manufacturer may request to witness non-destructive tests where permissible under standard guidelines."
+    }
+  ]
+}

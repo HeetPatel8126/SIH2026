@@ -1,0 +1,37 @@
+{
+  "is_code": "IS 2347:2017",
+  "title": "Domestic Pressure Cookers — Specification (Fifth Revision)",
+  "category": "standards",
+  "metadata": {
+    "sector": "Mechanical & Consumer Appliances",
+    "statutory_authority": "Ministry of Consumer Affairs (Mandatory ISI Mark QCO 2020)",
+    "url": "https://www.bis.gov.in/standards/is-2347-2017",
+    "year": 2017
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope & Mandatory Status",
+      "title": "Mandatory Certification Under Quality Control Order",
+      "page": 1,
+      "text": "Domestic pressure cookers sold, imported, or manufactured in India MUST mandatorily carry the Standard ISI Mark under the Domestic Pressure Cookers (Quality Control) Order. Manufacturing or selling uncertified domestic pressure cookers without a valid BIS CM/L license is a criminal offense under Section 16 & 29 of the BIS Act 2016."
+    },
+    {
+      "clause": "Clause 4.1 Materials & Construction",
+      "title": "Material Quality and Minimum Wall Thickness",
+      "page": 3,
+      "text": "Pressure cooker bodies and lids must be made of food-grade wrought aluminium alloy (IS 21), stainless steel (AISI 304 / Grade 18/8), or composite metals. Minimum body thickness for aluminium is 3.25 mm; for stainless steel it is 1.0 mm to prevent thermal distortion and violent rupture."
+    },
+    {
+      "clause": "Clause 6.3 Safety Devices & Bursting Pressure Test",
+      "title": "Safety Vent Weight, Safety Valve & Proof Pressure",
+      "page": 5,
+      "text": "Every cooker must have a primary pressure regulating weight vent (operates at 1.0 kgf/cm² ± 0.1) and a secondary fusible safety plug/valve that fuses between 1.4 to 2.0 kgf/cm² if the main vent gets blocked. The hydrostatic proof pressure test requires the cooker to withstand 2.5 times the operating pressure without leakage or permanent deformation."
+    },
+    {
+      "clause": "Clause 9.0 Marking Requirements",
+      "title": "Mandatory Markings on Pressure Cooker and Carton",
+      "page": 7,
+      "text": "Every cooker must be indelibly stamped on its bottom with: (a) Manufacturer's name or trademark, (b) Nominal capacity in litres, (c) Standard Mark (ISI logo), (d) 7 or 8-digit BIS License Number (CM/L-XXXXXXXX), and (e) Batch number and month/year of manufacture."
+    }
+  ]
+}

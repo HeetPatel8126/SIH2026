@@ -1,0 +1,37 @@
+{
+  "is_code": "IS 10500:2012",
+  "title": "Drinking Water — Specification (Second Revision)",
+  "category": "standards",
+  "metadata": {
+    "sector": "Food & Water",
+    "statutory_authority": "Food Safety and Standards Authority of India (FSSAI) & BIS",
+    "url": "https://www.bis.gov.in/standards/is-10500-2012",
+    "year": 2012
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope and Applicability",
+      "page": 1,
+      "text": "This standard prescribes the quality requirements and methods of sampling and test for drinking water (piped water supplies, packaged drinking water, water from public wells, borewells, and tankers). It sets limits for physical, chemical, and bacteriological parameters to ensure the water is wholesome and safe for domestic human consumption."
+    },
+    {
+      "clause": "Table 1 — Physical & Organoleptic Parameters",
+      "title": "Acceptable and Permissible Limits for Physical Characteristics",
+      "page": 2,
+      "text": "Requirements for physical characteristics of drinking water:\n- Colour: Acceptable limit 5 Hazen units max; Permissible limit in the absence of alternate source is 15 Hazen units max.\n- Odour: Agreeable.\n- Taste: Agreeable.\n- Turbidity: Acceptable limit 1 NTU max; Permissible limit in the absence of alternate source is 5 NTU max.\n- pH Value: Acceptable range 6.5 to 8.5; No relaxation.\n- Total Dissolved Solids (TDS): Acceptable limit 500 mg/L max; Permissible limit in the absence of alternate source is 2000 mg/L max."
+    },
+    {
+      "clause": "Table 2 — General Chemical & Toxic Parameters",
+      "title": "Essential Chemical Limits for Drinking Water",
+      "page": 3,
+      "text": "Limits for general chemical and toxic substances:\n- Total Hardness (as CaCO3): Acceptable limit 200 mg/L max; Permissible limit 600 mg/L max.\n- Chlorides (as Cl): Acceptable limit 250 mg/L max; Permissible limit 1000 mg/L max.\n- Fluoride (as F): Acceptable limit 1.0 mg/L max; Permissible limit 1.5 mg/L max. Excess fluoride causes dental and skeletal fluorosis.\n- Nitrate (as NO3): Acceptable limit 45 mg/L max; No relaxation. Higher levels cause methaemoglobinaemia (blue baby disease).\n- Iron (as Fe): Acceptable limit 0.3 mg/L max; Permissible limit 1.0 mg/L max.\n- Lead (as Pb): Maximum permissible limit 0.01 mg/L max; No relaxation (toxic heavy metal).\n- Arsenic (as As): Maximum limit 0.01 mg/L max; Permissible limit 0.05 mg/L max."
+    },
+    {
+      "clause": "Table 6 — Microbiological Requirements",
+      "title": "Bacteriological Quality of Drinking Water",
+      "page": 4,
+      "text": "All water intended for human consumption:\n- E. coli or thermotolerant coliform bacteria must not be detectable in any 100 ml sample.\n- Total coliform bacteria must not be detectable in any 100 ml sample of treated piped water supply.\n- If coliforms are detected, immediate sanitary survey and repeat testing is mandatory."
+    }
+  ]
+}

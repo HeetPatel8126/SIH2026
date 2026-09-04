@@ -1,0 +1,31 @@
+{
+  "is_code": "IS 16102 (Part 1 & 2):2012",
+  "title": "Self-Ballasted LED Lamps for General Lighting Services",
+  "category": "standards",
+  "metadata": {
+    "sector": "Electronics & Information Technology",
+    "statutory_authority": "Ministry of Electronics and Information Technology (MeitY) CRS",
+    "url": "https://www.bis.gov.in/standards/is-16102-2012",
+    "year": 2012
+  },
+  "clauses": [
+    {
+      "clause": "Part 1 — Safety Requirements",
+      "title": "Compulsory Registration Scheme (CRS) Requirements",
+      "page": 1,
+      "text": "Self-ballasted LED lamps for voltages up to 250V AC/DC fall under the Compulsory Registration Scheme (CRS, Scheme II). Safety requirements cover: insulation resistance, electric strength (withstand 4000V high-pot test), mechanical resistance to torque, flame retardancy of lamp cap, and protection against accidental electric shock."
+    },
+    {
+      "clause": "Part 2 — Performance & Energy Efficiency",
+      "title": "Luminous Efficacy and Operating Life",
+      "page": 3,
+      "text": "Specifies photometric performance: luminous efficacy must not be less than 90 lumens/watt for cool daylight lamps; power factor must be greater than 0.90 for ratings above 5W to prevent grid distortion; colour rendering index (CRI) Ra >= 80; lumen maintenance at 2,000 hours must exceed 90% of rated initial lumen output."
+    },
+    {
+      "clause": "CRS Self-Declaration Mark",
+      "title": "Labeling and R-Number Format",
+      "page": 4,
+      "text": "Unlike Scheme I (ISI Mark), products certified under CRS display the words 'Self-Declaration - Conforming to IS 16102 (Part 1)' along with the standard BIS Registration symbol and unique 8-digit R-number (e.g., R-41012345). No factory inspection is required prior to grant; registration is granted purely on valid test reports from BIS-recognized labs."
+    }
+  ]
+}

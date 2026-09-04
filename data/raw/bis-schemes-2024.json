@@ -1,0 +1,43 @@
+{
+  "is_code": "BIS-SCHEMES-2024",
+  "title": "Compendium of BIS Product Certification Schemes & Conformity Assessment",
+  "category": "certification",
+  "metadata": {
+    "sector": "Conformity Assessment & Licensing",
+    "statutory_authority": "Bureau of Indian Standards Conformity Assessment Regulations 2018",
+    "url": "https://www.bis.gov.in/conformity-assessment",
+    "year": 2024
+  },
+  "clauses": [
+    {
+      "clause": "Scheme I — ISI Product Certification Scheme",
+      "title": "Domestic Manufacturers Licensing Route",
+      "page": 1,
+      "text": "Scheme I is the flagship certification system of BIS. It covers over 1,000 products, granting manufacturers the right to use the coveted ISI mark. Process involves: application submission -> factory preliminary audit by BIS technical auditor -> drawing of independent samples -> rigorous testing in NABL/BIS lab -> grant of CM/L license. Licenses are valid for 1 to 2 years, renewable upon payment of marking fees."
+    },
+    {
+      "clause": "Scheme II — Compulsory Registration Scheme (CRS)",
+      "title": "Self-Declaration Scheme for Electronics & IT Goods",
+      "page": 2,
+      "text": "Introduced by MeitY and BIS for electronics, IT hardware, solar equipment, and smart devices (60+ product categories including laptops, mobile phones, LED lights, power banks, and servers). Manufacturers get their product tested at BIS-approved laboratories and apply online on the CRS portal. No factory audit is conducted prior to registration; renewal is every 2 years."
+    },
+    {
+      "clause": "Scheme IV — Foreign Manufacturers Certification Scheme (FMCS)",
+      "title": "Licensing Route for Overseas Exporters to India",
+      "page": 3,
+      "text": "Enables overseas manufacturing units located outside India to obtain an ISI mark for goods shipped into India. Foreign applicant must appoint an Authorized Indian Representative (AIR) residing in India, pay audit charges for two BIS auditors to inspect the overseas factory, and maintain local laboratory testing facilities."
+    },
+    {
+      "clause": "Scheme X — Capital Goods & Modular Plant Certification",
+      "title": "Custom Industrial Machinery and Complex Assemblies",
+      "page": 4,
+      "text": "Tailored for heavy machinery, specialized capital goods, boilers, transformers, and industrial assemblies where factory mass-production testing is not feasible. Evaluates design drawings, third-party component certifications, and on-site factory acceptance testing (FAT)."
+    },
+    {
+      "clause": "ECO Mark Scheme",
+      "title": "Environmentally Friendly Products Labeling",
+      "page": 5,
+      "text": "Administered jointly with the Ministry of Environment, Forest and Climate Change (MoEFCC). Products that conform to Indian Standards and also satisfy ecological criteria (recyclability, zero toxic effluents, energy conservation) are awarded the ECO Mark (depicted by an earthen pot / Matka logo)."
+    }
+  ]
+}

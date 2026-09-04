@@ -185,7 +185,17 @@ def build_full_prompt(
     # User question
     prompt += f"\n---\n\n### User Question:\n{query}\n"
 
-    # Response instruction
-    prompt += "\n### Your Answer (cite sources using [Source: ... | Clause: ...] format):\n"
+    # Response instruction with authentic AI Chain-of-Thought
+    prompt += (
+        "\n### Response Instructions:\n"
+        "1. First, think step-by-step inside <think> and </think> tags. In your internal thinking:\n"
+        "   - Understand what the user is specifically requesting.\n"
+        "   - Review the retrieved context chunks, identifying relevant IS codes, clauses, tables, and numeric limits.\n"
+        "   - Verify that your conclusions are fully grounded in the retrieved sources.\n"
+        "   - Plan the clearest, most helpful response structure.\n"
+        "2. After the </think> tag, output your final, polished answer citing sources as [Source: <document> | Clause: <clause>].\n"
+        "3. If the context lacks sufficient information, state that clearly without guessing.\n\n"
+        "Begin your response with <think> now:\n"
+    )
 
     return prompt
