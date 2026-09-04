@@ -5,6 +5,7 @@ export const ENGINE_OPTIONS = [
   {
     id: 'ollama-qwen',
     name: 'Qwen 2.5 7B (Local Core)',
+    shortName: 'Qwen 2.5 7B',
     badge: 'NVIDIA RTX 4060',
     icon: Cpu,
     tag: 'LOCAL GPU',
@@ -15,6 +16,7 @@ export const ENGINE_OPTIONS = [
   {
     id: 'cot-deep',
     name: 'Deep Standards Reasoning',
+    shortName: 'Deep Reasoning',
     badge: 'CoT High-Precision',
     icon: Brain,
     tag: 'REASONING',
@@ -25,6 +27,7 @@ export const ENGINE_OPTIONS = [
   {
     id: 'groq-llama',
     name: 'Groq Llama 3.3 70B',
+    shortName: 'Llama 3.3 70B',
     badge: 'Cloud LPU',
     icon: Zap,
     tag: 'CLOUD FAST',
@@ -35,6 +38,7 @@ export const ENGINE_OPTIONS = [
   {
     id: 'gemini-flash',
     name: 'Google Gemini 1.5 Flash',
+    shortName: 'Gemini 1.5 Flash',
     badge: 'Cloud AI',
     icon: Cloud,
     tag: 'MULTIMODAL',
@@ -52,7 +56,6 @@ export default function ModelSelectorDropdown({
   const dropdownRef = useRef(null);
 
   const active = ENGINE_OPTIONS.find((e) => e.id === selectedEngine) || ENGINE_OPTIONS[0];
-  const ActiveIcon = active.icon;
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -78,32 +81,26 @@ export default function ModelSelectorDropdown({
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
-      {/* Trigger Pill */}
+      {/* Sleek Minimalist Trigger Pill */}
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         className={`
-          flex items-center gap-2 px-2.5 py-1.5 rounded-xl border text-xs transition-all duration-150 shadow-2xs cursor-pointer select-none
+          group flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 cursor-pointer select-none
           ${isOpen
-            ? 'bg-[var(--bg-card-elevated)] border-[var(--accent-terracotta)] text-[var(--accent-terracotta)] ring-2 ring-[var(--accent-terracotta)]/20'
-            : 'bg-[var(--bg-card)] border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)]'
+            ? 'bg-[var(--bg-card-elevated)] text-[var(--text-primary)] shadow-2xs'
+            : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-elevated)]/60'
           }
         `}
       >
-        <div className="relative flex items-center justify-center">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        </div>
-
-        <ActiveIcon size={13} className="text-[var(--accent-terracotta)] shrink-0" />
-
-        <div className="flex items-center gap-1.5">
-          <span className="font-semibold text-xs text-[var(--text-primary)]">{active.name}</span>
-          <span className="text-[9px] font-mono px-1.5 py-0.2 rounded bg-[var(--bg-sidebar)] border border-[var(--border-color)] text-[var(--text-muted)] hidden sm:inline">
-            {active.badge}
-          </span>
-        </div>
-
-        <ChevronDown size={13} className={`text-[var(--text-muted)] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0" title="Active Engine" />
+        <span className="font-medium text-xs text-[var(--text-primary)] tracking-tight">
+          {active.shortName || active.name.split(' (')[0]}
+        </span>
+        <ChevronDown
+          size={11}
+          className={`text-[var(--text-muted)] transition-transform duration-200 ${isOpen ? 'rotate-180 text-[var(--text-primary)]' : 'group-hover:text-[var(--text-secondary)]'}`}
+        />
       </button>
 
       {/* Popover Card */}

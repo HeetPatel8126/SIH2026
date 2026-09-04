@@ -374,12 +374,14 @@ export default function ChatPage() {
       
       {/* Dynamic Modern Top Bar */}
       <header className="px-4 sm:px-6 py-2.5 border-b border-[var(--border-color)] bg-[var(--bg-primary)]/90 backdrop-blur-md flex items-center justify-between z-10 shrink-0 gap-2">
-        <div className="flex items-center gap-2 min-w-0">
+        <div className="flex items-center gap-1 bg-[var(--bg-card)]/80 border border-[var(--border-color)]/80 rounded-xl p-0.5 shadow-2xs backdrop-blur-xs">
           {/* Dynamic Model & Engine Selector */}
           <ModelSelectorDropdown
             selectedEngine={selectedEngine}
             onSelectEngine={setSelectedEngine}
           />
+
+          <div className="w-[1px] h-3.5 bg-[var(--border-color)] my-auto opacity-70" />
 
           {/* Dynamic RAG Regulatory Scope Filter */}
           <DomainFilterDropdown

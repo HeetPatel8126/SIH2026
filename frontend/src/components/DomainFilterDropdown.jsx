@@ -2,12 +2,12 @@ import { useState, useRef, useEffect } from 'react';
 import { Filter, Check, ChevronDown, Layers, Droplets, ShieldCheck, Cpu, Utensils, FlaskConical } from 'lucide-react';
 
 export const DOMAINS = [
-  { id: 'all', label: 'All Regulatory Domains', icon: Layers, standard: 'Complete Corpus', desc: 'Queries across all indexed BIS standards & gazettes' },
-  { id: 'water', label: 'Drinking Water & Quality', icon: Droplets, standard: 'IS 10500:2012', desc: 'TDS, microbial parameters, organoleptic limits & testing' },
-  { id: 'hallmarking', label: 'Gold Hallmarking & HUID', icon: ShieldCheck, standard: 'IS 1417:2016', desc: '22K/18K/14K purity, 6-digit HUID verification & assays' },
-  { id: 'electronics', label: 'Electronics CRS Safety', icon: Cpu, standard: 'IS 16102 (1 & 2)', desc: 'Smart lighting, LED luminaires, IT devices compulsory registration' },
-  { id: 'appliances', label: 'Cookware & Domestic Goods', icon: Utensils, standard: 'IS 2347:2017', desc: 'Stainless steel pressure cookers, burst pressure, thermal tests' },
-  { id: 'labs', label: 'Testing Laboratories & Schemes', icon: FlaskConical, standard: 'Lab Manual 2024', desc: 'NABL accredited test houses, regional labs & certification schemes' },
+  { id: 'all', label: 'All Regulatory Domains', shortLabel: 'All Standards', icon: Layers, standard: 'Complete Corpus', desc: 'Queries across all indexed BIS standards & gazettes' },
+  { id: 'water', label: 'Drinking Water & Quality', shortLabel: 'Water (IS 10500)', icon: Droplets, standard: 'IS 10500:2012', desc: 'TDS, microbial parameters, organoleptic limits & testing' },
+  { id: 'hallmarking', label: 'Gold Hallmarking & HUID', shortLabel: 'Gold HUID (IS 1417)', icon: ShieldCheck, standard: 'IS 1417:2016', desc: '22K/18K/14K purity, 6-digit HUID verification & assays' },
+  { id: 'electronics', label: 'Electronics CRS Safety', shortLabel: 'Electronics (IS 16102)', icon: Cpu, standard: 'IS 16102 (1 & 2)', desc: 'Smart lighting, LED luminaires, IT devices compulsory registration' },
+  { id: 'appliances', label: 'Cookware & Domestic Goods', shortLabel: 'Cookware (IS 2347)', icon: Utensils, standard: 'IS 2347:2017', desc: 'Stainless steel pressure cookers, burst pressure, thermal tests' },
+  { id: 'labs', label: 'Testing Laboratories & Schemes', shortLabel: 'Labs & Schemes', icon: FlaskConical, standard: 'Lab Manual 2024', desc: 'NABL accredited test houses, regional labs & certification schemes' },
 ];
 
 export default function DomainFilterDropdown({
@@ -18,7 +18,6 @@ export default function DomainFilterDropdown({
   const dropdownRef = useRef(null);
 
   const active = DOMAINS.find((d) => d.id === selectedDomain) || DOMAINS[0];
-  const ActiveIcon = active.icon;
 
   useEffect(() => {
     function handleClickOutside(e) {
@@ -44,27 +43,30 @@ export default function DomainFilterDropdown({
 
   return (
     <div className="relative inline-block text-left" ref={dropdownRef}>
-      {/* Trigger Button */}
+      {/* Sleek Minimalist Trigger Pill */}
       <button
         type="button"
         onClick={() => setIsOpen((prev) => !prev)}
         className={`
-          flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl border text-xs transition-all duration-150 shadow-2xs cursor-pointer select-none
+          group flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg text-xs font-medium transition-all duration-150 cursor-pointer select-none
           ${isOpen
-            ? 'bg-[var(--bg-card-elevated)] border-[var(--accent-terracotta)] text-[var(--accent-terracotta)] ring-2 ring-[var(--accent-terracotta)]/20'
-            : 'bg-[var(--bg-card)] border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)]'
+            ? 'bg-[var(--bg-card-elevated)] text-[var(--text-primary)] shadow-2xs'
+            : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-elevated)]/60'
           }
         `}
         title="Filter RAG Search Scope"
       >
-        <Filter size={12} className={isOpen ? 'text-[var(--accent-terracotta)]' : 'text-[var(--text-muted)]'} />
-        <span className="font-semibold text-xs text-[var(--text-primary)] hidden md:inline">
-          {active.label}
+        <Filter
+          size={11}
+          className={selectedDomain !== 'all' ? 'text-[var(--accent-terracotta)]' : 'text-[var(--text-muted)] group-hover:text-[var(--text-secondary)]'}
+        />
+        <span className="text-xs text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] font-medium">
+          {active.shortLabel || (active.id === 'all' ? 'All Standards' : active.label)}
         </span>
-        <span className="font-semibold text-xs text-[var(--text-primary)] md:hidden">
-          {active.standard}
-        </span>
-        <ChevronDown size={12} className={`text-[var(--text-muted)] transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown
+          size={11}
+          className={`text-[var(--text-muted)] transition-transform duration-200 ${isOpen ? 'rotate-180 text-[var(--text-primary)]' : 'group-hover:text-[var(--text-secondary)]'}`}
+        />
       </button>
 
       {/* Popover Card */}
