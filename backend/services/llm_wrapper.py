@@ -292,6 +292,48 @@ async def _stream_gemini(prompt: str, is_fallback: bool = False) -> AsyncGenerat
         yield token
 
 
+async def _stream_anthropic(prompt: str, is_fallback: bool = False) -> AsyncGenerator[str, None]:
+    """Stream real-time tokens from the Anthropic Messages API."""
+    client = _get_client()
+    url = "https://api.anthropic.com/v1/messages"
+    key = settings.fallback_llm_api_key if is_fallback else settings.llm_api_key
+    model = settings.fallback_llm_model if is_fallback else settings.llm_model
+
+    headers = {
+        "x-api-key": key,
+        "anthropic-version": "2023-06-01",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": model or "claude-3-5-sonnet-20241022",
+        "max_tokens": settings.llm_max_tokens,
+        "messages": [{"role": "user", "content": prompt}],
+        "stream": True,
+    }
+
+    logger.debug("Streaming Anthropic — model=%s", model)
+    async with client.stream("POST", url, json=payload, headers=headers) as response:
+        response.raise_for_status()
+        async for line in response.aiter_lines():
+            line = line.strip()
+            if not line or line.startswith(":"):
+                continue
+            if line.startswith("data: "):
+                data_str = line[6:].strip()
+                if data_str == "[DONE]":
+                    break
+                try:
+                    data = json.loads(data_str)
+                    event_type = data.get("type", "")
+                    if event_type == "content_block_delta":
+                        delta = data.get("delta", {})
+                        token = delta.get("text", "")
+                        if token:
+                            yield token
+                except Exception:
+                    continue
+
+
 _PROVIDERS = {
     "ollama": _call_ollama,
     "openai": _call_openai_compatible,
@@ -307,7 +349,22 @@ _STREAM_PROVIDERS = {
     "groq": _stream_groq,
     "gemini": _stream_gemini,
     "together": _stream_openai_compatible,
+    "anthropic": _stream_anthropic,
 }
+
+
+# ---------------------------------------------------------------------------
+# Helpers
+# ---------------------------------------------------------------------------
+
+def _is_same_provider_config() -> bool:
+    """Check if primary and fallback are effectively the same endpoint."""
+    if settings.llm_provider.lower() != settings.fallback_llm_provider.lower():
+        return False
+    # Same provider type — also check if base URLs match
+    primary_url = settings.llm_base_url.rstrip("/").lower()
+    fallback_url = settings.fallback_llm_base_url.rstrip("/").lower()
+    return primary_url == fallback_url
 
 
 # ---------------------------------------------------------------------------
@@ -321,7 +378,7 @@ async def call_llm(prompt: str, retries: int = 1) -> str:
 
     if call_fn is None:
         supported = ", ".join(_PROVIDERS.keys())
-        return f"⚠️ Unknown LLM provider: `{provider}`. Supported: {supported}."
+        return f"\u26a0\ufe0f Unknown LLM provider: `{provider}`. Supported: {supported}."
 
     last_error = None
     for attempt in range(1 + retries):
@@ -331,8 +388,12 @@ async def call_llm(prompt: str, retries: int = 1) -> str:
             last_error = e
             logger.warning("Primary LLM call failed (attempt %d/%d): %s", attempt + 1, 1 + retries, e)
 
-    # Hybrid Fallback
-    if settings.fallback_enabled and provider != settings.fallback_llm_provider:
+    # Hybrid Fallback — skip if primary and fallback point to same endpoint
+    can_fallback = (
+        settings.fallback_enabled
+        and not _is_same_provider_config()
+    )
+    if can_fallback:
         logger.warning(
             "Primary provider '%s' failed. Executing fallback to '%s' (%s)...",
             provider, settings.fallback_llm_provider, settings.fallback_llm_model,
@@ -343,14 +404,20 @@ async def call_llm(prompt: str, retries: int = 1) -> str:
                 return await fallback_fn(prompt, is_fallback=True)
         except Exception as fb_err:
             logger.error("Hybrid fallback also failed: %s", fb_err)
+    elif settings.fallback_enabled and _is_same_provider_config():
+        logger.warning(
+            "Skipping fallback — primary and fallback are the same provider (%s @ %s)",
+            provider, settings.llm_base_url,
+        )
 
-    return f"⚠️ **LLM Generation Error**: {last_error}"
+    return f"\u26a0\ufe0f **LLM Generation Error**: {last_error}"
 
 
 async def stream_llm(prompt: str) -> AsyncGenerator[str, None]:
     """
     Stream real-time tokens from the configured LLM.
-    If the primary cloud provider fails, seamlessly falls back to streaming from local Ollama.
+    If the primary cloud provider fails, seamlessly falls back to streaming
+    from the fallback provider (skips if same provider/endpoint as primary).
     """
     provider = settings.llm_provider.lower()
     stream_fn = _STREAM_PROVIDERS.get(provider)
@@ -366,7 +433,12 @@ async def stream_llm(prompt: str) -> AsyncGenerator[str, None]:
         logger.warning("Streaming with '%s' encountered error: %s", provider, e)
 
     # If primary failed to yield or raised an error, engage hybrid fallback
-    if tokens_yielded == 0 and settings.fallback_enabled and provider != settings.fallback_llm_provider:
+    can_fallback = (
+        tokens_yielded == 0
+        and settings.fallback_enabled
+        and not _is_same_provider_config()
+    )
+    if can_fallback:
         logger.warning(
             "Engaging hybrid fallback stream with '%s' (%s)...",
             settings.fallback_llm_provider, settings.fallback_llm_model
@@ -377,7 +449,7 @@ async def stream_llm(prompt: str) -> AsyncGenerator[str, None]:
                 yield token
         except Exception as fb_err:
             logger.error("Hybrid fallback streaming also failed: %s", fb_err)
-            yield f"\n\n⚠️ **Streaming error**: Could not reach local Ollama ({fb_err})"
+            yield f"\n\n\u26a0\ufe0f **Streaming error**: Could not reach fallback ({fb_err})"
 
 
 async def shutdown_client():

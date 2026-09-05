@@ -2,6 +2,9 @@
 BIS AI Assistant — Query Router
 
 Classifies user queries into intent categories using weighted keyword matching.
+Supports multilingual queries (Hindi and other Indian languages) by normalizing
+known terms to English before classification.
+
 Designed to be swappable with an LLM-based classifier later.
 """
 
@@ -13,6 +16,73 @@ import re
 from backend.models.schemas import QueryCategory
 
 logger = logging.getLogger("bis_assistant.query_router")
+
+# ---------------------------------------------------------------------------
+# Multilingual → English normalization map
+# ---------------------------------------------------------------------------
+# Maps Hindi / transliterated terms to their English equivalents so the
+# keyword classifier works on non-English queries too. Add more languages
+# by extending this dict.
+
+_MULTILINGUAL_TERMS: dict[str, str] = {
+    # Hindi — Standards
+    "भारतीय मानक": "indian standard",
+    "मानक": "standard",
+    "विनिर्देश": "specification",
+    "आईएस कोड": "is code",
+    "आचार संहिता": "code of practice",
+    # Hindi — Certification
+    "प्रमाणन": "certification",
+    "प्रमाणित": "certified",
+    "लाइसेंस": "license",
+    "आईएसआई मार्क": "isi mark",
+    "आईएसआई": "isi mark",
+    "अनिवार्य पंजीकरण": "compulsory registration",
+    "विदेशी निर्माता": "foreign manufacturer",
+    "आवेदन": "apply",
+    "आवेदन प्रक्रिया": "application process",
+    "कारखाना निरीक्षण": "factory inspection",
+    "नवीनीकरण": "renewal",
+    "योजना": "scheme",
+    # Hindi — Hallmarking
+    "हॉलमार्क": "hallmark",
+    "हॉलमार्किंग": "hallmarking",
+    "सोना": "gold",
+    "चांदी": "silver",
+    "आभूषण": "jewellery",
+    "गहना": "jewellery",
+    "गहने": "jewellery",
+    "शुद्धता": "purity of gold",
+    "कैरेट": "caratage",
+    # Hindi — Consumer
+    "उपभोक्ता": "consumer",
+    "शिकायत": "complaint",
+    "उपभोक्ता शिकायत": "consumer complaint",
+    "नकली": "fake",
+    "नकली उत्पाद": "fake product",
+    "असली": "genuine",
+    "सत्यापन": "verify",
+    "सत्यापित": "verify",
+    # Hindi — Lab
+    "प्रयोगशाला": "laboratory",
+    "परीक्षण": "testing",
+    "परीक्षण प्रयोगशाला": "testing laboratory",
+    "कहाँ परीक्षण": "where to test",
+    "लैब": "lab",
+    # Hindi — General
+    "बीआईएस": "bis",
+    "क्या है": "what is",
+    "कैसे": "how to",
+    "कहाँ": "where",
+    "कौन सा": "which",
+    "लागू": "applicable",
+    "अनिवार्य": "mandatory",
+    # Common transliterations (Hinglish)
+    "manak": "standard",
+    "praman patra": "certification",
+    "hallmark kya hai": "what is hallmark",
+    "pramanikaran": "certification",
+}
 
 # ---------------------------------------------------------------------------
 # Keyword → Category mappings with weights
@@ -134,9 +204,46 @@ _KEYWORD_RULES: list[tuple[QueryCategory, list[tuple[str, float]]]] = [
 _IS_CODE_PATTERN = re.compile(r"\bIS\s+\d+", re.IGNORECASE)
 
 
+def _normalize_multilingual(query: str) -> str:
+    """
+    Normalize a potentially non-English query by appending English equivalents
+    of recognized Hindi/multilingual terms.
+
+    This lets the keyword classifier work on Hindi, Hinglish, and other
+    Indian-language queries without needing a full translation service.
+
+    Args:
+        query: Original user query (any language).
+
+    Returns:
+        The original query with English keyword equivalents appended.
+    """
+    q_lower = query.lower()
+    english_terms: list[str] = []
+
+    # Sort by length descending so longer (more specific) phrases match first
+    for term, english in sorted(_MULTILINGUAL_TERMS.items(), key=lambda x: len(x[0]), reverse=True):
+        if term in q_lower:
+            english_terms.append(english)
+
+    if english_terms:
+        # Append English equivalents so the keyword classifier can score them
+        normalized = query + " " + " ".join(english_terms)
+        logger.debug(
+            "Multilingual normalization — injected terms: %s",
+            english_terms,
+        )
+        return normalized
+
+    return query
+
+
 def classify_query(query: str) -> QueryCategory:
     """
     Classify a user query into a QueryCategory using weighted keyword matching.
+
+    Supports multilingual queries by normalizing Hindi/Indian language terms
+    to English before classification.
 
     Args:
         query: The user's natural language question.
@@ -144,7 +251,9 @@ def classify_query(query: str) -> QueryCategory:
     Returns:
         The best-matching QueryCategory, defaults to GENERAL.
     """
-    q_lower = query.lower()
+    # Normalize multilingual queries to include English keyword equivalents
+    normalized = _normalize_multilingual(query)
+    q_lower = normalized.lower()
 
     # Bonus for explicit IS code references (e.g., "IS 10500")
     has_is_code = bool(_IS_CODE_PATTERN.search(query))
@@ -169,7 +278,7 @@ def classify_query(query: str) -> QueryCategory:
         best_category = QueryCategory.GENERAL
 
     logger.debug(
-        "Query classification — scores=%s → %s (%.1f)",
+        "Query classification — scores=%s -> %s (%.1f)",
         {k.value: round(v, 1) for k, v in scores.items() if v > 0},
         best_category.value,
         best_score,
