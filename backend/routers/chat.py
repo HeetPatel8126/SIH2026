@@ -235,9 +235,23 @@ async def chat_stream(request: ChatRequest):
                     "summary": f"Analyzed {len(retrieved_chunks)} standard clauses.",
                     "chunks_count": len(retrieved_chunks),
                 })
-            else:
-                yield sse("token", {"token": buffer})
-                full_answer_parts.append(buffer)
+        # If LLM failed to stream any tokens, emit an error explanation
+        if not full_answer_parts:
+            if in_thinking or not has_thought_ended:
+                yield sse("thought_end", {
+                    "thought_time_ms": round((time.time() - think_start_time) * 1000, 1),
+                    "category": query_category.value,
+                    "sources": sources_found,
+                    "summary": "LLM generation encountered an error.",
+                    "chunks_count": len(retrieved_chunks),
+                })
+            err_msg = (
+                "⚠️ **LLM Generation Error**: The model did not produce a response. "
+                "Please verify that your configured LLM provider and model name in `.env` "
+                "are valid and running."
+            )
+            yield sse("token", {"token": err_msg})
+            full_answer_parts.append(err_msg)
 
         full_answer = "".join(full_answer_parts)
 
