@@ -108,7 +108,13 @@ async def _call_openai_compatible(
     if not choices:
         raise ValueError("No choices returned from OpenAI-compatible API")
 
-    return choices[0].get("message", {}).get("content", "").strip()
+    msg = choices[0].get("message", {})
+    content = msg.get("content", "").strip()
+    reasoning = msg.get("reasoning", "").strip()
+    if reasoning and not content.startswith("<think>"):
+        content = f"<think>\n{reasoning}\n</think>\n\n{content}"
+
+    return content
 
 
 async def _call_groq(prompt: str, is_fallback: bool = False) -> str:
@@ -116,8 +122,9 @@ async def _call_groq(prompt: str, is_fallback: bool = False) -> str:
     if "localhost" in base_url or "127.0.0.1" in base_url:
         base_url = "https://api.groq.com/openai"
     model = settings.llm_model
-    if not model or model.startswith("llama3.1:8b") or model.startswith("qwen"):
-        model = "llama-3.3-70b-versatile"
+    if not model or "llama" in model.lower():
+        # Groq flagship open source reasoning model (120B)
+        model = "openai/gpt-oss-120b"
 
     return await _call_openai_compatible(
         prompt=prompt,
@@ -238,6 +245,7 @@ async def _stream_openai_compatible(
     }
 
     logger.debug("Streaming OpenAI-compatible — model=%s, url=%s", target_model, url)
+    in_reasoning = False
     async with client.stream("POST", url, json=payload, headers=headers) as response:
         response.raise_for_status()
         async for line in response.aiter_lines():
@@ -251,11 +259,23 @@ async def _stream_openai_compatible(
                 try:
                     data = json.loads(data_str)
                     delta = data.get("choices", [{}])[0].get("delta", {})
-                    token = delta.get("content", "")
-                    if token:
-                        yield token
+                    reasoning_token = delta.get("reasoning", "")
+                    content_token = delta.get("content", "")
+
+                    if reasoning_token:
+                        if not in_reasoning:
+                            in_reasoning = True
+                            yield "<think>\n"
+                        yield reasoning_token
+                    elif content_token:
+                        if in_reasoning:
+                            in_reasoning = False
+                            yield "\n</think>\n\n"
+                        yield content_token
                 except Exception:
                     continue
+        if in_reasoning:
+            yield "\n</think>\n\n"
 
 
 async def _stream_groq(prompt: str, is_fallback: bool = False) -> AsyncGenerator[str, None]:
@@ -263,8 +283,9 @@ async def _stream_groq(prompt: str, is_fallback: bool = False) -> AsyncGenerator
     if "localhost" in base_url or "127.0.0.1" in base_url:
         base_url = "https://api.groq.com/openai"
     model = settings.llm_model
-    if not model or model.startswith("llama3.1:8b") or model.startswith("qwen"):
-        model = "llama-3.3-70b-versatile"
+    if not model or "llama" in model.lower():
+        # Groq flagship open source reasoning model (120B)
+        model = "openai/gpt-oss-120b"
 
     async for token in _stream_openai_compatible(
         prompt=prompt,

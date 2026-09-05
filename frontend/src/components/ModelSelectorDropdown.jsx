@@ -26,13 +26,13 @@ export const ENGINE_OPTIONS = [
   },
   {
     id: 'groq-llama',
-    name: 'Groq Llama 3.3 70B',
-    shortName: 'Llama 3.3 70B',
+    name: 'Groq Cloud LPU (120B Reasoning)',
+    shortName: 'Groq 120B Cloud',
     badge: 'Cloud LPU',
     icon: Zap,
-    tag: 'CLOUD FAST',
+    tag: 'ULTRA FAST',
     speed: '~280 tok/s',
-    desc: 'Sub-second ultra-fast cloud inference with zero latency',
+    desc: 'Sub-second cloud inference with 120B deep reasoning',
     isLocal: false,
   },
   {

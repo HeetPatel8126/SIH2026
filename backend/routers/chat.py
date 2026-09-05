@@ -153,7 +153,7 @@ async def chat_stream(request: ChatRequest):
                         yield sse("token", {"token": before})
                         full_answer_parts.append(before)
                     think_start_time = time.time()
-                elif len(buffer) > 40:
+                elif len(buffer) >= 15 or "\n" in buffer:
                     # Model did not start with <think> tag — stream directly as answer
                     has_thought_ended = True
                     yield sse("thought_end", {

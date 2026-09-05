@@ -28,9 +28,21 @@
       "text": "Every genuine hallmarked gold article contains exactly three indelible laser marks:\n1. The BIS Triangular Logo (signifying national standards guarantee)\n2. Purity Fineness mark (e.g., '22K916' or '18K750')\n3. 6-digit alphanumeric Hallmark Unique Identification (HUID) code (e.g., 'AB12C3').\nConsumers can input this 6-digit code into the BIS CARE mobile app to verify the jeweller's registration, assaying center (AHC), date of hallmarking, and article type."
     },
     {
+      "clause": "Clause 6.0 Testing Parameters & Assaying Methods",
+      "title": "Fire Assay (Cupellation) and XRF Testing Requirements",
+      "page": 4,
+      "text": "Key testing parameters and official assaying methods under IS 1417:2016 include:\n1. Non-Destructive Screening (X-Ray Fluorescence / XRF): Preliminary rapid elemental surface analysis using energy-dispersive XRF spectrometer to verify karat range and identify base metal alloys (copper, silver, zinc, nickel).\n2. Destructive Fire Assay / Cupellation Test (as per IS 1418:2009): The benchmark reference method for definitive gold fineness determination. Involves wrapping representative sample drillings/scrapings in pure lead foil, cupellation in a muffle furnace at ~1100°C to absorb base metals into the porous bone-ash/magnesia cupel, inquartation with fine silver, parting with nitric acid (HNO3) to dissolve silver, annealing, and micro-gravimetric weighing accurate to 0.01 mg.\n3. Purity Tolerance: Zero negative tolerance for claimed purity grade; every sample must meet or exceed the specified fineness (e.g., 916.0 minimum for 22K)."
+    },
+    {
+      "clause": "Clause 7.0 Certification & Hallmarking Process",
+      "title": "Step-by-Step Jeweller Registration and AHC Certification Workflow",
+      "page": 5,
+      "text": "The certification and hallmarking process for IS 1417:2016 involves:\n1. Online Jeweller Registration: Jewellers apply for hallmarking registration certificate on the BIS Manakonline portal (www.manakonline.in) with GST, PAN, and address proof. Registration is granted automatically upon fee submission with lifetime validity and zero renewal fees.\n2. Consignment Submission to AHC: The registered jeweller prepares a delivery challan and brings batches of gold articles to a BIS-Recognized Assaying and Hallmarking Centre (AHC).\n3. Homogeneity & Receipt Logging: The AHC inspects the batch, segregates articles by declared karat grade, and performs preliminary XRF screening.\n4. Assaying (IS 1418): Random sample scrapings are drawn from homogeneous lots and subjected to fire assay testing to ensure compliance with IS 1417 purity grades.\n5. Laser Inscription of 3 Marks: Once tested and passed, the AHC laser-inscribes the 3 mandatory marks (BIS Triangular Logo, Purity grade e.g., 22K916, and unique 6-digit alphanumeric HUID) on each article.\n6. Portal Sync & Release: The AHC uploads hallmarking records to the national BIS HUID portal, generating a delivery certificate for the jeweller. Consumers can subsequently verify the hallmarked item on the BIS Care App."
+    },
+    {
       "clause": "Silver Hallmarking Status",
       "title": "Applicability of Silver Hallmarking in India",
-      "page": 4,
+      "page": 6,
       "text": "Silver hallmarking is currently VOLUNTARY in India under IS 2112:2014. Standard fineness grades for silver are 999 (fine silver), 970, 925 (Sterling Silver), 900, 835, and 800. Hallmarking of silver is performed by BIS-recognized AHCs upon jeweller request."
     }
   ]

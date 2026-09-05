@@ -180,9 +180,30 @@ SEED_DOCUMENTS = [
                 "Consumers can input this 6-digit code into the BIS CARE mobile app to verify the jeweller's registration, assaying center (AHC), date of hallmarking, and article type.",
             },
             {
+                "clause": "Clause 6.0 Testing Parameters & Assaying Methods",
+                "title": "Fire Assay (Cupellation) and XRF Testing Requirements",
+                "page": 4,
+                "text": "Key testing parameters and official assaying methods under IS 1417:2016 include:\n"
+                "1. Non-Destructive Screening (X-Ray Fluorescence / XRF): Preliminary rapid elemental surface analysis using energy-dispersive XRF spectrometer to verify karat range and identify base metal alloys (copper, silver, zinc, nickel).\n"
+                "2. Destructive Fire Assay / Cupellation Test (as per IS 1418:2009): The benchmark reference method for definitive gold fineness determination. Involves wrapping representative sample drillings/scrapings in pure lead foil, cupellation in a muffle furnace at ~1100°C to absorb base metals into the porous bone-ash/magnesia cupel, inquartation with fine silver, parting with nitric acid (HNO3) to dissolve silver, annealing, and micro-gravimetric weighing accurate to 0.01 mg.\n"
+                "3. Purity Tolerance: Zero negative tolerance for claimed purity grade; every sample must meet or exceed the specified fineness (e.g., 916.0 minimum for 22K).",
+            },
+            {
+                "clause": "Clause 7.0 Certification & Hallmarking Process",
+                "title": "Step-by-Step Jeweller Registration and AHC Certification Workflow",
+                "page": 5,
+                "text": "The certification and hallmarking process for IS 1417:2016 involves:\n"
+                "1. Online Jeweller Registration: Jewellers apply for hallmarking registration certificate on the BIS Manakonline portal (www.manakonline.in) with GST, PAN, and address proof. Registration is granted automatically upon fee submission with lifetime validity and zero renewal fees.\n"
+                "2. Consignment Submission to AHC: The registered jeweller prepares a delivery challan and brings batches of gold articles to a BIS-Recognized Assaying and Hallmarking Centre (AHC).\n"
+                "3. Homogeneity & Receipt Logging: The AHC inspects the batch, segregates articles by declared karat grade, and performs preliminary XRF screening.\n"
+                "4. Assaying (IS 1418): Random sample scrapings are drawn from homogeneous lots and subjected to fire assay testing to ensure compliance with IS 1417 purity grades.\n"
+                "5. Laser Inscription of 3 Marks: Once tested and passed, the AHC laser-inscribes the 3 mandatory marks (BIS Triangular Logo, Purity grade e.g., 22K916, and unique 6-digit alphanumeric HUID) on each article.\n"
+                "6. Portal Sync & Release: The AHC uploads hallmarking records to the national BIS HUID portal, generating a delivery certificate for the jeweller. Consumers can subsequently verify the hallmarked item on the BIS Care App.",
+            },
+            {
                 "clause": "Silver Hallmarking Status",
                 "title": "Applicability of Silver Hallmarking in India",
-                "page": 4,
+                "page": 6,
                 "text": "Silver hallmarking is currently VOLUNTARY in India under IS 2112:2014. Standard fineness grades for silver are 999 (fine silver), 970, 925 (Sterling Silver), 900, 835, and 800. Hallmarking of silver is performed by BIS-recognized AHCs upon jeweller request.",
             },
         ],
@@ -307,6 +328,18 @@ SEED_DOCUMENTS = [
                 "title": "Laboratory Recognition Scheme (LRS) Partners",
                 "page": 5,
                 "text": "In addition to BIS in-house laboratories, BIS partners with hundreds of NABL-accredited commercial and government facilities under the Laboratory Recognition Scheme (LRS), including National Test House (NTH), CPRI Bangalore (for high-voltage electrical power apparatus), Shriram Institute for Industrial Research (Delhi), and CIPET centers (for plastics).",
+            },
+            {
+                "clause": "CPRI (Central Power Research Institute) Testing Scope & Submission",
+                "title": "Autonomous Apex Testing Facility for Power & Electrical Apparatus",
+                "page": 6,
+                "text": "Central Power Research Institute (CPRI), Sir C.V. Raman Road, Sadashivanagar, P.B. No. 8066, Bengaluru 560080 (and regional units in Bhopal, Hyderabad, Nagpur, Noida, Kolkata).\nDisciplines & Testing Scope: Short-circuit testing, high-voltage transformers (IS 1180), switchgear & controlgear, lightning arresters, electric vehicle (EV) supply equipment & chargers, power cables, and smart meters.\nHow to Submit Product Test Samples to CPRI:\n1. Obtain a Test Request Form (TRF) or Manakonline Application Reference Number from BIS if applying under BIS Product Certification / CRS Scheme.\n2. Fill out the CPRI Testing Requisition Form available on the CPRI customer portal (www.cpri.res.in), specifying the applicable Indian Standard (IS code) and test parameters required.\n3. Securely pack product test samples with tamper-evident seals and attach official identification labels stating sample manufacturer, batch number, ratings, and BIS application ID.\n4. Deliver or courier the sample to the CPRI Central Reception / Customer Service Cell along with the advance testing fee and manufacturer test certificate (MTC).\n5. Following testing, CPRI issues an accredited test report and uploads it electronically to the BIS Manakonline portal for grant of license or CRS approval.",
+            },
+            {
+                "clause": "Sample Submission Guidelines to BIS Recognized Laboratories",
+                "title": "Protocol for Sending Test Samples to LRS Partner Facilities",
+                "page": 7,
+                "text": "Protocol for Submitting Product Samples for BIS Conformity Testing:\n1. Preliminary Application: The applicant must have a valid application registered on Manakonline (www.manakonline.in) for Scheme I (ISI Mark) or Scheme II (CRS).\n2. Sample Drawing & Counter-Sealing: Under Normal Procedure, samples are drawn during factory audit by the BIS inspecting officer and counter-sealed. Under Simplified Procedure / Option 2, the manufacturer submits self-drawn samples directly to an LRS recognized lab before audit.\n3. Documentation: Each sample consignment must include: (a) BIS Test Request Form (TRF), (b) Copy of Form I application, (c) Detailed technical construction file (TCF) / circuit diagram, (d) Payment receipt of prescribed testing charges.\n4. Receipt & Witnessing: Lab acknowledges receipt on the portal. Manufacturer may request to witness non-destructive tests where permissible under standard guidelines.",
             },
         ],
     },

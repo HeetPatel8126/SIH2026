@@ -343,31 +343,15 @@ async def _real_retrieve(
         return _mock_retrieve(query, top_k, category)
 
     try:
-        where_filter = None
-        if category and category != QueryCategory.GENERAL:
-            where_filter = {"category": category.value}
-
-        # Query ChromaDB with text (embedding function handles vectorization)
+        # Full semantic vector retrieval across all indexed BIS documents
         results = collection.query(
             query_texts=[query],
             n_results=top_k,
-            where=where_filter,
         )
 
         documents = results.get("documents", [[]])[0]
         metadatas = results.get("metadatas", [[]])[0]
         distances = results.get("distances", [[]])[0]
-
-        # If category filter produced zero results, query without filter
-        if not documents and where_filter:
-            logger.debug("Category filter '%s' yielded 0 results, querying unfiltered", where_filter)
-            results = collection.query(
-                query_texts=[query],
-                n_results=top_k,
-            )
-            documents = results.get("documents", [[]])[0]
-            metadatas = results.get("metadatas", [[]])[0]
-            distances = results.get("distances", [[]])[0]
 
         chunks = []
         for i, doc in enumerate(documents):

@@ -12,7 +12,12 @@ from functools import lru_cache
 
 from dotenv import load_dotenv
 
-load_dotenv()
+load_dotenv(override=True)
+
+# Prevent HuggingFace Hub from making network checks on local embeddings model
+os.environ.setdefault("HF_HUB_OFFLINE", "1")
+os.environ.setdefault("TRANSFORMERS_OFFLINE", "1")
+os.environ.setdefault("HF_DATASETS_OFFLINE", "1")
 
 
 class Settings:

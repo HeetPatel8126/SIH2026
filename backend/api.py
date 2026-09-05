@@ -57,6 +57,14 @@ async def lifespan(app: FastAPI):
         settings.llm_model,
         settings.use_mock_retriever,
     )
+    # Pre-warm embeddings and vector store so first request is instantaneous (<20ms)
+    try:
+        from backend.services.retriever import retrieve
+        await retrieve("warmup", top_k=1)
+        logger.info("Retriever embeddings and ChromaDB warmed up successfully.")
+    except Exception as e:
+        logger.warning("Startup retriever warmup: %s", e)
+
     yield
     logger.info("Shutting down — closing HTTP client")
     await shutdown_client()
@@ -99,7 +107,6 @@ async def log_requests(request: Request, call_next):
         request.method, request.url.path, response.status_code, duration,
     )
     return response
-
 
 
 
