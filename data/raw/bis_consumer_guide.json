@@ -1,0 +1,36 @@
+{
+  "is_code": "BIS Consumer Guide",
+  "title": "Consumer Rights, Verification & Grievance Mechanisms",
+  "category": "consumer",
+  "metadata": {
+    "sector": "Consumer Protection",
+    "url": "https://www.bis.gov.in",
+    "year": 2024
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Consumer Complaint Channels",
+      "title": "How to File a Complaint",
+      "page": 1,
+      "text": "How consumers can file complaints about substandard or counterfeit ISI-marked products:\n1. BIS Care App: Available on Android (Google Play) and iOS (App Store). Scan the ISI mark or enter the license number to report a complaint directly.\n2. BIS Website: Online complaint form at www.bis.gov.in → 'Consumer Corner' → 'File a Complaint'.\n3. Email: Send complaint details to ccd@bis.gov.in (Consumer Complaints Division).\n4. Toll-free Helpline: 1800-11-4100 (available Monday–Friday, 9:30 AM to 5:30 PM IST).\n5. Written Complaint: Send by post to the nearest BIS Regional/Branch Office.\n\nRequired information for complaints: Product details, ISI mark number, CM/L number, date of purchase, seller details, nature of complaint, and photographic evidence if possible."
+    },
+    {
+      "clause": "2.0 ISI Mark Verification",
+      "title": "How to Verify ISI Mark Authenticity",
+      "page": 3,
+      "text": "How to verify if an ISI mark is genuine:\nA genuine ISI mark consists of:\n1. The ISI logo (a triangular figure with 'ISI' text inside)\n2. The IS standard number (e.g., IS 2347 for pressure cookers)\n3. A CM/L (Certification Marks License) number unique to the manufacturer\n\nVerification methods:\n1. BIS Care App: Enter the CM/L number to verify the manufacturer's license status.\n2. BIS Website: Visit www.bis.gov.in → 'Know Your Standards' → 'Verify License'.\n3. Check the CM/L number format: It follows the pattern 'CM/L-XXXXXXX' where X are digits.\n\nWarning signs of fake ISI marks:\n- Blurry or poorly printed ISI logo\n- Missing CM/L number\n- CM/L number that returns 'no record found' on BIS portal\n- ISI mark without the IS standard number\n- Products from categories where ISI mark is mandatory but mark looks suspicious"
+    },
+    {
+      "clause": "3.0 Penalties for Misuse",
+      "title": "Penalties for Misuse of ISI Mark and BIS Standards",
+      "page": 5,
+      "text": "Penalties under BIS Act 2016 for misuse:\n1. Using ISI mark without license: Fine of ₹2 lakh to ₹5 lakh, imprisonment up to 2 years, or both.\n2. Using counterfeit ISI mark: Fine up to ₹10 lakh and imprisonment up to 2 years.\n3. Selling non-conforming products with ISI mark: Fine of minimum ₹1 lakh or 10 times the value of goods (whichever is more).\n4. Selling without mandatory BIS certification (for compulsory items): Fine of ₹2 lakh + ₹2 lakh for each subsequent offence.\n5. Obstructing BIS officers during inspection: Fine up to ₹1 lakh.\n\nBIS has the power to:\n- Suspend or cancel licenses\n- Order product recall\n- File criminal complaints\n- Seize non-conforming goods\n- Publish names of non-compliant manufacturers"
+    },
+    {
+      "clause": "4.0 Standards Clubs",
+      "title": "BIS Standards Clubs for Students",
+      "page": 7,
+      "text": "BIS Standards Club Scheme:\n- Purpose: Promote quality awareness among students through Standards Clubs in schools, colleges, and polytechnics.\n- Eligibility: Any recognized educational institution can establish a Standards Club.\n- Activities: Workshops on standardization, visits to BIS offices and labs, poster/essay competitions, quality awareness campaigns.\n- Benefits: Students gain awareness about BIS certification, ISI mark, hallmarking, and quality consciousness.\n- Registration: Apply through the nearest BIS Branch Office or online at www.bis.gov.in.\n- BIS provides resource materials and guest speakers for Standards Club events."
+    }
+  ]
+}

@@ -1,37 +1,25 @@
 {
   "is_code": "IS 2347:2017",
-  "title": "Domestic Pressure Cookers — Specification (Fifth Revision)",
+  "title": "Domestic Pressure Cookers — Specification",
   "category": "standards",
   "metadata": {
-    "sector": "Mechanical & Consumer Appliances",
-    "statutory_authority": "Ministry of Consumer Affairs (Mandatory ISI Mark QCO 2020)",
-    "url": "https://www.bis.gov.in/standards/is-2347-2017",
-    "year": 2017
+    "sector": "Consumer Products",
+    "url": "https://www.bis.gov.in",
+    "year": 2017,
+    "mandatory_certification": true
   },
   "clauses": [
     {
-      "clause": "1.0 Scope & Mandatory Status",
-      "title": "Mandatory Certification Under Quality Control Order",
+      "clause": "1.0 Scope",
+      "title": "Scope and Applicability",
       "page": 1,
-      "text": "Domestic pressure cookers sold, imported, or manufactured in India MUST mandatorily carry the Standard ISI Mark under the Domestic Pressure Cookers (Quality Control) Order. Manufacturing or selling uncertified domestic pressure cookers without a valid BIS CM/L license is a criminal offense under Section 16 & 29 of the BIS Act 2016."
+      "text": "IS 2347 specifies requirements for domestic pressure cookers made of aluminium, stainless steel, or hard anodised aluminium, with capacity from 1.5 to 30 litres. Pressure cookers are under MANDATORY ISI certification (Scheme I). Every pressure cooker sold in India must bear the ISI mark with the manufacturer's CM/L number."
     },
     {
-      "clause": "Clause 4.1 Materials & Construction",
-      "title": "Material Quality and Minimum Wall Thickness",
+      "clause": "5.0 Safety Requirements",
+      "title": "Safety and Performance Requirements",
       "page": 3,
-      "text": "Pressure cooker bodies and lids must be made of food-grade wrought aluminium alloy (IS 21), stainless steel (AISI 304 / Grade 18/8), or composite metals. Minimum body thickness for aluminium is 3.25 mm; for stainless steel it is 1.0 mm to prevent thermal distortion and violent rupture."
-    },
-    {
-      "clause": "Clause 6.3 Safety Devices & Bursting Pressure Test",
-      "title": "Safety Vent Weight, Safety Valve & Proof Pressure",
-      "page": 5,
-      "text": "Every cooker must have a primary pressure regulating weight vent (operates at 1.0 kgf/cm² ± 0.1) and a secondary fusible safety plug/valve that fuses between 1.4 to 2.0 kgf/cm² if the main vent gets blocked. The hydrostatic proof pressure test requires the cooker to withstand 2.5 times the operating pressure without leakage or permanent deformation."
-    },
-    {
-      "clause": "Clause 9.0 Marking Requirements",
-      "title": "Mandatory Markings on Pressure Cooker and Carton",
-      "page": 7,
-      "text": "Every cooker must be indelibly stamped on its bottom with: (a) Manufacturer's name or trademark, (b) Nominal capacity in litres, (c) Standard Mark (ISI logo), (d) 7 or 8-digit BIS License Number (CM/L-XXXXXXXX), and (e) Batch number and month/year of manufacture."
+      "text": "Safety requirements for pressure cookers (IS 2347):\n- Operating pressure: 98.07 kPa (1 kg/cm² gauge) ± 10%\n- Safety valve: Must release pressure at 1.4 times the operating pressure\n- Fusible safety plug: Must melt at 180°C ± 10°C (aluminium alloy fuse)\n- Gasket sealing ring: Must withstand minimum 5 times normal operating pressure\n- Hydrostatic test pressure: 3 times the maximum working pressure\n- Handle strength: Must withstand 3 times the weight of the cooker when filled\n- Minimum wall thickness: 2.5 mm for aluminium, 0.8 mm for stainless steel\n- Marking: ISI mark, IS number, capacity in litres, manufacturer's name, CM/L number"
     }
   ]
 }

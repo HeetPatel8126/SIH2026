@@ -310,9 +310,17 @@ def _get_chroma_collection():
             settings=ChromaSettings(anonymized_telemetry=False),
         )
 
-        ef = embedding_functions.SentenceTransformerEmbeddingFunction(
-            model_name=settings.embedding_model
-        )
+        ef = None
+        try:
+            ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+                model_name=settings.embedding_model
+            )
+        except Exception:
+            try:
+                ef = embedding_functions.DefaultEmbeddingFunction()
+            except Exception:
+                ef = None
+
         _chroma_collection = _chroma_client.get_collection(
             name=settings.chroma_collection,
             embedding_function=ef,

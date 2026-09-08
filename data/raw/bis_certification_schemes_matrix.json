@@ -1,0 +1,42 @@
+{
+  "is_code": "BIS Certification Schemes Matrix",
+  "title": "BIS Product Certification Schemes — Comprehensive Overview",
+  "category": "certification",
+  "metadata": {
+    "sector": "BIS Services",
+    "url": "https://www.bis.gov.in",
+    "year": 2024
+  },
+  "clauses": [
+    {
+      "clause": "Scheme I — ISI Mark",
+      "title": "Product Certification Scheme (ISI Mark)",
+      "page": 1,
+      "text": "BIS Product Certification Scheme I (ISI Mark): For domestic Indian manufacturers.\n- Purpose: Certifies that a product conforms to the relevant Indian Standard.\n- Process: Application → Factory inspection by BIS officers → Product sample testing in BIS-recognized lab → License grant.\n- License validity: 1 year initially, renewable annually.\n- Fees: Application fee ₹1,000; Annual marking fee based on production volume (0.1% to 0.2% of ex-factory value, subject to minimum/maximum caps).\n- Surveillance: BIS conducts periodic surprise inspections and market sample testing.\n- ISI mark components: ISI logo (triangle), IS standard number, CM/L (Certification Marks License) number.\n- Products: Covers cement, steel, food items, electrical appliances, helmets, cylinders, pressure cookers, water purifiers, and 500+ other product categories."
+    },
+    {
+      "clause": "Scheme II — CRS",
+      "title": "Compulsory Registration Scheme (CRS)",
+      "page": 3,
+      "text": "BIS Compulsory Registration Scheme (CRS / Scheme II): For electronics and IT goods.\n- Purpose: Ensures safety of electronic and IT products sold in India.\n- Applicable to: Products notified under the Electronics and Information Technology Goods (Requirements for Compulsory Registration) Order by MeitY.\n- Key product categories: LED lamps, LED luminaires, UPS systems, power banks, adapters, fixed/portable computers, printers, monitors, set-top boxes, smart watches.\n- Process: Manufacturer/importer gets products tested at BIS-recognized lab → Submits test report + application on BIS portal (manakonline.bis.gov.in) → BIS issues Registration Certificate.\n- Key difference from ISI: No factory inspection required — it's self-declaration based after lab testing.\n- Registration validity: 2 years, renewable.\n- Fee: Registration fee ₹1,000 per model per standard.\n- Foreign manufacturers: Must appoint an Authorized Indian Representative (AIR) who takes legal responsibility."
+    },
+    {
+      "clause": "FMCS",
+      "title": "Foreign Manufacturers Certification Scheme (FMCS)",
+      "page": 5,
+      "text": "FMCS (Foreign Manufacturers Certification Scheme): For overseas manufacturers exporting to India.\n- Purpose: Enables foreign manufacturers to obtain ISI mark certification for products exported to India.\n- Requirements:\n  1. Appoint an Authorized Indian Representative (AIR) resident in India.\n  2. Application through AIR on BIS portal.\n  3. Factory inspection by BIS officers at the foreign manufacturing facility (manufacturer bears travel and inspection costs).\n  4. Product testing at a BIS-recognized lab.\n  5. License grant upon compliance.\n- Fees: Same as Scheme I, plus travel costs for BIS officers.\n- Validity: Same as Scheme I (1 year, renewable).\n- The AIR is legally responsible for the product's conformity in India."
+    },
+    {
+      "clause": "Scheme X",
+      "title": "Scheme X — For Non-Indian Standards",
+      "page": 7,
+      "text": "BIS Scheme X: Certification against non-Indian standards.\n- Purpose: Allows manufacturers to get BIS certification for products conforming to international standards (ISO, IEC, ASTM, etc.) when no equivalent Indian Standard exists.\n- Process: Similar to Scheme I, but assessment is done against the specified international/foreign standard.\n- Use case: Products for export or products where an Indian Standard hasn't been published yet.\n- Less commonly used than Schemes I and II."
+    },
+    {
+      "clause": "ECO Mark",
+      "title": "ECO Mark Certification Scheme",
+      "page": 8,
+      "text": "BIS ECO Mark Scheme: Voluntary environmental certification.\n- Purpose: Certifies that products meet specific environmental criteria in addition to quality requirements.\n- Applicable product categories: Soaps and detergents, paper/paper products, food items, lubricating oils, packaging materials, paints/varnishes, batteries, electrical/electronic goods, textiles, cosmetics, plastics, fire extinguishers.\n- Process: Product must first conform to the relevant Indian Standard + meet additional ECO Mark criteria (biodegradability, minimal toxicity, energy efficiency, recyclability).\n- The ECO Mark logo is an earthen pot (matka) symbol.\n- Voluntary scheme — not mandatory, but increasingly valued by environmentally-conscious consumers."
+    }
+  ]
+}

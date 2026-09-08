@@ -1,0 +1,25 @@
+{
+  "is_code": "IS 14543:2016",
+  "title": "Packaged Drinking Water (Other Than Packaged Natural Mineral Water) — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Food & Water",
+    "url": "https://www.bis.gov.in",
+    "year": 2016,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "This standard covers packaged drinking water (other than packaged natural mineral water). It specifies requirements for raw water source, treatment process, packaging, and labelling. All packaged drinking water sold in India MUST bear the ISI mark under compulsory BIS certification (Scheme I). Products not conforming to IS 14543 cannot be legally sold as packaged drinking water."
+    },
+    {
+      "clause": "5.0 Requirements",
+      "title": "Requirements for Packaged Drinking Water",
+      "page": 3,
+      "text": "Requirements include:\n- TDS: Shall not exceed 500 mg/L.\n- pH: 6.5 to 8.5.\n- Turbidity: Maximum 1 NTU.\n- Ozone treatment residual: Not more than 0.1 mg/L at the time of packaging.\n- Packing: Clean, hygienic, food-grade containers. Reusable containers must be properly cleaned and sanitized.\n- Labelling: Must display ISI mark, CM/L number, IS code, net quantity, manufacturing date, batch number, and 'best before' date."
+    }
+  ]
+}

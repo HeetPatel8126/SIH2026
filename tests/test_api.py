@@ -385,3 +385,34 @@ class TestCertificationGuideEndpoint:
     def test_certification_validation_empty_query(self):
         response = client.post("/certification-guide", json={"query": ""})
         assert response.status_code == 422
+
+
+class TestHybridFallback:
+    """Tests for hybrid LLM fallback mechanism."""
+
+    def test_fallback_called_when_primary_fails(self):
+        import asyncio
+        from unittest.mock import patch, AsyncMock
+        from backend.services.llm_wrapper import call_llm
+        from backend.config import settings
+
+        mock_groq = AsyncMock(side_effect=RuntimeError("Groq Down"))
+        mock_ollama = AsyncMock(return_value="Ollama Fallback Response")
+
+        with patch.dict("backend.services.llm_wrapper._PROVIDERS", {"groq": mock_groq, "ollama": mock_ollama}):
+            original_p = settings.llm_provider
+            original_fb = settings.fallback_llm_provider
+            original_en = settings.fallback_enabled
+            try:
+                settings.llm_provider = "groq"
+                settings.fallback_llm_provider = "ollama"
+                settings.fallback_enabled = True
+                result = asyncio.run(call_llm("test prompt", retries=0))
+                assert "Ollama Fallback Response" in result
+                assert mock_groq.called
+                assert mock_ollama.called
+            finally:
+                settings.llm_provider = original_p
+                settings.fallback_llm_provider = original_fb
+                settings.fallback_enabled = original_en
+

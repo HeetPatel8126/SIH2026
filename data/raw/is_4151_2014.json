@@ -1,0 +1,19 @@
+{
+  "is_code": "IS 4151:2014",
+  "title": "Automotive Tyres — Pneumatic Tyres for Passenger Vehicles — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Automotive",
+    "url": "https://www.bis.gov.in",
+    "year": 2014,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 4151 specifies requirements for new pneumatic tyres for passenger cars. Covers tyre dimensions, load-bearing capacity, speed rating, tread pattern, and endurance requirements. Vehicle tyres are under mandatory ISI certification in India."
+    }
+  ]
+}

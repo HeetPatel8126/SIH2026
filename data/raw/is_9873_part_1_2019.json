@@ -1,0 +1,25 @@
+{
+  "is_code": "IS 9873 (Part 1):2019",
+  "title": "Safety of Toys — Part 1: Safety Aspects Related to Mechanical and Physical Properties",
+  "category": "standards",
+  "metadata": {
+    "sector": "Consumer Products",
+    "url": "https://www.bis.gov.in",
+    "year": 2019,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 9873 (Part 1) specifies safety requirements for toys. It covers mechanical and physical hazards including sharp edges, small parts (choking hazard), and projectile risks. Toys are under MANDATORY BIS certification (CRS / Compulsory Registration Scheme II). All toys sold in India — whether manufactured domestically or imported — must be registered under CRS."
+    },
+    {
+      "clause": "4.0 Key Safety Tests",
+      "title": "Safety Tests and Requirements",
+      "page": 3,
+      "text": "Key safety tests for toys under IS 9873:\n- Small parts test: Parts that detach during testing shall not fit entirely within the small parts cylinder (prevents choking for children under 3)\n- Sharp edge test: No accessible sharp edges before or after abuse testing\n- Sharp point test: No accessible sharp points\n- Drop test: Toy dropped from 1.37m shall not produce sharp edges or small parts\n- Tension test: Attachments shall withstand 70N pull for 10 seconds\n- Phthalate content: Total of DEHP, DBP, BBP ≤0.1% each (Parts 12/13)\n- Age grading: All toys must be clearly age-graded on packaging"
+    }
+  ]
+}

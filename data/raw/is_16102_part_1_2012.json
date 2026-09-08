@@ -1,0 +1,25 @@
+{
+  "is_code": "IS 16102 (Part 1):2012",
+  "title": "Self-Ballasted LED Lamps for General Lighting — Part 1: Safety Requirements",
+  "category": "standards",
+  "metadata": {
+    "sector": "Electronics & IT",
+    "url": "https://www.bis.gov.in",
+    "year": 2012,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 16102 (Part 1) specifies safety requirements for self-ballasted LED lamps for general lighting service having a supply voltage up to 250V. This standard is used for CRS (Compulsory Registration Scheme II) registration. LED lamps (bulbs) MUST be registered under CRS before sale in India."
+    },
+    {
+      "clause": "5.0 Safety Requirements",
+      "title": "Safety Tests and Requirements",
+      "page": 3,
+      "text": "Safety requirements for LED lamps (IS 16102 Part 1):\n- Marking: Rated voltage, rated wattage, rated frequency, manufacturer's name/trademark, model number\n- Protection against electric shock: No accessible live parts at rated voltage\n- Insulation resistance: ≥2 MΩ\n- Electric strength: Withstand 1000V RMS for 1 minute\n- Thermal test: Lamp shall operate safely at maximum ambient temperature\n- Endurance test: 4000 hours of operation with no safety hazard\n- EMC requirements per IS 9000 (CISPR 15 equivalent)"
+    }
+  ]
+}

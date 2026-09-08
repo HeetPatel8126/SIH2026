@@ -1,0 +1,18 @@
+{
+  "is_code": "IS 15736:2006",
+  "title": "Electric Vehicles — Battery Operated Vehicles — Requirements",
+  "category": "standards",
+  "metadata": {
+    "sector": "Automotive",
+    "url": "https://www.bis.gov.in",
+    "year": 2006
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 15736 specifies general requirements for battery-operated electric vehicles for on-road and off-road use. Covers battery safety, electrical isolation, crash-worthiness of battery packs, and charging interface requirements. As India pushes EV adoption, this standard is increasingly important for vehicle manufacturers."
+    }
+  ]
+}

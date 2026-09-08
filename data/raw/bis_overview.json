@@ -1,0 +1,24 @@
+{
+  "is_code": "BIS Overview",
+  "title": "Bureau of Indian Standards — About BIS",
+  "category": "general",
+  "metadata": {
+    "sector": "BIS Services",
+    "url": "https://www.bis.gov.in",
+    "year": 2024
+  },
+  "clauses": [
+    {
+      "clause": "1.0 About BIS",
+      "title": "Introduction to BIS",
+      "page": 1,
+      "text": "Bureau of Indian Standards (BIS) is the national standards body of India established under the Bureau of Indian Standards Act, 2016. It functions under the Ministry of Consumer Affairs, Food & Public Distribution. BIS is responsible for:\n1. Formulating Indian Standards (IS codes) — over 22,000 standards published covering food, electronics, construction, chemicals, textiles, automotive, and more.\n2. Product certification (ISI mark under Scheme I, CRS under Scheme II, FMCS for foreign manufacturers).\n3. Hallmarking of precious metals (gold, silver).\n4. Laboratory recognition and testing.\n5. Consumer protection related to standardized products.\n6. Promoting quality consciousness through Standards Clubs.\n\nBIS has its headquarters in New Delhi with 5 Regional Offices (Delhi, Mumbai, Kolkata, Chennai, Chandigarh) and 36 Branch Offices across India.\nWebsite: www.bis.gov.in | Helpline: 1800-11-4100"
+    },
+    {
+      "clause": "2.0 BIS Act 2016",
+      "title": "BIS Act 2016 — Key Provisions",
+      "page": 3,
+      "text": "Key provisions of the Bureau of Indian Standards Act, 2016:\n- Replaced the old Bureau of Indian Standards Act, 1986.\n- Empowers the Central Government to notify products for mandatory certification.\n- Provides for compulsory hallmarking of precious metals.\n- Stricter penalties for misuse of Standard Mark (ISI mark) — up to ₹10 lakh fine and 2 years imprisonment.\n- Enables BIS to establish labs and recognize external laboratories.\n- Provides for recall of non-conforming products.\n- Enables online registration and licensing through manakonline.bis.gov.in portal.\n- Special provisions for MSMEs and startups with reduced fees and faster processing."
+    }
+  ]
+}

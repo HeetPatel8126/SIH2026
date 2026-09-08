@@ -3,6 +3,7 @@ BIS AI Assistant — Prompt Templates
 
 Category-specific system prompts and context formatting for the RAG pipeline.
 Each template is tailored to a QueryCategory to produce better grounded answers.
+Supports multi-turn conversation history injection.
 """
 
 from __future__ import annotations
@@ -104,6 +105,36 @@ MULTILINGUAL_INSTRUCTION = (
 )
 
 # ---------------------------------------------------------------------------
+# Conversation history formatting
+# ---------------------------------------------------------------------------
+
+def format_conversation_history(history: list[dict]) -> str:
+    """
+    Format previous conversation turns into a prompt block.
+
+    Args:
+        history: List of dicts with 'role' ('user'|'assistant') and 'content'.
+
+    Returns:
+        Formatted history string, or empty string if no history.
+    """
+    if not history:
+        return ""
+
+    parts: list[str] = ["\n### Conversation History:\n"]
+    for turn in history:
+        role = turn.get("role", "user")
+        content = turn.get("content", "")
+        if role == "user":
+            parts.append(f"**User:** {content}")
+        else:
+            parts.append(f"**Assistant:** {content}")
+
+    parts.append("")  # trailing newline
+    return "\n".join(parts)
+
+
+# ---------------------------------------------------------------------------
 # Context formatting
 # ---------------------------------------------------------------------------
 
@@ -161,6 +192,7 @@ def build_full_prompt(
     category: str,
     language: str = "en",
     max_context_chars: int = 12000,
+    history: list[dict] | None = None,
 ) -> str:
     """
     Assemble the complete prompt for the LLM.
@@ -171,6 +203,7 @@ def build_full_prompt(
         category: QueryCategory value string.
         language: ISO 639-1 language code.
         max_context_chars: Max chars for context block.
+        history: Optional conversation history from session store.
 
     Returns:
         The fully assembled prompt string.
@@ -185,6 +218,10 @@ def build_full_prompt(
     # Multilingual instruction
     if language != "en":
         prompt += MULTILINGUAL_INSTRUCTION.format(language=language)
+
+    # Conversation history (if multi-turn)
+    if history:
+        prompt += format_conversation_history(history)
 
     # Context block
     context = format_context_block(chunks, max_chars=max_context_chars)

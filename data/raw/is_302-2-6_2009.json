@@ -1,0 +1,19 @@
+{
+  "is_code": "IS 302-2-6:2009",
+  "title": "Safety of Household and Similar Electrical Appliances — Particular Requirements for Stationary Cooking Ranges, Hobs, Ovens and Similar Appliances",
+  "category": "standards",
+  "metadata": {
+    "sector": "Electronics & IT",
+    "url": "https://www.bis.gov.in",
+    "year": 2009,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 302-2-6 (based on IEC 60335-2-6) specifies safety requirements for stationary electric cooking ranges, hobs, ovens, and similar appliances for household use, rated voltage up to 250V single-phase or 480V 3-phase. This standard is mandatory for ISI certification of cooking appliances sold in India."
+    }
+  ]
+}

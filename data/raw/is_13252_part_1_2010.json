@@ -1,0 +1,19 @@
+{
+  "is_code": "IS 13252 (Part 1):2010",
+  "title": "Uninterruptible Power Supply (UPS) — Safety Requirements",
+  "category": "standards",
+  "metadata": {
+    "sector": "Electronics & IT",
+    "url": "https://www.bis.gov.in",
+    "year": 2010,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 13252 (Part 1) covers safety requirements for Uninterruptible Power Supply (UPS) systems. UPS devices must be registered under the Compulsory Registration Scheme (CRS / Scheme II) before sale in India. The registration is valid for 2 years and requires testing at a BIS-recognized laboratory."
+    }
+  ]
+}

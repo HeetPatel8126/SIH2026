@@ -1,8 +1,9 @@
 """
 BIS AI Assistant — Prompt Builder Service
 
-Assembles the final prompt from templates, retrieved context, and user query.
-Thin wrapper around prompts.templates for use by routers.
+Assembles the final prompt from templates, retrieved context, user query,
+and optional conversation history. Thin wrapper around prompts.templates
+for use by routers.
 """
 
 from __future__ import annotations
@@ -21,6 +22,7 @@ def build_prompt(
     chunks: list[dict],
     category: QueryCategory,
     language: str = "en",
+    history: list[dict] | None = None,
 ) -> str:
     """
     Build the complete LLM prompt for a given query.
@@ -30,6 +32,7 @@ def build_prompt(
         chunks: Retrieved context chunks from the vector DB.
         category: Classified query category.
         language: ISO 639-1 language code.
+        history: Optional conversation history from session store.
 
     Returns:
         Fully assembled prompt string.
@@ -40,13 +43,15 @@ def build_prompt(
         category=category.value,
         language=language,
         max_context_chars=settings.max_context_chars,
+        history=history,
     )
 
     logger.debug(
-        "Built prompt — category=%s, chunks=%d, language=%s, length=%d chars",
+        "Built prompt — category=%s, chunks=%d, language=%s, history_turns=%d, length=%d chars",
         category.value,
         len(chunks),
         language,
+        len(history) // 2 if history else 0,
         len(prompt),
     )
 

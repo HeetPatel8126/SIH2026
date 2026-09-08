@@ -1,0 +1,19 @@
+{
+  "is_code": "IS 8112:2013",
+  "title": "43 Grade Ordinary Portland Cement — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Construction & Steel",
+    "url": "https://www.bis.gov.in",
+    "year": 2013,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 8112 specifies requirements for 43-grade Ordinary Portland Cement. This is the most commonly used grade of cement in India for general construction purposes. The cement must achieve a minimum compressive strength of 43 MPa at 28 days. ISI mark is mandatory."
+    }
+  ]
+}

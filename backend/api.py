@@ -6,6 +6,7 @@ This is the main application entry point. All endpoint logic lives in
 dedicated routers under backend/routers/. This file only handles:
     - App creation & metadata
     - CORS middleware
+    - Rate limiting middleware (slowapi)
     - Request logging middleware
     - Health endpoint
     - Router registration
@@ -27,11 +28,26 @@ from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from backend.config import settings
 from backend.models.schemas import HealthResponse
 from backend.routers import chat_router, standards_router, certification_router
 from backend.services.llm_wrapper import shutdown_client
+
+# ---------------------------------------------------------------------------
+# Rate Limiting (slowapi)
+# ---------------------------------------------------------------------------
+try:
+    from slowapi import Limiter, _rate_limit_exceeded_handler
+    from slowapi.util import get_remote_address
+    from slowapi.errors import RateLimitExceeded
+
+    limiter = Limiter(key_func=get_remote_address)
+    _RATE_LIMITING_AVAILABLE = True
+except ImportError:
+    limiter = None
+    _RATE_LIMITING_AVAILABLE = False
 
 # ---------------------------------------------------------------------------
 # Logging
@@ -83,11 +99,19 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
+# Attach rate limiter to app state
+if _RATE_LIMITING_AVAILABLE and limiter is not None:
+    app.state.limiter = limiter
+    app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
+    logger.info("Rate limiting enabled (slowapi)")
+else:
+    logger.warning("slowapi not installed — rate limiting disabled. pip install slowapi to enable.")
 
-# CORS — allow the frontend (React / Streamlit) to talk to us
+
+# CORS — configurable origins from env (defaults to ["*"] for dev)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],           # tighten for production
+    allow_origins=settings.cors_origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],

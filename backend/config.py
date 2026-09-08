@@ -54,6 +54,13 @@ class Settings:
     port: int = int(os.getenv("PORT", "8000"))
     debug: bool = os.getenv("DEBUG", "true").lower() == "true"
 
+    # --- CORS ---
+    cors_origins: list[str] = os.getenv("CORS_ORIGINS", "*").split(",")
+
+    # --- Session / Conversation Memory ---
+    session_max_turns: int = int(os.getenv("SESSION_MAX_TURNS", "5"))
+    session_ttl_seconds: int = int(os.getenv("SESSION_TTL_SECONDS", "1800"))
+
     # --- Prompt ---
     max_context_chars: int = int(os.getenv("MAX_CONTEXT_CHARS", "12000"))
 

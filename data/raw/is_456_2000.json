@@ -1,0 +1,24 @@
+{
+  "is_code": "IS 456:2000",
+  "title": "Plain and Reinforced Concrete — Code of Practice (Fourth Revision)",
+  "category": "standards",
+  "metadata": {
+    "sector": "Construction & Steel",
+    "url": "https://www.bis.gov.in",
+    "year": 2000
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 456 is the primary Indian Standard code of practice for design of plain and reinforced concrete structures. It covers materials, workmanship, inspection, and testing requirements. This is one of the most important BIS standards for the construction industry and is mandatorily followed in all government and private construction projects in India."
+    },
+    {
+      "clause": "Table 5 — Grades of Concrete",
+      "title": "Grades of Concrete",
+      "page": 5,
+      "text": "Standard grades of concrete as per IS 456:\n- M10: Characteristic compressive strength 10 MPa (used for lean concrete, levelling)\n- M15: 15 MPa (plain concrete works, PCC)\n- M20: 20 MPa (general reinforced concrete, minimum for RCC)\n- M25: 25 MPa (reinforced concrete in moderate exposure)\n- M30: 30 MPa (RCC in severe exposure conditions, bridges)\n- M35: 35 MPa (pre-stressed concrete, heavy structural work)\n- M40 and above: High-performance concrete for special structures\n- Minimum grade for reinforced concrete is M20. Minimum grade for pre-stressed concrete is M30.\n- Water-cement ratio shall not exceed 0.55 for M20 in moderate exposure."
+    }
+  ]
+}

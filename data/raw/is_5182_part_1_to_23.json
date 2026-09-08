@@ -1,0 +1,18 @@
+{
+  "is_code": "IS 5182 (Part 1 to 23)",
+  "title": "Methods for Measurement of Air Pollution",
+  "category": "standards",
+  "metadata": {
+    "sector": "Environment",
+    "url": "https://www.bis.gov.in",
+    "year": 1969
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 5182 is a comprehensive multi-part standard covering methods for measurement of air pollution. Covers testing of: sulphur dioxide (Part 2), nitrogen oxides (Part 6), lead (Part 7), suspended particulate matter (Part 4), carbon monoxide (Part 10), and other pollutants. Used by CPCB and SPCBs for monitoring ambient air quality across India."
+    }
+  ]
+}

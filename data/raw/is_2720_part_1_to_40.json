@@ -1,0 +1,18 @@
+{
+  "is_code": "IS 2720 (Part 1 to 40)",
+  "title": "Methods of Test for Soils",
+  "category": "standards",
+  "metadata": {
+    "sector": "Construction & Steel",
+    "url": "https://www.bis.gov.in",
+    "year": 1983
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 2720 is a comprehensive multi-part standard covering methods of test for soils. It includes tests for grain size analysis, moisture content, Atterberg limits, compaction, shear strength, permeability, consolidation, and California Bearing Ratio (CBR). Used in all civil engineering and geotechnical projects in India."
+    }
+  ]
+}

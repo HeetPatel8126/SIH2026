@@ -1,0 +1,25 @@
+{
+  "is_code": "IS 1786:2008",
+  "title": "High Strength Deformed Steel Bars and Wires for Concrete Reinforcement — Specification (Fourth Revision)",
+  "category": "standards",
+  "metadata": {
+    "sector": "Construction & Steel",
+    "url": "https://www.bis.gov.in",
+    "year": 2008,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 1786 specifies requirements for high strength deformed steel bars and wires (TMT bars) produced by the thermo-mechanical treatment process for use as reinforcement in concrete. ISI certification is MANDATORY for TMT bars/steel reinforcement sold in India."
+    },
+    {
+      "clause": "5.0 Grades",
+      "title": "Grades and Properties",
+      "page": 3,
+      "text": "TMT bar grades under IS 1786:\n- Fe 415: Yield strength ≥415 MPa, Elongation ≥14.5%. Most common for residential construction.\n- Fe 415D: Ductile variant of Fe 415 with higher elongation (≥18%). Recommended for earthquake-prone zones.\n- Fe 500: Yield strength ≥500 MPa, Elongation ≥12%. For commercial and industrial structures.\n- Fe 500D: Ductile variant with elongation ≥16%. Preferred for seismic zones.\n- Fe 550: Yield ≥550 MPa. For heavy infrastructure.\n- Fe 600: Yield ≥600 MPa. For pre-stressed concrete and specialized applications.\n- Carbon content: Max 0.30% for Fe 415, Max 0.25% for Fe 500D\n- All TMT bars must bear the ISI mark (CM/L number) for legal sale in India."
+    }
+  ]
+}
