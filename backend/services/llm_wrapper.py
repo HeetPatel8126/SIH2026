@@ -118,18 +118,21 @@ async def _call_openai_compatible(
 
 
 async def _call_groq(prompt: str, is_fallback: bool = False) -> str:
-    base_url = settings.llm_base_url
+    base_url = settings.fallback_llm_base_url if is_fallback else settings.llm_base_url
     if "localhost" in base_url or "127.0.0.1" in base_url:
         base_url = "https://api.groq.com/openai"
-    model = settings.llm_model
-    if not model or "llama" in model.lower():
+    raw_model = settings.fallback_llm_model if is_fallback else settings.llm_model
+    api_key = settings.fallback_llm_api_key if is_fallback else settings.llm_api_key
+    if not raw_model or "llama" in raw_model.lower() or ":" in raw_model:
         # Groq flagship open source reasoning model (120B)
         model = "openai/gpt-oss-120b"
+    else:
+        model = raw_model
 
     return await _call_openai_compatible(
         prompt=prompt,
         base_url=base_url,
-        api_key=settings.llm_api_key,
+        api_key=api_key,
         model=model,
         is_fallback=is_fallback,
     )
@@ -279,18 +282,21 @@ async def _stream_openai_compatible(
 
 
 async def _stream_groq(prompt: str, is_fallback: bool = False) -> AsyncGenerator[str, None]:
-    base_url = settings.llm_base_url
+    base_url = settings.fallback_llm_base_url if is_fallback else settings.llm_base_url
     if "localhost" in base_url or "127.0.0.1" in base_url:
         base_url = "https://api.groq.com/openai"
-    model = settings.llm_model
-    if not model or "llama" in model.lower():
+    raw_model = settings.fallback_llm_model if is_fallback else settings.llm_model
+    api_key = settings.fallback_llm_api_key if is_fallback else settings.llm_api_key
+    if not raw_model or "llama" in raw_model.lower() or ":" in raw_model:
         # Groq flagship open source reasoning model (120B)
         model = "openai/gpt-oss-120b"
+    else:
+        model = raw_model
 
     async for token in _stream_openai_compatible(
         prompt=prompt,
         base_url=base_url,
-        api_key=settings.llm_api_key,
+        api_key=api_key,
         model=model,
         is_fallback=is_fallback,
     ):
