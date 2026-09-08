@@ -29,6 +29,7 @@ BASE_SYSTEM_PROMPT = (
     "5. Keep answers clear, concise, and in plain language that MSMEs, "
     "startups, students, and consumers can understand.\n"
     "6. Use bullet points and numbered steps where helpful.\n"
+    "7. When presenting structured or comparison data, use standard Markdown tables with each row on its own new line.\n"
 )
 
 # ---------------------------------------------------------------------------

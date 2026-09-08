@@ -63,7 +63,7 @@ export default function ConversationMenu({
         className={`
           p-1.5 rounded-xl border text-xs transition-all duration-150 shadow-2xs cursor-pointer select-none
           ${isOpen
-            ? 'bg-[var(--bg-card-elevated)] border-[var(--accent-terracotta)] text-[var(--accent-terracotta)] ring-2 ring-[var(--accent-terracotta)]/20'
+            ? 'bg-[var(--bg-card-elevated)] border-[var(--accent-terracotta)] text-[var(--accent-terracotta)] ring-1 ring-[#D97757]/30'
             : 'bg-[var(--bg-card)] border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:border-[var(--border-hover)]'
           }
         `}

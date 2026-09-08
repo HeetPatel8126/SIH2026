@@ -82,9 +82,21 @@ export default function Sidebar({
   ];
 
   const handleStartNewChat = () => {
-    navigate('/');
+    window.dispatchEvent(new CustomEvent('bis-start-new-chat'));
+    navigate('/', { state: { newChat: Date.now() } });
     if (onClose) onClose();
   };
+
+  useEffect(() => {
+    const handleGlobalKeyDown = (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        handleStartNewChat();
+      }
+    };
+    window.addEventListener('keydown', handleGlobalKeyDown);
+    return () => window.removeEventListener('keydown', handleGlobalKeyDown);
+  }, []);
 
   const handleQueryClick = (queryText) => {
     navigate('/', { state: { initialPrompt: queryText } });

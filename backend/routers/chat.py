@@ -147,26 +147,31 @@ async def chat_stream(request: ChatRequest):
                 if "<think>" in buffer:
                     in_thinking = True
                     parts = buffer.split("<think>", 1)
-                    before = parts[0]
+                    before = parts[0].strip()
                     buffer = parts[1]
                     if before:
                         yield sse("token", {"token": before})
                         full_answer_parts.append(before)
                     think_start_time = time.time()
-                elif len(buffer) >= 15 or "\n" in buffer:
-                    # Model did not start with <think> tag — stream directly as answer
-                    has_thought_ended = True
-                    yield sse("thought_end", {
-                        "thought_time_ms": round((time.time() - think_start_time) * 1000, 1),
-                        "category": query_category.value,
-                        "sources": sources_found,
-                        "summary": f"Retrieved {len(retrieved_chunks)} relevant standard clauses ({', '.join(sources_found[:3])}).",
-                        "chunks_count": len(retrieved_chunks),
-                    })
-                    yield sse("token", {"token": buffer})
-                    full_answer_parts.append(buffer)
-                    buffer = ""
-                    continue
+                else:
+                    stripped = buffer.lstrip()
+                    if "<think>".startswith(stripped):
+                        # Potential start of <think> tag, wait for remaining tokens
+                        continue
+                    elif len(stripped) >= 15 or ("\n" in stripped and not stripped.startswith("<")):
+                        # Model did not start with <think> tag — stream directly as answer
+                        has_thought_ended = True
+                        yield sse("thought_end", {
+                            "thought_time_ms": round((time.time() - think_start_time) * 1000, 1),
+                            "category": query_category.value,
+                            "sources": sources_found,
+                            "summary": f"Retrieved {len(retrieved_chunks)} relevant standard clauses ({', '.join(sources_found[:3])}).",
+                            "chunks_count": len(retrieved_chunks),
+                        })
+                        yield sse("token", {"token": buffer})
+                        full_answer_parts.append(buffer)
+                        buffer = ""
+                        continue
 
             # In thinking mode: stream AI thoughts in real-time
             if in_thinking:
@@ -217,6 +222,17 @@ async def chat_stream(request: ChatRequest):
                         yield sse("thought_token", {"token": to_emit})
 
             elif has_thought_ended:
+                if "<think>" in buffer and not in_thinking:
+                    in_thinking = True
+                    has_thought_ended = False
+                    parts = buffer.split("<think>", 1)
+                    before = parts[0]
+                    buffer = parts[1]
+                    if before:
+                        yield sse("token", {"token": before})
+                        full_answer_parts.append(before)
+                    think_start_time = time.time()
+                    continue
                 if buffer:
                     yield sse("token", {"token": buffer})
                     full_answer_parts.append(buffer)

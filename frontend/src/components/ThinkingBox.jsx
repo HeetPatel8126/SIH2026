@@ -12,8 +12,8 @@ export default function ThinkingBox({ thinkingState, autoExpand = false }) {
     category,
   } = thinkingState;
 
-  // Auto-expand while actively thinking or when autoExpand is enabled
-  const [expanded, setExpanded] = useState(isThinking || autoExpand);
+  // Controlled by autoExpand setting or user toggle — never abruptly snap shut
+  const [expanded, setExpanded] = useState(autoExpand);
 
   // Live timer while actively thinking
   const [elapsed, setElapsed] = useState(0);
@@ -21,16 +21,17 @@ export default function ThinkingBox({ thinkingState, autoExpand = false }) {
   useEffect(() => {
     let timer;
     if (isThinking) {
-      setExpanded(true);
       const start = Date.now();
       timer = setInterval(() => {
         setElapsed(((Date.now() - start) / 1000).toFixed(1));
-      }, 100);
-    } else {
-      setExpanded(autoExpand);
+      }, 200);
     }
     return () => clearInterval(timer);
-  }, [isThinking, autoExpand]);
+  }, [isThinking]);
+
+  useEffect(() => {
+    setExpanded(autoExpand);
+  }, [autoExpand]);
 
   if (!isThinking && !thoughtSummary && !aiThoughtText && thoughtSteps.length === 0) {
     return null;
@@ -87,21 +88,25 @@ export default function ThinkingBox({ thinkingState, autoExpand = false }) {
       {expanded && (
         <div className="px-3.5 py-2.5 border-t border-[var(--border-color)]/60 bg-[var(--bg-card-elevated)]/40 space-y-2 text-[11px] font-mono text-[var(--text-secondary)]">
           {/* Authentic AI Thought Stream */}
-          {aiThoughtText ? (
+          {(aiThoughtText || isThinking) ? (
             <div className="relative font-mono text-[11px] leading-relaxed text-[var(--text-secondary)] bg-[var(--bg-primary)]/60 p-2.5 rounded-lg border border-[var(--border-color)]/40 whitespace-pre-wrap max-h-60 overflow-y-auto">
               <div className="text-[10px] uppercase font-sans font-semibold tracking-wider text-[var(--text-muted)] mb-1.5 flex items-center gap-1.5">
                 <Sparkles size={11} className="text-[var(--accent-terracotta)]" />
                 AI Model Reasoning (Chain of Thought)
               </div>
-              {aiThoughtText}
-              {isThinking && (
-                <span className="inline-block w-1.5 h-3 ml-1 bg-[var(--accent-terracotta)] animate-pulse align-middle" />
+              {aiThoughtText ? (
+                <>
+                  {aiThoughtText}
+                  {isThinking && (
+                    <span className="inline-block w-1.5 h-3 ml-1 bg-[var(--accent-terracotta)] animate-pulse align-middle" />
+                  )}
+                </>
+              ) : (
+                <div className="flex items-center gap-2 py-1 text-[11px] text-[var(--text-muted)] italic font-sans">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-terracotta)] animate-pulse"></span>
+                  Analyzing standards catalog and formulating reasoning...
+                </div>
               )}
-            </div>
-          ) : isThinking ? (
-            <div className="flex items-center gap-2 py-1 text-[11px] text-[var(--text-muted)] italic font-sans">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-terracotta)] animate-pulse"></span>
-              Generating internal Chain-of-Thought reasoning...
             </div>
           ) : null}
 

@@ -1,5 +1,6 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { Copy, Check, Volume2, VolumeX, ThumbsUp, ThumbsDown, Zap, Sparkles } from 'lucide-react';
 import Citations from './Citations';
 import ThinkingBox from './ThinkingBox';
@@ -22,8 +23,42 @@ export default function ChatMessage({ message, onAskAboutClause, autoExpandThink
   const [isSpeaking, setIsSpeaking] = useState(false);
   const [feedback, setFeedback] = useState(null); // 'up' | 'down' | null
 
+  // Extract reasoning if embedded in content
+  const extractedThought = useMemo(() => {
+    if (!content) return null;
+    const match = content.match(/<think>([\s\S]*?)(?:<\/think>|$)/i);
+    return match ? match[1].trim() : null;
+  }, [content]);
+
+  // Clean the main content: strip <think> tags and fix collapsed tables
+  const cleanContent = useMemo(() => {
+    if (!content) return '';
+    let text = content.replace(/<think>[\s\S]*?<\/think>/gi, '');
+    text = text.replace(/<think>[\s\S]*$/gi, ''); // in case streaming has unclosed <think>
+    text = text.replace(/\|\s*\|/g, '|\n|');
+    return text.trim();
+  }, [content]);
+
+  // Use either the streaming thinking or fallback to extracted thinking
+  const effectiveThinking = useMemo(() => {
+    if (thinking && (thinking.aiThoughtText || (thinking.thoughtSteps && thinking.thoughtSteps.length > 0))) {
+      return thinking;
+    }
+    if (extractedThought) {
+      return {
+        isThinking: false,
+        aiThoughtText: extractedThought,
+        thoughtSummary: 'Extracted AI Reasoning Trace',
+        thoughtTimeMs: thinking?.thoughtTimeMs || 200,
+        sources: thinking?.sources || [],
+        category: thinking?.category || query_category,
+      };
+    }
+    return thinking;
+  }, [thinking, extractedThought, query_category]);
+
   const handleCopy = () => {
-    navigator.clipboard.writeText(content);
+    navigator.clipboard.writeText(cleanContent);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -39,7 +74,7 @@ export default function ChatMessage({ message, onAskAboutClause, autoExpandThink
       setIsSpeaking(false);
     } else {
       window.speechSynthesis.cancel();
-      const plainText = content.replace(/[*#`_[\]()]/g, '');
+      const plainText = cleanContent.replace(/[*#`_[\]()]/g, '');
       const utterance = new SpeechSynthesisUtterance(plainText);
       utterance.rate = 1.0;
       utterance.pitch = 1.0;
@@ -79,7 +114,7 @@ export default function ChatMessage({ message, onAskAboutClause, autoExpandThink
           <div className="flex-1 space-y-2.5 min-w-0">
             
             {/* Thinking & Reasoning Disclosure */}
-            {thinking && <ThinkingBox thinkingState={thinking} autoExpand={autoExpandThinking} />}
+            {effectiveThinking && <ThinkingBox thinkingState={effectiveThinking} autoExpand={autoExpandThinking} />}
 
             {/* Category / Grounding Tag */}
             {query_category && (
@@ -104,7 +139,9 @@ export default function ChatMessage({ message, onAskAboutClause, autoExpandThink
 
             {/* Markdown Body with Streaming Cursor */}
             <div className="claude-prose text-xs sm:text-sm text-[var(--text-primary)]">
-              <ReactMarkdown>{content}</ReactMarkdown>
+              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                {cleanContent}
+              </ReactMarkdown>
               {isStreaming && (
                 <span className="inline-block w-2 h-4 ml-1 bg-[var(--accent-terracotta)] animate-pulse align-middle rounded-xs" />
               )}

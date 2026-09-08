@@ -62,17 +62,42 @@ export default function ChatPage() {
     }
   }, [messages]);
 
-  const scrollToBottom = useCallback(() => {
-    if (scrollContainerRef.current) {
-      scrollContainerRef.current.scrollTo({
-        top: scrollContainerRef.current.scrollHeight,
-        behavior: 'smooth'
-      });
+  const isNearBottomRef = useRef(true);
+  const scrollRafIdRef = useRef(null);
+
+  // Monitor user scrolling: if user scrolls up > 120px from bottom, pause auto-scroll
+  const handleScroll = useCallback(() => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+    isNearBottomRef.current = distanceFromBottom <= 120;
+  }, []);
+
+  // Instant scroll pinned to bottom, throttled to 1 call per display animation frame
+  const scrollToBottom = useCallback((force = false) => {
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    if (!force && !isNearBottomRef.current) return;
+
+    if (scrollRafIdRef.current) {
+      cancelAnimationFrame(scrollRafIdRef.current);
     }
+
+    scrollRafIdRef.current = requestAnimationFrame(() => {
+      if (scrollContainerRef.current) {
+        scrollContainerRef.current.scrollTop = scrollContainerRef.current.scrollHeight;
+      }
+      scrollRafIdRef.current = null;
+    });
   }, []);
 
   useEffect(() => {
-    scrollToBottom();
+    scrollToBottom(false);
+    return () => {
+      if (scrollRafIdRef.current) {
+        cancelAnimationFrame(scrollRafIdRef.current);
+      }
+    };
   }, [messages, loading, isStreaming, scrollToBottom]);
 
   const handleStop = () => {
@@ -93,6 +118,9 @@ export default function ChatPage() {
 
   const handleSend = useCallback(async (query, lang = selectedLanguage) => {
     if (!query.trim()) return;
+
+    isNearBottomRef.current = true;
+    setTimeout(() => scrollToBottom(true), 0);
 
     const userMsg = {
       role: 'user',
@@ -318,13 +346,29 @@ export default function ChatPage() {
     }
   }, [location.state, handleSend]);
 
-  const handleClearChat = () => {
+  const handleClearChat = useCallback(() => {
     handleStop();
     setMessages([]);
     setSessionId(null);
     setError(null);
+    isNearBottomRef.current = true;
     localStorage.removeItem(STORAGE_KEY);
-  };
+  }, [handleStop]);
+
+  // Listen for global "start new chat" event or location state
+  useEffect(() => {
+    const onStartNewChat = () => {
+      handleClearChat();
+    };
+    window.addEventListener('bis-start-new-chat', onStartNewChat);
+    return () => window.removeEventListener('bis-start-new-chat', onStartNewChat);
+  }, [handleClearChat]);
+
+  useEffect(() => {
+    if (location.state?.newChat) {
+      handleClearChat();
+    }
+  }, [location.state?.newChat, handleClearChat]);
 
   const handleExportChat = () => {
     if (messages.length === 0) return;
@@ -406,6 +450,7 @@ export default function ChatPage() {
       {/* Messages Stream / Welcome Hero */}
       <div 
         ref={scrollContainerRef}
+        onScroll={handleScroll}
         className="flex-1 overflow-y-auto px-4 sm:px-8 py-6 space-y-6 min-h-0"
       >
         {messages.length === 0 && !loading ? (

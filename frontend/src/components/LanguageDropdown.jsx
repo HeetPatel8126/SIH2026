@@ -66,7 +66,7 @@ export default function LanguageDropdown({ selectedLanguage, onSelect, disabled 
           border transition-all duration-150 select-none shadow-2xs
           ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:border-[var(--accent-terracotta)]'}
           ${isOpen
-            ? 'bg-[var(--bg-card-elevated)] border-[var(--accent-terracotta)] text-[var(--accent-terracotta)] ring-2 ring-[var(--accent-terracotta)]/20'
+            ? 'bg-[var(--bg-card-elevated)] border-[var(--accent-terracotta)] text-[var(--accent-terracotta)] ring-1 ring-[#D97757]/30'
             : 'bg-[var(--bg-sidebar)] border-[var(--border-color)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
           }
         `}

@@ -100,7 +100,7 @@ export default function ChatInput({
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4 sm:px-6 pb-5 pt-2">
-      <div className="bg-[var(--bg-input)] border border-[var(--border-color)] focus-within:border-[var(--accent-terracotta)] focus-within:ring-2 focus-within:ring-[var(--accent-terracotta)]/20 rounded-2xl p-3 shadow-card transition-all duration-200 space-y-2">
+      <div className="bg-[var(--bg-input)] border border-[var(--border-color)] focus-within:border-[var(--accent-terracotta)] focus-within:ring-1 focus-within:ring-[#D97757]/30 rounded-2xl p-3 shadow-card transition-all duration-200 space-y-2">
         
         {/* Text Input Area */}
         <textarea
@@ -111,7 +111,7 @@ export default function ChatInput({
           placeholder="Ask anything about Indian Standards, ISI Mark, Gold HUID, Lab Testing, or Grievances..."
           disabled={disabled && !isGenerating}
           rows={1}
-          className="w-full bg-transparent resize-none border-none outline-none text-xs sm:text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] max-h-40 overflow-y-auto leading-relaxed"
+          className="w-full bg-transparent resize-none border-none outline-none focus:outline-none focus:ring-0 text-xs sm:text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] max-h-40 overflow-y-auto leading-relaxed"
         />
 
         {/* Action Controls Bar */}
