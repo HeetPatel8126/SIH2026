@@ -25,7 +25,7 @@ def _get_client() -> httpx.AsyncClient:
     """Lazy-initialize the shared httpx async client."""
     global _client
     if _client is None or _client.is_closed:
-        _client = httpx.AsyncClient(timeout=httpx.Timeout(60.0, connect=10.0))
+        _client = httpx.AsyncClient(timeout=httpx.Timeout(180.0, connect=10.0))
     return _client
 
 

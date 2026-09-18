@@ -235,7 +235,8 @@ async def retrieve(
     Retrieve relevant document chunks for a query.
 
     When USE_MOCK_RETRIEVER is True, returns hardcoded sample data.
-    When False, queries ChromaDB (requires Tech 1's vector DB to be set up).
+    When False, queries ChromaDB (requires the vector DB to be set up —
+    see ingestion/ingest.py).
 
     Args:
         query: The user's question (will be embedded for real retrieval).
@@ -293,42 +294,52 @@ async def _real_retrieve(
     """
     Real retriever — queries ChromaDB with embedded query.
 
-    TODO: Wire this once Tech 1 delivers the vector DB.
-
-    Expected flow:
-        1. Embed query using sentence-transformers
-        2. Query ChromaDB collection with optional category filter
-        3. Return top_k chunks with metadata
+    Implemented using the pipeline built in ingestion/ingest.py
+    (170 chunks embedded with sentence-transformers, stored in ChromaDB).
     """
-    logger.warning(
-        "Real retriever called but not yet implemented. "
-        "Set USE_MOCK_RETRIEVER=true in .env to use mock data."
+    from chromadb import PersistentClient
+    from sentence_transformers import SentenceTransformer
+
+    # NOTE: loading the model fresh on every call is slow. This is a working
+    # first pass — flag to Tech 1 that this should be loaded ONCE at server
+    # startup (e.g. a module-level variable or FastAPI lifespan hook) instead
+    # of inside this function, once we're past "make it work."
+    model = SentenceTransformer(settings.embedding_model)
+    query_embedding = model.encode(query).tolist()
+
+    client = PersistentClient(path=settings.chroma_persist_dir)
+    collection = client.get_collection(settings.chroma_collection)
+
+    # NOTE: category filtering is disabled for now — our chunk metadata uses
+    # different capability labels (e.g. "certification_schemes") than the
+    # QueryCategory enum (e.g. "certification"), so filtering was silently
+    # returning zero matches. Semantic search alone already finds relevant
+    # chunks correctly (proven in ingestion/ingest.py's sanity check) — if
+    # there's time later, relabel chunk metadata to match QueryCategory
+    # exactly and restore filtering for better precision.
+    results = collection.query(
+        query_embeddings=[query_embedding],
+        n_results=top_k,
     )
 
-    # Placeholder — return the structure Tech 1 will implement
-    # from chromadb import PersistentClient
-    # from sentence_transformers import SentenceTransformer
-    #
-    # model = SentenceTransformer(settings.embedding_model)
-    # query_embedding = model.encode(query).tolist()
-    #
-    # client = PersistentClient(path=settings.chroma_persist_dir)
-    # collection = client.get_collection(settings.chroma_collection)
-    #
-    # where_filter = {"category": category.value} if category else None
-    # results = collection.query(
-    #     query_embeddings=[query_embedding],
-    #     n_results=top_k,
-    #     where=where_filter,
-    # )
-    #
-    # chunks = []
-    # for i, doc in enumerate(results["documents"][0]):
-    #     chunks.append({
-    #         "text": doc,
-    #         "metadata": results["metadatas"][0][i],
-    #         "score": 1 - results["distances"][0][i],  # ChromaDB returns distances
-    #     })
-    # return chunks
+    chunks = []
+    if results["documents"] and results["documents"][0]:
+        for i, doc in enumerate(results["documents"][0]):
+            metadata = results["metadatas"][0][i]
+            chunks.append({
+                "text": doc,
+                "metadata": {
+                    "document": metadata.get("document_title", ""),
+                    "clause": None,  # not tracked at chunk level yet
+                    "page": None,
+                    "url": metadata.get("source_url", ""),
+                },
+                "score": max(0.0, min(1.0, 1 - results["distances"][0][i])),  # clamp to [0,1] — raw distance isn't always bounded
+            })
 
-    return []
+    logger.debug(
+        "Real retriever — category=%s, returning %d chunks",
+        category.value if category else "none", len(chunks),
+    )
+
+    return chunks

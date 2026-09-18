@@ -1,0 +1,6 @@
+SOURCE URL: https://www.bis.gov.in/know-your-standard/?lang=en
+TITLE: Know Your Standard - Bureau of Indian Standards
+
+The ‘Know Your Standard’ feature provides a one-stop access to all the documents and data related to a selected Standard. The Standard can be searched by entering the Indian Standard (IS) Number or a Keyword (like Product name) in the search box. User can not only access the basic documents related to the standard like the PDF of IS itself, amendments, gazette notifications, scheme of testing and inspections but also details like the list of licenses, list of laboratories testing for concerned IS, classification details and composition of the committee can also be seen through the app.
+
+Last Updated on May 8, 2026
