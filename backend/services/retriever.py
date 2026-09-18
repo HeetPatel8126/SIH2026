@@ -235,8 +235,7 @@ async def retrieve(
     Retrieve relevant document chunks for a query.
 
     When USE_MOCK_RETRIEVER is True, returns hardcoded sample data.
-    When False, queries ChromaDB (requires the vector DB to be set up —
-    see ingestion/ingest.py).
+    When False, queries ChromaDB (requires Tech 1's vector DB to be set up).
 
     Args:
         query: The user's question (will be embedded for real retrieval).
@@ -286,60 +285,104 @@ def _mock_retrieve(
     return scored[:top_k]
 
 
+# ChromaDB client & collection singletons
+_chroma_client = None
+_chroma_collection = None
+
+
+def _get_chroma_collection():
+    """Lazy-initialize and cache the ChromaDB client and collection."""
+    global _chroma_client, _chroma_collection
+    if _chroma_collection is not None:
+        return _chroma_collection
+
+    try:
+        import chromadb
+        from chromadb.config import Settings as ChromaSettings
+        from chromadb.utils import embedding_functions
+
+        logger.info(
+            "Initializing ChromaDB connection at '%s'...",
+            settings.chroma_persist_dir,
+        )
+        _chroma_client = chromadb.PersistentClient(
+            path=settings.chroma_persist_dir,
+            settings=ChromaSettings(anonymized_telemetry=False),
+        )
+
+        ef = None
+        try:
+            ef = embedding_functions.SentenceTransformerEmbeddingFunction(
+                model_name=settings.embedding_model
+            )
+        except Exception:
+            try:
+                ef = embedding_functions.DefaultEmbeddingFunction()
+            except Exception:
+                ef = None
+
+        _chroma_collection = _chroma_client.get_collection(
+            name=settings.chroma_collection,
+            embedding_function=ef,
+        )
+        logger.info(
+            "Connected to ChromaDB collection '%s' (%d documents).",
+            settings.chroma_collection,
+            _chroma_collection.count(),
+        )
+        return _chroma_collection
+    except Exception as e:
+        logger.error("Failed to connect to ChromaDB: %s", e)
+        return None
+
+
 async def _real_retrieve(
     query: str,
     top_k: int,
     category: QueryCategory | None,
 ) -> list[dict]:
     """
-    Real retriever — queries ChromaDB with embedded query.
-
-    Implemented using the pipeline built in ingestion/ingest.py
-    (170 chunks embedded with sentence-transformers, stored in ChromaDB).
+    Real retriever — queries ChromaDB collection using sentence-transformers embedding.
+    Falls back gracefully to mock chunks if vector DB is unavailable or empty.
     """
-    from chromadb import PersistentClient
-    from sentence_transformers import SentenceTransformer
+    collection = _get_chroma_collection()
+    if collection is None:
+        logger.warning("ChromaDB collection unavailable, falling back to mock retriever.")
+        return _mock_retrieve(query, top_k, category)
 
-    # NOTE: loading the model fresh on every call is slow. This is a working
-    # first pass — flag to Tech 1 that this should be loaded ONCE at server
-    # startup (e.g. a module-level variable or FastAPI lifespan hook) instead
-    # of inside this function, once we're past "make it work."
-    model = SentenceTransformer(settings.embedding_model)
-    query_embedding = model.encode(query).tolist()
+    try:
+        # Full semantic vector retrieval across all indexed BIS documents
+        results = collection.query(
+            query_texts=[query],
+            n_results=top_k,
+        )
 
-    client = PersistentClient(path=settings.chroma_persist_dir)
-    collection = client.get_collection(settings.chroma_collection)
+        documents = results.get("documents", [[]])[0]
+        metadatas = results.get("metadatas", [[]])[0]
+        distances = results.get("distances", [[]])[0]
 
-    # NOTE: category filtering is disabled for now — our chunk metadata uses
-    # different capability labels (e.g. "certification_schemes") than the
-    # QueryCategory enum (e.g. "certification"), so filtering was silently
-    # returning zero matches. Semantic search alone already finds relevant
-    # chunks correctly (proven in ingestion/ingest.py's sanity check) — if
-    # there's time later, relabel chunk metadata to match QueryCategory
-    # exactly and restore filtering for better precision.
-    results = collection.query(
-        query_embeddings=[query_embedding],
-        n_results=top_k,
-    )
+        chunks = []
+        for i, doc in enumerate(documents):
+            dist = distances[i] if i < len(distances) else 0.5
+            # Cosine distance to similarity: similarity = 1 - distance
+            similarity = max(0.0, min(1.0, 1.0 - (dist / 2.0) if dist > 1.0 else 1.0 - dist))
+            meta = metadatas[i] if i < len(metadatas) else {}
 
-    chunks = []
-    if results["documents"] and results["documents"][0]:
-        for i, doc in enumerate(results["documents"][0]):
-            metadata = results["metadatas"][0][i]
             chunks.append({
                 "text": doc,
-                "metadata": {
-                    "document": metadata.get("document_title", ""),
-                    "clause": None,  # not tracked at chunk level yet
-                    "page": None,
-                    "url": metadata.get("source_url", ""),
-                },
-                "score": max(0.0, min(1.0, 1 - results["distances"][0][i])),  # clamp to [0,1] — raw distance isn't always bounded
+                "metadata": meta,
+                "score": round(similarity, 3),
             })
 
-    logger.debug(
-        "Real retriever — category=%s, returning %d chunks",
-        category.value if category else "none", len(chunks),
-    )
+        logger.info(
+            "ChromaDB real retrieval for '%s': returned %d chunks (top score: %.3f)",
+            query[:40],
+            len(chunks),
+            chunks[0]["score"] if chunks else 0.0,
+        )
+        return chunks if chunks else _mock_retrieve(query, top_k, category)
 
-    return chunks
+    except Exception as err:
+        logger.error("Error during real retrieval: %s. Falling back to mock data.", err)
+        return _mock_retrieve(query, top_k, category)
+

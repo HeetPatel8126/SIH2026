@@ -1,0 +1,18 @@
+{
+  "is_code": "IS 2508:1984",
+  "title": "Low-Density Polyethylene Films for Packaging — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Packaging",
+    "url": "https://www.bis.gov.in",
+    "year": 1984
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 2508 specifies requirements for LDPE films used in food and general packaging. Covers thickness tolerance, tensile strength, elongation at break, dart impact strength, seal strength, and optical properties. Food-grade LDPE must be free from heavy metals and conform to IS 9845 for food contact."
+    }
+  ]
+}

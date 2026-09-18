@@ -1,0 +1,18 @@
+{
+  "is_code": "IS 4707 (Part 1):2001",
+  "title": "General Requirements for Domestic Electrical Appliances — Safety",
+  "category": "standards",
+  "metadata": {
+    "sector": "Consumer Products",
+    "url": "https://www.bis.gov.in",
+    "year": 2001
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 4707 (Part 1) specifies general safety requirements for household electrical appliances (based on IEC 60335-1). Covers marking, protection against electric shock, power input, heating, leakage current, moisture resistance, insulation, mechanical strength, and construction requirements. This is the parent standard for all specific appliance safety standards in the IS 302 series."
+    }
+  ]
+}

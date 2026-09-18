@@ -1,0 +1,19 @@
+{
+  "is_code": "IS 1293:2019",
+  "title": "Plugs and Socket-Outlets of Rated Voltage up to 250V and Rated Current up to 16A — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Electronics & IT",
+    "url": "https://www.bis.gov.in",
+    "year": 2019,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 1293 specifies requirements for plugs and socket-outlets with rated voltage up to 250V and rated current up to 16A for household and similar general purposes. This standard is under compulsory ISI certification. Includes 3-pin 6A, 3-pin 16A, and universal configurations. All electrical plugs and sockets sold in India must bear the ISI mark."
+    }
+  ]
+}

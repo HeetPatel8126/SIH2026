@@ -1,0 +1,18 @@
+{
+  "is_code": "IS 10500:2012 — ECO Mark Criteria",
+  "title": "Eco Mark Criteria — Guidelines for Environmental Labelling",
+  "category": "standards",
+  "metadata": {
+    "sector": "Environment",
+    "url": "https://www.bis.gov.in",
+    "year": 2005
+  },
+  "clauses": [
+    {
+      "clause": "ECO Mark Overview",
+      "title": "ECO Mark Scheme",
+      "page": 1,
+      "text": "The BIS ECO Mark scheme is a voluntary certification programme for environmentally-friendly products. Products eligible for ECO Mark include: soaps/detergents, paints/varnishes, paper, food items, lubricating oils, packaging materials, architectural paints, batteries, electrical/electronic goods, cosmetics, aerosol propellants, plastics, textiles, and fire extinguishers. The ECO Mark criteria specify environmental parameters the product must meet beyond the regular IS standard, such as biodegradability, minimal toxic content, energy efficiency, and recyclability."
+    }
+  ]
+}

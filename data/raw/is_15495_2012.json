@@ -1,0 +1,24 @@
+{
+  "is_code": "IS 15495:2012",
+  "title": "Water Purifier — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Consumer Products",
+    "url": "https://www.bis.gov.in",
+    "year": 2012
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 15495 specifies requirements for water purifiers intended for household and similar use. Covers gravity-based, UV, UF, RO, and combination purification systems. The purified water output must conform to IS 10500 drinking water standards. ISI certification is available and recommended but not yet mandatorily required for water purifiers."
+    },
+    {
+      "clause": "5.0 Performance",
+      "title": "Performance Requirements",
+      "page": 3,
+      "text": "Performance requirements for water purifiers:\n- Bacterial reduction: ≥99.9% (log 3 reduction)\n- Virus reduction: ≥99.99% (log 4 reduction) for UV/UF purifiers\n- TDS reduction: For RO purifiers, output TDS shall be ≤50% of input TDS\n- Flow rate: Minimum flow rate shall be declared and verified\n- Filter/membrane life: Declared by manufacturer, verified by endurance testing\n- Electrical safety: For powered purifiers, must conform to IS 302-2-15"
+    }
+  ]
+}

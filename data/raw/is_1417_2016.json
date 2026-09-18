@@ -1,0 +1,36 @@
+{
+  "is_code": "IS 1417:2016",
+  "title": "Gold and Gold Alloys — Jewellery/Artefacts — Fineness and Marking — Specification",
+  "category": "hallmarking",
+  "metadata": {
+    "sector": "Precious Metals",
+    "url": "https://www.bis.gov.in",
+    "year": 2016
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 1417 specifies requirements for fineness (purity) and marking of gold and gold alloys in jewellery and artefacts. This is the standard under which hallmarking of gold jewellery is carried out in India. Mandatory hallmarking was enforced starting June 16, 2021."
+    },
+    {
+      "clause": "Table 1 — Fineness Grades",
+      "title": "Permitted Fineness Grades for Gold Jewellery",
+      "page": 2,
+      "text": "Permitted gold fineness grades as per IS 1417 (for hallmarking):\n- 14 carat (14K): Minimum fineness 585 parts per thousand (58.5% pure gold)\n- 18 carat (18K): Minimum fineness 750 parts per thousand (75% pure gold)\n- 20 carat (20K): Minimum fineness 833 parts per thousand (83.3% pure gold)\n- 22 carat (22K): Minimum fineness 916 parts per thousand (91.6% pure gold). This is the most common purity for traditional Indian gold jewellery.\n- 23 carat (23K): Minimum fineness 958 parts per thousand (95.8% pure gold)\n- 24 carat (24K): Minimum fineness 999 parts per thousand (99.9% pure gold)\n- Tolerance: ± 2 parts per thousand on declared fineness."
+    },
+    {
+      "clause": "5.0 Hallmarking Procedure",
+      "title": "Hallmarking Process and HUID",
+      "page": 4,
+      "text": "Hallmarking procedure for gold jewellery:\n1. Jeweller submits articles to a BIS-recognized Assaying & Hallmarking Centre (AHC).\n2. AHC assays (tests) the gold purity using fire assay or XRF method.\n3. If purity conforms to declared caratage, the article receives:\n   - BIS Standard Mark (triangle logo)\n   - Purity grade mark (e.g., '916' for 22K)\n   - HUID (Hallmark Unique Identification) — a 6-character alphanumeric code\n4. HUID is laser-engraved or stamped on the article.\n5. HUID data is uploaded to BIS central server and is publicly verifiable.\n\nAs of Phase 3 (April 2023), mandatory hallmarking applies in ALL districts across India.\nExemptions: Export jewellery, watches, fountain pens, and special-order items above 10 grams."
+    },
+    {
+      "clause": "6.0 HUID Verification",
+      "title": "Consumer Verification of HUID",
+      "page": 6,
+      "text": "How consumers can verify hallmarked gold jewellery:\n1. BIS Care App: Available on Android (Google Play) and iOS (App Store). Scan or enter the 6-character HUID.\n2. BIS Website: Visit www.bis.gov.in → Verify HUID → Enter the code.\n3. SMS: Send 'VERIFY <HUID>' to the BIS helpline number.\n\nHUID verification shows:\n- Jeweller name and registration number\n- Purity grade (e.g., 22K 916)\n- AHC (Assaying & Hallmarking Centre) that certified the article\n- Date of hallmarking\n\nIf verification fails or shows different purity than declared, consumers can file a complaint with BIS."
+    }
+  ]
+}

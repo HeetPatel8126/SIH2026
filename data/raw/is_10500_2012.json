@@ -1,0 +1,37 @@
+{
+  "is_code": "IS 10500:2012",
+  "title": "Drinking Water — Specification (Second Revision)",
+  "category": "standards",
+  "metadata": {
+    "sector": "Food & Water",
+    "statutory_authority": "Food Safety and Standards Authority of India (FSSAI) & BIS",
+    "url": "https://www.bis.gov.in/standards/is-10500-2012",
+    "year": 2012
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope and Applicability",
+      "page": 1,
+      "text": "This standard prescribes the quality requirements and methods of sampling and test for drinking water (piped water supplies, packaged drinking water, water from public wells, borewells, and tankers). It sets limits for physical, chemical, and bacteriological parameters to ensure the water is wholesome and safe for domestic human consumption."
+    },
+    {
+      "clause": "Table 1 — Physical & Organoleptic Parameters",
+      "title": "Acceptable and Permissible Limits for Physical Characteristics",
+      "page": 2,
+      "text": "Requirements for physical characteristics of drinking water:\n- Colour: Acceptable limit 5 Hazen units max; Permissible limit in the absence of alternate source is 15 Hazen units max.\n- Odour: Agreeable.\n- Taste: Agreeable.\n- Turbidity: Acceptable limit 1 NTU max; Permissible limit in the absence of alternate source is 5 NTU max.\n- pH Value: Acceptable range 6.5 to 8.5; No relaxation.\n- Total Dissolved Solids (TDS): Acceptable limit 500 mg/L max; Permissible limit in the absence of alternate source is 2000 mg/L max."
+    },
+    {
+      "clause": "Table 2 — Chemical Parameters",
+      "title": "Chemical Requirements for Drinking Water",
+      "page": 3,
+      "text": "Key chemical parameters and limits:\n- Iron (Fe): Acceptable 0.3 mg/L; Permissible 1.0 mg/L (causes staining and taste issues above limits)\n- Fluoride: Acceptable 1.0 mg/L; Permissible 1.5 mg/L (excess causes dental/skeletal fluorosis)\n- Arsenic: Acceptable 0.01 mg/L; Permissible 0.05 mg/L (toxic heavy metal)\n- Lead: Acceptable 0.01 mg/L; No relaxation (neurotoxic)\n- Nitrate (as NO3): Acceptable 45 mg/L; No relaxation (causes methemoglobinemia in infants)\n- Total Hardness (as CaCO3): Acceptable 200 mg/L; Permissible 600 mg/L\n- Chloride: Acceptable 250 mg/L; Permissible 1000 mg/L\n- Residual Free Chlorine: Minimum 0.2 mg/L at consumer end for disinfection"
+    },
+    {
+      "clause": "Table 3 — Bacteriological Parameters",
+      "title": "Microbiological Requirements",
+      "page": 4,
+      "text": "Bacteriological requirements for drinking water:\n- E. coli or Thermotolerant Coliform: Shall not be detectable in any 100 mL sample.\n- Total Coliform: Shall not be detectable in any 100 mL sample (piped treated supply).\n- All drinking water samples should be free from pathogenic organisms.\nTesting method: IS 1622 (Methods of sampling and microbiological examination of water)."
+    }
+  ]
+}

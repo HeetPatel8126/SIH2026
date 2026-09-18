@@ -1,0 +1,19 @@
+{
+  "is_code": "IS 398 (Part 1):2012",
+  "title": "Domestic Gas Stoves — For Use with LPG — Part 1: General Requirements",
+  "category": "standards",
+  "metadata": {
+    "sector": "Consumer Products",
+    "url": "https://www.bis.gov.in",
+    "year": 2012,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 398 (Part 1) specifies general requirements for domestic gas stoves for use with liquefied petroleum gas (LPG). Covers single-burner, double-burner, and multi-burner stoves. Domestic LPG gas stoves are under MANDATORY ISI certification (Scheme I). Every gas stove sold in India must bear the ISI mark."
+    }
+  ]
+}

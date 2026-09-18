@@ -1,0 +1,42 @@
+{
+  "is_code": "BIS Laboratory Directory",
+  "title": "BIS-Recognized Testing Laboratories — Regional Directory",
+  "category": "lab_suggestion",
+  "metadata": {
+    "sector": "BIS Services",
+    "url": "https://www.bis.gov.in/resources/recognised-labs/",
+    "year": 2024
+  },
+  "clauses": [
+    {
+      "clause": "North India Labs",
+      "title": "Testing Laboratories — North India",
+      "page": 1,
+      "text": "BIS-recognized testing laboratories in North India:\n1. BIS Central Laboratory, New Delhi — Multi-product testing (food, electrical, building materials, chemicals)\n2. National Test House (NTH), Ghaziabad, UP — Comprehensive testing for metals, electrical, chemical products\n3. ERTL (North), New Delhi — Electronics & IT product testing (CRS scheme)\n4. Central Power Research Institute (CPRI), Noida — Electrical equipment testing\n5. Indian Institute of Petroleum (IIP), Dehradun — Petroleum product testing\n6. NABL-accredited private labs: SGS India (Gurgaon), TUV SUD (Noida), Bureau Veritas (Delhi NCR)\n7. STQC Lab, New Delhi — IT/electronics product testing for CRS\n8. BIS Branch Office Lab, Chandigarh — Covers Punjab, Haryana, Himachal Pradesh"
+    },
+    {
+      "clause": "West India Labs",
+      "title": "Testing Laboratories — West India",
+      "page": 3,
+      "text": "BIS-recognized testing laboratories in West India:\n1. BIS Western Regional Office Lab, Mumbai — Multi-product testing facility\n2. SGS India Pvt. Ltd., Mumbai — Food, chemicals, consumer products\n3. ERTL (West), Mumbai — Electronics and IT goods testing for CRS\n4. NABL Labs in Mumbai: Intertek, TUV Rheinland\n5. BIS Branch Office Lab, Ahmedabad — Covers Gujarat region\n6. NABL-accredited labs in Ahmedabad: Shriram Institute, GERI (Gujarat Engineering Research Institute)\n7. BIS Branch Office, Pune — Testing support for Maharashtra\n8. BIS Regional Office, Jaipur — Covers Rajasthan\n9. National Accreditation Board for Testing and Calibration Laboratories (NABL) accredited labs in Gujarat, Maharashtra, Rajasthan, and Goa"
+    },
+    {
+      "clause": "South India Labs",
+      "title": "Testing Laboratories — South India",
+      "page": 5,
+      "text": "BIS-recognized testing laboratories in South India:\n1. ETDC (Electronic Test and Development Centre), Bengaluru — Electronics product testing\n2. ERTL (South), Bengaluru — CRS scheme electronics testing\n3. CPRI (Central Power Research Institute), Bengaluru — Electrical equipment, transformers, cables\n4. BIS Branch Office Lab, Chennai — Multi-product testing for Tamil Nadu\n5. NABL Labs in Chennai: SITRA (South India Textile Research Association), IITM Testing Centre\n6. BIS Branch Office Lab, Hyderabad — Covers Telangana and Andhra Pradesh\n7. CFTRI (Central Food Technological Research Institute), Mysuru — Food product testing\n8. BIS Branch Office, Kochi — Covers Kerala\n9. CSIR-CLRI (Central Leather Research Institute), Chennai — Leather and footwear testing\n10. Quality Council of India (QCI) recognized labs across Karnataka, Tamil Nadu, Kerala, AP, and Telangana"
+    },
+    {
+      "clause": "East India Labs",
+      "title": "Testing Laboratories — East India",
+      "page": 7,
+      "text": "BIS-recognized testing laboratories in East India:\n1. ERTL (East), Kolkata — Electronics and IT product testing for CRS\n2. National Test House (NTH), Kolkata — One of India's oldest and largest testing facilities (metals, chemicals, building materials, food, textiles)\n3. BIS Eastern Regional Office Lab, Kolkata — Multi-product testing\n4. CGCRI (Central Glass and Ceramic Research Institute), Kolkata — Glass, ceramics testing\n5. BIS Branch Office, Patna — Covers Bihar and Jharkhand\n6. BIS Branch Office, Bhubaneswar — Covers Odisha\n7. NEIST (North East Institute of Science and Technology), Jorhat, Assam — Testing for North East India\n8. IIT Kharagpur testing facilities — Available for specific product categories\n9. NTH Guwahati — Covers the entire North East region"
+    },
+    {
+      "clause": "Central India Labs",
+      "title": "Testing Laboratories — Central India",
+      "page": 9,
+      "text": "BIS-recognized testing laboratories in Central India:\n1. BIS Branch Office Lab, Bhopal — Covers Madhya Pradesh and Chhattisgarh\n2. BIS Branch Office Lab, Nagpur — Sub-region of Maharashtra (Vidarbha)\n3. AMPRI (Advanced Materials and Processes Research Institute), Bhopal — Materials testing\n4. NABL-accredited private labs in Indore and Raipur\n5. Regional Testing Centre, Lucknow — Covers Eastern UP\n\nThe complete, updated directory of BIS-recognized laboratories is available at:\nwww.bis.gov.in → 'Resources' → 'Recognised Laboratories'\nLabs are categorized by product type: electrical, food, construction materials, chemicals, textiles, etc.\nNABL accreditation is a prerequisite for BIS lab recognition."
+    }
+  ]
+}

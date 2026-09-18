@@ -1,0 +1,25 @@
+{
+  "is_code": "IS 13428:2005",
+  "title": "Packaged Natural Mineral Water — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Food & Water",
+    "url": "https://www.bis.gov.in",
+    "year": 2005,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "This standard prescribes requirements for packaged natural mineral water obtained directly from natural springs and underground sources. Unlike IS 14543 (packaged drinking water), mineral water must not undergo any treatment that alters its original mineral composition. BIS certification (ISI Mark) is MANDATORY for packaged natural mineral water."
+    },
+    {
+      "clause": "3.0 Requirements",
+      "title": "Requirements",
+      "page": 2,
+      "text": "Requirements for packaged natural mineral water:\n- Source: Must originate from an underground water source protected from pollution\n- Mineral content: Total mineral content shall be declared on the label\n- No chemical treatment for disinfection allowed (UV or ozone only)\n- TDS: Minimum 150 mg/L (to distinguish from regular packaged water)\n- Labelling: Must declare dominant mineral composition (e.g., 'rich in calcium')"
+    }
+  ]
+}

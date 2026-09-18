@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 import { Award, ChevronRight, Shield, Layers, FileCheck, Factory, Beaker, BadgeCheck, CheckCircle2 } from 'lucide-react';
 import Citations from '../components/Citations';
 import { getCertificationGuide } from '../services/api';
@@ -143,7 +144,7 @@ export default function CertificationGuidePage() {
               onClick={() => handleSchemeClick(s)}
               className={`p-3.5 rounded-xl border flex flex-col justify-between cursor-pointer transition shadow-2xs space-y-2 ${
                 isActive
-                  ? 'bg-[var(--bg-card)] border-[var(--accent-terracotta)] ring-2 ring-[var(--accent-terracotta)]/20'
+                  ? 'bg-[var(--bg-card)] border-[var(--accent-terracotta)] ring-1 ring-[#D97757]/30'
                   : 'bg-[var(--bg-card)] border-[var(--border-color)] hover:border-[var(--border-hover)]'
               }`}
             >
@@ -198,7 +199,9 @@ export default function CertificationGuidePage() {
           )}
 
           <div className="claude-prose text-xs sm:text-sm text-[var(--text-primary)]">
-            <ReactMarkdown>{result.answer}</ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              {result.answer ? result.answer.replace(/\|\s*\|/g, '|\n|') : ''}
+            </ReactMarkdown>
           </div>
 
           {result.steps && result.steps.length > 0 && (

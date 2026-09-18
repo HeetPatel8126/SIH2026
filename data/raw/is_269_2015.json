@@ -1,0 +1,25 @@
+{
+  "is_code": "IS 269:2015",
+  "title": "Ordinary Portland Cement — Specification (Sixth Revision)",
+  "category": "standards",
+  "metadata": {
+    "sector": "Construction & Steel",
+    "url": "https://www.bis.gov.in",
+    "year": 2015,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 269 specifies requirements for 33-grade Ordinary Portland Cement (OPC). This is the basic cement standard. Higher grade cements are covered by IS 8112 (43-grade OPC) and IS 12269 (53-grade OPC). ALL cement sold in India must mandatorily carry the ISI mark — cement is one of the items under compulsory BIS certification."
+    },
+    {
+      "clause": "5.0 Chemical Requirements",
+      "title": "Chemical Composition Requirements",
+      "page": 3,
+      "text": "Chemical requirements for OPC (IS 269):\n- Lime Saturation Factor: 0.66 to 1.02\n- Insoluble Residue: Not more than 4.0%\n- Magnesia (MgO): Not more than 6.0%\n- Sulphuric Anhydride (SO3): Not more than 3.5%\n- Total Loss on Ignition: Not more than 5.0%\n- Compressive strength at 28 days: Not less than 33 MPa (33-grade)"
+    }
+  ]
+}

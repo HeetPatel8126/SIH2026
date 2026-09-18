@@ -1,0 +1,24 @@
+{
+  "is_code": "IS 7930:2019",
+  "title": "Wheat Flour (Atta) — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Food & Water",
+    "url": "https://www.bis.gov.in",
+    "year": 2019
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "This standard covers whole wheat flour (atta) obtained by grinding clean wheat. It specifies the requirements for quality, hygiene, and packaging of wheat flour meant for human consumption."
+    },
+    {
+      "clause": "4.0 Requirements",
+      "title": "Quality Requirements for Wheat Flour",
+      "page": 2,
+      "text": "Requirements for wheat flour (atta):\n- Moisture: Not more than 14.0% by mass\n- Total ash (on dry basis): Not more than 2.0% by mass\n- Acid insoluble ash: Not more than 0.1% by mass\n- Gluten (dry basis): Not less than 7.5% by mass\n- Uric acid: Not more than 100 mg/kg\n- Aflatoxin: Not more than 15 µg/kg\n- The flour shall be free from added colouring matter, rodent hair, excreta fragments, and insect fragments beyond prescribed limits."
+    }
+  ]
+}

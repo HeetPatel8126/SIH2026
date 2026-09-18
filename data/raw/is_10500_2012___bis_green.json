@@ -1,0 +1,18 @@
+{
+  "is_code": "IS 10500:2012 — BIS Green",
+  "title": "Green Product Certification Guidelines",
+  "category": "standards",
+  "metadata": {
+    "sector": "Environment",
+    "url": "https://www.bis.gov.in",
+    "year": 2022
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Overview",
+      "title": "Overview",
+      "page": 1,
+      "text": "BIS has expanded its environmental product certification to include sustainability parameters in several standards. Green building materials, solar panels (IS 14286), and energy-efficient appliances receive special consideration under BIS certification. The Bureau has published guidelines for conformity assessment of solar photovoltaic modules and systems under IS 14286 and IS 16169."
+    }
+  ]
+}

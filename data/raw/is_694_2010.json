@@ -1,0 +1,19 @@
+{
+  "is_code": "IS 694:2010",
+  "title": "PVC Insulated Cables for Working Voltages up to and Including 1100V — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Electronics & IT",
+    "url": "https://www.bis.gov.in",
+    "year": 2010,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 694 specifies requirements for PVC insulated cables and flexible cords with working voltages up to 1100V. Covers single-core and multi-core cables used for domestic wiring, industrial installations, and general power supply. PVC cables are under mandatory ISI certification — all cables must bear the ISI mark with CM/L number."
+    }
+  ]
+}

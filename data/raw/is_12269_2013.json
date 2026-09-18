@@ -1,0 +1,19 @@
+{
+  "is_code": "IS 12269:2013",
+  "title": "53 Grade Ordinary Portland Cement — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Construction & Steel",
+    "url": "https://www.bis.gov.in",
+    "year": 2013,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 12269 specifies requirements for 53-grade Ordinary Portland Cement, a high-strength cement used for high-rise buildings, bridges, pre-stressed concrete structures, and RCC work requiring early strength. Minimum compressive strength 53 MPa at 28 days. Mandatory ISI mark required."
+    }
+  ]
+}

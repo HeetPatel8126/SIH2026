@@ -1,0 +1,24 @@
+{
+  "is_code": "IS 2490:1991",
+  "title": "Extracted Honey — Specification (Second Revision)",
+  "category": "standards",
+  "metadata": {
+    "sector": "Food & Water",
+    "url": "https://www.bis.gov.in",
+    "year": 1991
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "This standard prescribes requirements for extracted honey intended for direct consumption. It covers floral honey, honeydew honey, and blended honey. ISI certification is available for honey under BIS Scheme I."
+    },
+    {
+      "clause": "3.0 Requirements",
+      "title": "Requirements for Honey",
+      "page": 2,
+      "text": "Requirements for extracted honey:\n- Moisture content: Not more than 20% by mass\n- Total reducing sugars: Not less than 65%\n- Sucrose: Not more than 5%\n- Ash: Not more than 0.5%\n- Fiehe's test: Negative (indicates adulteration with sugar syrup)\n- Aniline chloride test: Negative (indicates invert sugar adulteration)\n- HMF (Hydroxymethylfurfural): Not more than 80 mg/kg\n- Honey shall be free from artificial flavouring, colouring matter, and any other food additives."
+    }
+  ]
+}

@@ -1,0 +1,24 @@
+{
+  "is_code": "IS 16102 (Part 2):2012",
+  "title": "Self-Ballasted LED Lamps for General Lighting — Part 2: Performance Requirements",
+  "category": "standards",
+  "metadata": {
+    "sector": "Electronics & IT",
+    "url": "https://www.bis.gov.in",
+    "year": 2012
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 16102 (Part 2) specifies performance requirements for self-ballasted LED lamps including luminous flux, efficacy, colour rendering, and rated life."
+    },
+    {
+      "clause": "5.0 Performance",
+      "title": "Performance Requirements",
+      "page": 2,
+      "text": "Performance requirements for LED lamps (IS 16102 Part 2):\n- Initial luminous efficacy: ≥90 lm/W (for lamps ≥10W), ≥80 lm/W (for lamps <10W)\n- Lumen maintenance at 3000 hours: ≥90% of initial value\n- Lumen maintenance at 6000 hours: ≥80%\n- Colour Rendering Index (CRI): ≥70\n- Colour Consistency: Within 5 SDCM (Standard Deviation of Colour Matching)\n- Power Factor: ≥0.7 (lamps <10W), ≥0.9 (lamps ≥10W)\n- Rated life: Minimum 15,000 hours (at L70 — 70% lumen maintenance)"
+    }
+  ]
+}

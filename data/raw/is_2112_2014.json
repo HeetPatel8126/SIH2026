@@ -1,0 +1,24 @@
+{
+  "is_code": "IS 2112:2014",
+  "title": "Silver and Silver Alloys — Jewellery/Artefacts — Fineness and Marking — Specification",
+  "category": "hallmarking",
+  "metadata": {
+    "sector": "Precious Metals",
+    "url": "https://www.bis.gov.in",
+    "year": 2014
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 2112 specifies requirements for fineness and marking of silver and silver alloys in jewellery and artefacts. Silver hallmarking is currently under the VOLUNTARY phase — it is not yet mandatory. However, BIS encourages silver jewellers to get voluntary hallmarking for consumer confidence."
+    },
+    {
+      "clause": "Table 1 — Silver Fineness Grades",
+      "title": "Silver Purity Grades",
+      "page": 2,
+      "text": "Silver fineness grades as per IS 2112:\n- 800: Minimum 800 parts per thousand (80% pure silver)\n- 900: Minimum 900 parts per thousand (90% pure silver)\n- 925 (Sterling Silver): Minimum 925 parts per thousand (92.5% pure silver). Most common for silver jewellery.\n- 950: Minimum 950 parts per thousand (95% pure silver)\n- 990: Minimum 990 parts per thousand (99% pure silver)\n- 999: Minimum 999 parts per thousand (99.9% pure silver)"
+    }
+  ]
+}

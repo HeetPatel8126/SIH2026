@@ -1,0 +1,24 @@
+{
+  "is_code": "IS 2062:2011",
+  "title": "Hot Rolled Medium and High Tensile Structural Steel — Specification (Seventh Revision)",
+  "category": "standards",
+  "metadata": {
+    "sector": "Construction & Steel",
+    "url": "https://www.bis.gov.in",
+    "year": 2011
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 2062:2011 specifies requirements for hot rolled medium and high tensile structural steel plates, strips, wide flats, shapes and sections (angles, tees, beams, channels, and bulb angles) for use in structural and general engineering purposes. This is the most widely used structural steel standard in India."
+    },
+    {
+      "clause": "Table 1 — Grades",
+      "title": "Grades and Mechanical Properties",
+      "page": 3,
+      "text": "Key structural steel grades under IS 2062:\n- Grade E250A (Fe 410 W A): Most common; Yield strength ≥250 MPa, Tensile strength 410-540 MPa. Used for general structural work.\n- Grade E250B (Fe 410 W B): Same strength, additional impact test requirements.\n- Grade E300 (Fe 440): Yield ≥300 MPa, Tensile 440-570 MPa. For higher load applications.\n- Grade E350 (Fe 490): Yield ≥350 MPa, Tensile 490-630 MPa. For heavy structural work.\n- Grade E450 (Fe 570): Yield ≥450 MPa, Tensile 570-720 MPa. For bridges and heavy structures.\n- Carbon content shall not exceed 0.23% (max) for E250 grade.\n- All structural steel used in India for buildings and bridges should conform to IS 2062."
+    }
+  ]
+}

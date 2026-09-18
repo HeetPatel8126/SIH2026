@@ -1,0 +1,25 @@
+{
+  "is_code": "IS 2347:2017",
+  "title": "Domestic Pressure Cookers — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Consumer Products",
+    "url": "https://www.bis.gov.in",
+    "year": 2017,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope and Applicability",
+      "page": 1,
+      "text": "IS 2347 specifies requirements for domestic pressure cookers made of aluminium, stainless steel, or hard anodised aluminium, with capacity from 1.5 to 30 litres. Pressure cookers are under MANDATORY ISI certification (Scheme I). Every pressure cooker sold in India must bear the ISI mark with the manufacturer's CM/L number."
+    },
+    {
+      "clause": "5.0 Safety Requirements",
+      "title": "Safety and Performance Requirements",
+      "page": 3,
+      "text": "Safety requirements for pressure cookers (IS 2347):\n- Operating pressure: 98.07 kPa (1 kg/cm² gauge) ± 10%\n- Safety valve: Must release pressure at 1.4 times the operating pressure\n- Fusible safety plug: Must melt at 180°C ± 10°C (aluminium alloy fuse)\n- Gasket sealing ring: Must withstand minimum 5 times normal operating pressure\n- Hydrostatic test pressure: 3 times the maximum working pressure\n- Handle strength: Must withstand 3 times the weight of the cooker when filled\n- Minimum wall thickness: 2.5 mm for aluminium, 0.8 mm for stainless steel\n- Marking: ISI mark, IS number, capacity in litres, manufacturer's name, CM/L number"
+    }
+  ]
+}

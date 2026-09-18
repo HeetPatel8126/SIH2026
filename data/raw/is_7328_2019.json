@@ -1,0 +1,24 @@
+{
+  "is_code": "IS 7328:2019",
+  "title": "Edible Vegetable Oils — Blended Edible Vegetable Oil — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Food & Water",
+    "url": "https://www.bis.gov.in",
+    "year": 2019
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope and Coverage",
+      "page": 1,
+      "text": "This standard prescribes requirements for blended edible vegetable oils obtained by blending two or more edible vegetable oils. The standard covers quality parameters including acid value, peroxide value, moisture content, and fatty acid composition. Blended oils must contain a minimum of 20% of any component oil."
+    },
+    {
+      "clause": "4.0 Requirements",
+      "title": "Quality Requirements",
+      "page": 2,
+      "text": "Key requirements for blended edible vegetable oil:\n- Acid value: Not more than 0.5 mg KOH/g of oil (for refined blended oils)\n- Peroxide value: Not more than 10 meq oxygen/kg of oil\n- Moisture and volatile matter: Not more than 0.10%\n- The blend must be clearly labelled with the names and proportions of component oils\n- Argemone oil: Absent (toxic contaminant)\n- Mineral oil: Absent"
+    }
+  ]
+}

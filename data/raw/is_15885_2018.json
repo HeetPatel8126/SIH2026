@@ -1,0 +1,25 @@
+{
+  "is_code": "IS 15885:2018",
+  "title": "Helmets for Motorcyclists — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Automotive",
+    "url": "https://www.bis.gov.in",
+    "year": 2018,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 15885 specifies requirements for protective helmets for motorcyclists. All helmets sold in India must bear the ISI mark — it is illegal to sell non-ISI-certified helmets. Covers impact absorption, penetration resistance, chin strap strength, and field of vision requirements. Helmets must bear ISI mark with CM/L number. Penalty for selling non-ISI helmets: up to ₹1 lakh fine and/or imprisonment up to 1 year under BIS Act 2016."
+    },
+    {
+      "clause": "5.0 Requirements",
+      "title": "Test and Performance Requirements",
+      "page": 3,
+      "text": "Helmet requirements under IS 15885:\n- Impact absorption: Peak deceleration shall not exceed 300g in any impact test\n- Penetration resistance: The test striker shall not contact the headform\n- Chin strap: Must withstand 15 kN static load without rupture\n- Retention system: Dynamic roll-off test — helmet shall not come off\n- Field of vision: Minimum 105° horizontal on each side, 25° above and 45° below\n- Weight: Maximum 1.5 kg (full face), 1.2 kg (open face)\n- Visor: If fitted, must meet optical requirements of IS 14766"
+    }
+  ]
+}

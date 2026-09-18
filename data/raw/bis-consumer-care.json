@@ -1,0 +1,31 @@
+{
+  "is_code": "BIS-CONSUMER-CARE",
+  "title": "Consumer Protection, BIS Care App, HUID Verification & Penalties",
+  "category": "consumer",
+  "metadata": {
+    "sector": "Consumer Welfare & Grievance Redressal",
+    "statutory_authority": "Consumer Protection Act 2019 & BIS Act 2016",
+    "url": "https://www.bis.gov.in/consumer-affairs",
+    "year": 2024
+  },
+  "clauses": [
+    {
+      "clause": "BIS CARE Mobile Application Guide",
+      "title": "Real-time Verification of ISI Mark, CRS and HUID",
+      "page": 1,
+      "text": "The official BIS CARE app (available on Android and iOS) empowers consumers to verify product genuineness before purchasing:\n1. 'Verify Licence (CM/L)': Enter the 7 or 8-digit license number to view manufacturer name, brand, factory address, and validity status.\n2. 'Verify R-Number': Check CRS registered electronics.\n3. 'Verify HUID': Enter the 6-digit hallmark identifier on gold jewellery to confirm jeweller identity and hallmarking date."
+    },
+    {
+      "clause": "Filing Complaints & Grievance Redressal",
+      "title": "How to Report Substandard or Fake ISI Products",
+      "page": 2,
+      "text": "Consumers can file complaints regarding: (a) Misuse of ISI mark without a valid license, (b) Substandard certified products that failed during use, (c) False or counterfeit gold hallmarking. Complaints can be lodged via BIS CARE App ('Complaints' tab), on the portal 'www.bis.gov.in', or by calling the National Consumer Helpline at 1915. Complainants receive a unique tracking token."
+    },
+    {
+      "clause": "Statutory Penalties Under Section 29 of BIS Act 2016",
+      "title": "Legal Consequences of Fraudulent Marking and Non-compliance",
+      "page": 3,
+      "text": "Section 29 of the BIS Act 2016 provides stringent criminal penalties for the misuse of standard marks or manufacturing notified mandatory goods without certification:\n- Imprisonment for a term up to two years, OR\n- A fine not less than ₹2,00,000 (Rupees Two Lakh), which may extend up to ten times the value of products manufactured or sold, OR both.\n- Search and seizure of illegal stock is conducted by BIS Enforcement Branch with police assistance."
+    }
+  ]
+}

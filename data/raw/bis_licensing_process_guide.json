@@ -1,0 +1,42 @@
+{
+  "is_code": "BIS Licensing Process Guide",
+  "title": "BIS 5-Stage Licensing Process & Fee Structure for MSMEs & Startups",
+  "category": "certification",
+  "metadata": {
+    "sector": "BIS Services",
+    "url": "https://www.bis.gov.in",
+    "year": 2024
+  },
+  "clauses": [
+    {
+      "clause": "Stage 1 — Application",
+      "title": "Application Submission",
+      "page": 1,
+      "text": "Stage 1: Application Submission\n1. Register on the BIS online portal: manakonline.bis.gov.in\n2. Fill the application form (Form IV for Indian manufacturers, Form V for foreign manufacturers).\n3. Upload required documents: Factory address proof, Manufacturing process description, Test equipment list, Organization chart, Quality control plan.\n4. Pay the application fee: ₹1,000 (non-refundable).\n5. BIS assigns a case officer and acknowledges receipt within 7 working days."
+    },
+    {
+      "clause": "Stage 2 — Factory Assessment",
+      "title": "Factory Inspection/Assessment",
+      "page": 2,
+      "text": "Stage 2: Factory Assessment\n1. BIS officers visit the manufacturing facility (scheduled within 30 days of application acceptance).\n2. They assess: Manufacturing capability, quality control systems, testing infrastructure, raw material sourcing, production records.\n3. If the factory has existing ISO 9001 certification, the assessment may be shortened.\n4. Assessment report is prepared by BIS officers.\n5. If non-conformities are found, the manufacturer gets 60 days to rectify and request re-assessment."
+    },
+    {
+      "clause": "Stage 3 — Sample Testing",
+      "title": "Product Sample Testing",
+      "page": 3,
+      "text": "Stage 3: Product Sample Testing\n1. Samples are drawn by BIS officers during the factory visit.\n2. Samples are sent to a BIS-recognized laboratory for testing against the relevant IS standard.\n3. Test reports are typically available within 15-30 days.\n4. Testing fees are borne by the manufacturer and vary by product complexity.\n5. If samples fail testing, the manufacturer can submit fresh samples after corrective action."
+    },
+    {
+      "clause": "Stage 4 — License Grant",
+      "title": "License Grant",
+      "page": 4,
+      "text": "Stage 4: License Grant\n1. If factory assessment and sample testing are satisfactory, BIS grants the license.\n2. The manufacturer receives a unique CM/L (Certification Marks License) number.\n3. The license authorizes use of the ISI mark on conforming products.\n4. License validity: 1 year from date of grant.\n5. The CM/L number must be displayed alongside the ISI mark on every product.\n6. Total time from application to license: typically 60-90 days."
+    },
+    {
+      "clause": "Stage 5 — Surveillance",
+      "title": "Post-License Surveillance & Renewal",
+      "page": 5,
+      "text": "Stage 5: Surveillance & Renewal\n1. BIS conducts surprise surveillance visits (at least once per year).\n2. Market samples may be purchased and tested for conformity.\n3. Annual renewal: Submit renewal application + pay marking fee before license expiry.\n4. Marking fee: 0.1% to 0.2% of ex-factory value of ISI-marked production, subject to minimum ₹1,000 and maximum cap.\n5. MSMEs and startups get special fee concessions — reduced marking fees and expedited processing.\n6. Non-renewal or non-compliance: License suspension or cancellation. Continued use of ISI mark after cancellation is a criminal offence."
+    }
+  ]
+}

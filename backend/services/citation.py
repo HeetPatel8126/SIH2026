@@ -1,8 +1,9 @@
 """
-BIS AI Assistant — Citation Extraction Service
+BIS AI Assistant — Citation Extraction & Faithfulness Verification
 
-Builds citation objects from retrieved chunks and parses inline references
-from LLM output text.
+Builds citation objects from retrieved chunks, parses inline references
+from LLM output text, and verifies that inline citations actually match
+retrieved context (prevents hallucinated citations from being displayed).
 """
 
 from __future__ import annotations
@@ -98,21 +99,125 @@ def parse_inline_citations(llm_text: str) -> list[Citation]:
     return citations
 
 
+# ---------------------------------------------------------------------------
+# Citation Faithfulness Verification (Audit #2)
+# ---------------------------------------------------------------------------
+
+def _normalize_doc_name(name: str) -> str:
+    """Normalize a document name for fuzzy matching.
+
+    Strips whitespace, lowercases, and removes common noise like year
+    suffixes and punctuation so 'IS 10500:2012' matches 'IS 10500'.
+    """
+    name = name.lower().strip()
+    # Remove trailing year like ':2012' or '(2024)'
+    name = re.sub(r"[:\s]*\d{4}\)?$", "", name)
+    # Collapse whitespace
+    name = re.sub(r"\s+", " ", name)
+    # Remove trailing/leading punctuation
+    name = name.strip(" -—–")
+    return name
+
+
+def verify_inline_citations(
+    inline_citations: list[Citation],
+    retrieved_chunks: list[dict],
+) -> list[Citation]:
+    """
+    Cross-check inline LLM citations against actually-retrieved chunks.
+
+    For each inline citation, checks if the document name fuzzy-matches
+    any retrieved chunk's metadata. Citations that don't match any retrieved
+    source are flagged with '⚠ unverified' in their clause field.
+
+    Args:
+        inline_citations: Citations parsed from LLM output text.
+        retrieved_chunks: The chunks that were actually retrieved from the
+                          vector DB and fed to the LLM as context.
+
+    Returns:
+        The same citations list, with unverified ones flagged.
+    """
+    if not inline_citations or not retrieved_chunks:
+        return inline_citations
+
+    # Build a set of normalized document names from retrieved chunks
+    retrieved_doc_names: set[str] = set()
+    for chunk in retrieved_chunks:
+        meta = chunk.get("metadata", {})
+        doc = meta.get("document", "")
+        if doc:
+            retrieved_doc_names.add(_normalize_doc_name(doc))
+            # Also add partial matches — just the IS code part
+            # e.g., from "IS 10500:2012 — Drinking Water" extract "is 10500"
+            is_match = re.search(r"(is\s+\d+)", doc.lower())
+            if is_match:
+                retrieved_doc_names.add(is_match.group(1).strip())
+
+    verified: list[Citation] = []
+    for citation in inline_citations:
+        norm_name = _normalize_doc_name(citation.document_name)
+
+        # Check exact normalized match
+        is_verified = norm_name in retrieved_doc_names
+
+        # Check if the IS code portion matches any retrieved doc
+        if not is_verified:
+            is_match = re.search(r"(is\s+\d+)", norm_name)
+            if is_match:
+                is_verified = is_match.group(1).strip() in retrieved_doc_names
+
+        # Check substring containment (e.g., "BIS Hallmarking Order" in retrieved docs)
+        if not is_verified:
+            for retrieved_name in retrieved_doc_names:
+                if norm_name in retrieved_name or retrieved_name in norm_name:
+                    is_verified = True
+                    break
+
+        if is_verified:
+            verified.append(citation)
+        else:
+            # Flag the citation as unverified rather than silently dropping it
+            logger.warning(
+                "Citation faithfulness check: '%s' not found in retrieved chunks — flagging as unverified",
+                citation.document_name,
+            )
+            flagged = Citation(
+                document_name=citation.document_name,
+                clause=f"{citation.clause} ⚠ unverified" if citation.clause else "⚠ unverified",
+                url=citation.url,
+                relevance_score=None,
+            )
+            verified.append(flagged)
+
+    return verified
+
+
 def merge_citations(
     chunk_citations: list[Citation],
     inline_citations: list[Citation],
+    retrieved_chunks: list[dict] | None = None,
 ) -> list[Citation]:
     """
     Merge citations from chunks and inline LLM references, deduplicating
     by document name. Chunk citations take priority (they have scores + URLs).
 
+    If retrieved_chunks is provided, inline citations are verified for
+    faithfulness before merging.
+
     Args:
         chunk_citations: Citations extracted from retrieved chunks.
         inline_citations: Citations parsed from LLM output.
+        retrieved_chunks: Optional — the raw retrieved chunks for
+                          faithfulness verification.
 
     Returns:
         Merged, deduplicated list of Citation objects.
     """
+    # Verify inline citations if we have the retrieved chunks
+    if retrieved_chunks is not None:
+        inline_citations = verify_inline_citations(inline_citations, retrieved_chunks)
+
     merged: list[Citation] = list(chunk_citations)
     seen = {f"{c.document_name}|{c.clause or ''}" for c in merged}
 

@@ -3,6 +3,7 @@ BIS AI Assistant — Prompt Templates
 
 Category-specific system prompts and context formatting for the RAG pipeline.
 Each template is tailored to a QueryCategory to produce better grounded answers.
+Supports multi-turn conversation history injection.
 """
 
 from __future__ import annotations
@@ -14,15 +15,22 @@ BASE_SYSTEM_PROMPT = (
     "You are the **BIS AI Assistant** — an expert on Indian Standards and "
     "Bureau of Indian Standards (BIS) services.\n\n"
     "## Ground Rules\n"
-    "1. Answer **ONLY** based on the provided context below.\n"
-    "2. If the context does not contain enough information, say: "
-    "\"I could not find this information in the available BIS sources.\" "
-    "Do NOT guess or fabricate any IS codes, fee amounts, dates, or process steps.\n"
-    "3. **ALWAYS** cite the specific document and clause you are referencing "
+    "1. Answer factual questions based on the provided context below.\n"
+    "2. For conversational greetings, pleasantries, or casual check-ins (e.g., 'hi', 'hello', "
+    "'how are you doing today', 'good morning', 'thank you', 'who are you'), respond warmly, "
+    "politely, and naturally as the BIS AI Assistant, and ask how you can help them with Indian Standards or BIS services.\n"
+    "3. For technical, standard, or regulatory questions, base your response strictly on the retrieved context. Address all aspects of "
+    "the user's question that are covered in the context. If specific details (such as exact "
+    "fee figures, forms, or unstated technical limits) are not provided in the context, state "
+    "what IS known from the context and clearly mention which specific details are not provided. "
+    "Only say \"I could not find this information in the available BIS sources\" for technical or factual BIS queries if the retrieved "
+    "context has zero relevant information. Do NOT guess or fabricate any IS codes.\n"
+    "4. **ALWAYS** cite the specific document and clause you are referencing for factual claims "
     "using the format: [Source: <document> | Clause: <clause>]\n"
-    "4. Keep answers clear, concise, and in plain language that MSMEs, "
+    "5. Keep answers clear, concise, and in plain language that MSMEs, "
     "startups, students, and consumers can understand.\n"
-    "5. Use bullet points and numbered steps where helpful.\n"
+    "6. Use bullet points and numbered steps where helpful.\n"
+    "7. When presenting structured or comparison data, use standard Markdown tables with each row on its own new line.\n"
 )
 
 # ---------------------------------------------------------------------------
@@ -76,7 +84,8 @@ CATEGORY_INSTRUCTIONS: dict[str, str] = {
         "- Provide location or contact info if present in the context.\n"
     ),
     "general": (
-        "## Your Focus: General BIS Knowledge\n"
+        "## Your Focus: General BIS Knowledge & Conversational Interaction\n"
+        "- If the user provides a greeting, casual check-in, or pleasantry (such as 'how are you doing today', 'hi', 'hello', 'thank you'): Respond warmly and courteously as the BIS AI Assistant, express readiness to help, and invite their questions regarding Indian Standards, ISI mark certification, Gold Hallmarking, or laboratory testing.\n"
         "- Provide a clear and accurate answer about BIS and Indian Standards.\n"
         "- If the question spans multiple topics, address each part.\n"
         "- Direct the user to the appropriate BIS service or portal when helpful.\n"
@@ -94,6 +103,36 @@ MULTILINGUAL_INSTRUCTION = (
     "Keep technical terms (IS codes, scheme names) in English but write "
     "explanations in the user's language.\n"
 )
+
+# ---------------------------------------------------------------------------
+# Conversation history formatting
+# ---------------------------------------------------------------------------
+
+def format_conversation_history(history: list[dict]) -> str:
+    """
+    Format previous conversation turns into a prompt block.
+
+    Args:
+        history: List of dicts with 'role' ('user'|'assistant') and 'content'.
+
+    Returns:
+        Formatted history string, or empty string if no history.
+    """
+    if not history:
+        return ""
+
+    parts: list[str] = ["\n### Conversation History:\n"]
+    for turn in history:
+        role = turn.get("role", "user")
+        content = turn.get("content", "")
+        if role == "user":
+            parts.append(f"**User:** {content}")
+        else:
+            parts.append(f"**Assistant:** {content}")
+
+    parts.append("")  # trailing newline
+    return "\n".join(parts)
+
 
 # ---------------------------------------------------------------------------
 # Context formatting
@@ -153,6 +192,7 @@ def build_full_prompt(
     category: str,
     language: str = "en",
     max_context_chars: int = 12000,
+    history: list[dict] | None = None,
 ) -> str:
     """
     Assemble the complete prompt for the LLM.
@@ -163,6 +203,7 @@ def build_full_prompt(
         category: QueryCategory value string.
         language: ISO 639-1 language code.
         max_context_chars: Max chars for context block.
+        history: Optional conversation history from session store.
 
     Returns:
         The fully assembled prompt string.
@@ -178,6 +219,10 @@ def build_full_prompt(
     if language != "en":
         prompt += MULTILINGUAL_INSTRUCTION.format(language=language)
 
+    # Conversation history (if multi-turn)
+    if history:
+        prompt += format_conversation_history(history)
+
     # Context block
     context = format_context_block(chunks, max_chars=max_context_chars)
     prompt += f"\n---\n\n### Retrieved Context:\n{context}\n"
@@ -185,7 +230,17 @@ def build_full_prompt(
     # User question
     prompt += f"\n---\n\n### User Question:\n{query}\n"
 
-    # Response instruction
-    prompt += "\n### Your Answer (cite sources using [Source: ... | Clause: ...] format):\n"
+    # Response instruction with authentic AI Chain-of-Thought
+    prompt += (
+        "\n### Response Instructions:\n"
+        "1. First, think step-by-step inside <think> and </think> tags. In your internal thinking:\n"
+        "   - Understand what the user is specifically requesting.\n"
+        "   - Review the retrieved context chunks, identifying relevant IS codes, clauses, tables, purity grades, and process steps.\n"
+        "   - Verify that your conclusions are fully grounded in the retrieved sources.\n"
+        "   - Plan the clearest, most helpful response structure.\n"
+        "2. After the </think> tag, output your final, polished answer citing sources as [Source: <document> | Clause: <clause>].\n"
+        "3. Provide a thorough, structured answer addressing all query aspects covered by the context.\n\n"
+        "Begin your response with <think> now:\n"
+    )
 
     return prompt

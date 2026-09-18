@@ -2,7 +2,7 @@
  * BIS AI Assistant — Centralized API Service Layer
  *
  * All backend communication goes through this module.
- * Mirrors the exact schemas defined in backend/api.py.
+ * Supports both one-shot request() and real-time streaming streamChat().
  */
 
 const API_BASE = import.meta.env.VITE_API_BASE_URL || 'http://127.0.0.1:8000';
@@ -36,8 +36,6 @@ async function request(endpoint, options = {}) {
 
 /* ------------------------------------------------------------------ */
 /*  GET /health                                                        */
-/*  Response: { status, version, llm_provider, llm_model,             */
-/*              uptime_seconds }                                       */
 /* ------------------------------------------------------------------ */
 
 export function fetchHealth() {
@@ -45,11 +43,7 @@ export function fetchHealth() {
 }
 
 /* ------------------------------------------------------------------ */
-/*  POST /chat                                                         */
-/*  Request:  { query, language?, session_id? }                        */
-/*  Response: { answer, citations[], query_category, session_id,       */
-/*              timestamp, processing_time_ms }                        */
-/*  Citation: { document_name, clause?, url?, relevance_score? }       */
+/*  POST /chat (one-shot fallback)                                     */
 /* ------------------------------------------------------------------ */
 
 export function sendChat({ query, language = 'en', session_id = null }) {
@@ -63,29 +57,119 @@ export function sendChat({ query, language = 'en', session_id = null }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  POST /search-standards                                             */
-/*  Request:  { query, top_k? }                                        */
-/*  Response: { results[], total_found, query, timestamp }             */
-/*  StandardResult: { is_code, title, summary?, relevance_score? }     */
+/*  POST /chat/stream (SSE Real-time Streaming & Thinking)            */
 /* ------------------------------------------------------------------ */
 
-export function searchStandards({ query, top_k = 5 }) {
+export async function streamChat({
+  query,
+  language = 'en',
+  session_id = null,
+  onThought = () => {},
+  onThoughtToken = () => {},
+  onThoughtEnd = () => {},
+  onToken = () => {},
+  onCitations = () => {},
+  onDone = () => {},
+  onError = () => {},
+  signal = null,
+}) {
+  const url = `${API_BASE}/chat/stream`;
+  const body = { query, language };
+  if (session_id) body.session_id = session_id;
+
+  try {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+      signal,
+    });
+
+    if (!response.ok) {
+      const errText = await response.text();
+      throw new Error(`Stream request failed (${response.status}): ${errText}`);
+    }
+
+    const reader = response.body.getReader();
+    const decoder = new TextDecoder('utf-8');
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n\n');
+      buffer = lines.pop(); // Keep unfinished chunk in buffer
+
+      for (const block of lines) {
+        if (!block.trim()) continue;
+
+        let eventType = 'message';
+        let eventData = '';
+
+        for (const line of block.split('\n')) {
+          if (line.startsWith('event: ')) {
+            eventType = line.slice(7).trim();
+          } else if (line.startsWith('data: ')) {
+            eventData = line.slice(6).trim();
+          }
+        }
+
+        if (!eventData) continue;
+
+        try {
+          const parsed = JSON.parse(eventData);
+
+          if (eventType === 'thought_token') {
+            onThoughtToken(parsed.token);
+          } else if (eventType === 'thought') {
+            onThought(parsed);
+          } else if (eventType === 'thought_end') {
+            onThoughtEnd(parsed);
+          } else if (eventType === 'token') {
+            onToken(parsed.token);
+          } else if (eventType === 'citations') {
+            onCitations(parsed.citations);
+          } else if (eventType === 'done') {
+            onDone(parsed);
+          }
+        } catch {
+          // Ignore JSON parse chunk errors
+        }
+      }
+    }
+  } catch (err) {
+    if (err.name === 'AbortError') {
+      console.debug('Stream aborted by user');
+    } else {
+      onError(err);
+    }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/*  POST /search-standards                                             */
+/* ------------------------------------------------------------------ */
+
+export function searchStandards({ query, sector = null, top_k = 10 }) {
+  const body = { query, top_k };
+  if (sector) body.sector = sector;
+
   return request('/search-standards', {
     method: 'POST',
-    body: JSON.stringify({ query, top_k }),
+    body: JSON.stringify(body),
   });
 }
 
 /* ------------------------------------------------------------------ */
 /*  POST /certification-guide                                          */
-/*  Request:  { query, scheme? }                                       */
-/*  Response: { answer, scheme_identified?, steps[], citations[],      */
-/*              timestamp }                                            */
 /* ------------------------------------------------------------------ */
 
-export function getCertificationGuide({ query, scheme = null }) {
-  const body = { query };
+export function getCertificationGuide({ scheme = null, product = null }) {
+  const body = {};
   if (scheme) body.scheme = scheme;
+  if (product) body.product = product;
 
   return request('/certification-guide', {
     method: 'POST',

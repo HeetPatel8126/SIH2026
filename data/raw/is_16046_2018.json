@@ -1,0 +1,25 @@
+{
+  "is_code": "IS 16046:2018",
+  "title": "LED Luminaires for General Lighting — Specification",
+  "category": "standards",
+  "metadata": {
+    "sector": "Electronics & IT",
+    "url": "https://www.bis.gov.in",
+    "year": 2018,
+    "mandatory_certification": true
+  },
+  "clauses": [
+    {
+      "clause": "1.0 Scope",
+      "title": "Scope",
+      "page": 1,
+      "text": "IS 16046 specifies safety and performance requirements for LED luminaires intended for general lighting purposes. LED luminaires MUST comply with this standard for BIS certification. Covers operating voltage up to 250V and various wattage ranges. Falls under CRS (Compulsory Registration Scheme) for certain categories."
+    },
+    {
+      "clause": "5.0 Requirements",
+      "title": "Performance and Safety Requirements",
+      "page": 3,
+      "text": "Key requirements for LED luminaires:\n- Luminous efficacy: Minimum 90 lumens per watt for general purpose luminaires\n- Lumen maintenance: At least 70% of initial lumens at 6000 hours (L70 ≥ 6000h)\n- Colour Rendering Index (CRI): Minimum 70 for general lighting\n- Power Factor: ≥0.9 for luminaires above 25W\n- THD (Total Harmonic Distortion): ≤20% for luminaires above 25W\n- Safety: Electric strength test (1000V for 1 minute), insulation resistance, earth continuity\n- Working temperature range: 0°C to 40°C"
+    }
+  ]
+}
